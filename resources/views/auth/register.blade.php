@@ -4,28 +4,28 @@
 
         <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
+            <x-input-label for="name" :value="__('Nome')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
-
-        <!-- User Name -->
-        <div>
-            <x-input-label for="user" :value="__('User')" />
-            <x-text-input id="user" class="block mt-1 w-full" type="text" name="user" :value="old('user')" required autofocus autocomplete="nickname" />
-            <x-input-error :messages="$errors->get('user')" class="mt-2" />
-        </div>
-
+        
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="email" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
+        
+        <!-- User Ability -->
+        <div class="mt-4">
+            <x-input-label for="habilidade" :value="__('Seu Nível de Habilidade')" />
+            <x-select-input id="habilidade" class="block mt-1 w-full" name="email" :value="old('habilidade')" />
+            <x-input-error :messages="$errors->get('habilidade')" class="mt-2" />
+        </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('Senha')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
@@ -37,7 +37,7 @@
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-label for="password_confirmation" :value="__('Confirmar Senha')" />
 
             <x-text-input id="password_confirmation" class="block mt-1 w-full"
                             type="password"
