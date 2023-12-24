@@ -12,9 +12,11 @@ class SelectInput extends Component
      * Create a new component instance.
      */
 
-    public function __construct()
+    public $selecionado;
+
+    public function __construct($selecionado)
     {
-        //
+        $this->selecionado = $selecionado;
     }
 
     /**
