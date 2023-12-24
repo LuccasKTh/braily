@@ -49,7 +49,7 @@
 
         <div>
             <x-input-label for="habilidade" :value="__('Habilidade')" />
-            <x-select-input id="habilidade" name="habilidade" class="mt-1 block w-full" :value="old('habilidade', $user->habilidade)" selecionado="{{ $user->habilidade }}" required autofocus />
+            <x-select-input id="habilidade" name="habilidade" class="mt-1 block w-full" :selecionado="$user->habilidade" required autofocus />
             <x-input-error class="mt-2" :messages="$errors->get('habilidade')" />
         </div>
 

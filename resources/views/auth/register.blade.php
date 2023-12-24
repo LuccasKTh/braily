@@ -19,7 +19,7 @@
         <!-- User Ability -->
         <div class="mt-4">
             <x-input-label for="habilidade" :value="__('Seu Nível de Habilidade')" />
-            <x-select-input id="habilidade" class="block mt-1 w-full" name="habilidade" :value="old('habilidade')" />
+            <x-select-input id="habilidade" class="block mt-1 w-full" name="habilidade" selecionado="0" :value="old('habilidade')" required />
             <x-input-error :messages="$errors->get('habilidade')" class="mt-2" />
         </div>
 

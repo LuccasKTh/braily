@@ -16,7 +16,7 @@ class SelectInput extends Component
 
     public function __construct($selecionado)
     {
-        $this->selecionado = $selecionado;
+        isset($selecionado) ? $this->selecionado = $selecionado : $this->selecionado = "0";
     }
 
     /**
