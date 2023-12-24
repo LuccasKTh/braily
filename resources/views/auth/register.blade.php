@@ -13,7 +13,7 @@
         <div>
             <x-input-label for="user" :value="__('User')" />
             <x-text-input id="user" class="block mt-1 w-full" type="text" name="user" :value="old('user')" required autofocus autocomplete="nickname" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-error :messages="$errors->get('user')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
