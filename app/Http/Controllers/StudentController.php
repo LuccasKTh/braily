@@ -14,7 +14,7 @@ class StudentController extends Controller
     {
         $students = Student::all();
 
-        return view('student.index', ["students" => $students]);
+        return view('student.index', ['students' => $students]);
     }
 
     /**
@@ -22,8 +22,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $teste = "FOI";
-        return view('student.create', ["teste" => $teste]);
+        return view('student.create');
     }
 
     /**
@@ -31,7 +30,14 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student = new Student();
+
+        $student->name = $request->input('name');
+        $student->teacher_id = Auth()->user()->id;
+
+        $student->save();
+
+        return to_route('student.index');
     }
 
     /**
