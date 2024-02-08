@@ -43,31 +43,41 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show(String $id)
     {
-        //
+        $student = Student::find($id);
+
+        return view('student.show', ['student' => $student]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Student $student)
+    public function edit(String $id)
     {
-        //
+        $student = Student::find($id);
+
+        return view('student.edit', ['student' => $student]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, String $id)
     {
-        //
+        $student = Student::find($id);
+
+        $student->name = $request->input('name');
+
+        $student->save();
+
+        return to_route('student.show', $student->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy(String $id)
     {
         //
     }

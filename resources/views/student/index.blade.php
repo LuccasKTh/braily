@@ -32,11 +32,11 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <a href="{{ route('student.show', $student->id) }}">
-                                            <x-secondary-button>
+                                        <x-secondary-button>
+                                            <a href="{{ route('student.show', $student->id) }}">
                                                 {{ __('Ver Aluno') }}
-                                            </x-secondary-button>
-                                        </a>
+                                            </a>
+                                        </x-secondary-button>
                                     </div>
                                 </li>
                             @endif
