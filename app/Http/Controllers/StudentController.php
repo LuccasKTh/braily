@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -21,8 +22,20 @@ class StudentController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('student.create');
+    {   
+        $skills = [
+            (object)['id' => 1, 'option' => 'Iniciante'],
+            (object)['id' => 2, 'option' => 'Intermediário'],
+            (object)['id' => 3, 'option' => 'Avançado']
+        ];
+
+        $education = [
+            (object)['id' => 1, 'option' => 'Ensino Fundamental'],
+            (object)['id' => 2, 'option' => 'Ensino Médio'],
+            (object)['id' => 3, 'option' => 'Ensino Superior']
+        ];
+
+        return view('student.create', ['options_skills' => $skills, 'options_education' => $education]);
     }
 
     /**

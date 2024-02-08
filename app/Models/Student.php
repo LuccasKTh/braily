@@ -13,6 +13,11 @@ class Student extends Model
 
     protected $fillable = [
         'name', 
+        'age',
+        'registration',
+        'education',
+        'skill',
+        'about',
         'teacher_id'
     ];
 

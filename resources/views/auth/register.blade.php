@@ -16,11 +16,11 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
         
-        <!-- User Ability -->
+        <!-- User Skill -->
         <div class="mt-4">
-            <x-input-label for="ability" :value="__('Seu Nível de Habilidade')" />
-            <x-select-input id="ability" class="block mt-1 w-full" name="ability" selecionado="0" :value="old('ability')" required />
-            <x-input-error :messages="$errors->get('ability')" class="mt-2" />
+            <x-input-label for="skill" :value="__('Seu Nível de Habilidade')" />
+            <x-select-input id="skill" class="block mt-1 w-full" name="skill" selected="" :options="$options" :value="old('skill')" required />
+            <x-input-error :messages="$errors->get('skill')" class="mt-2" />
         </div>
 
         <!-- Password -->
