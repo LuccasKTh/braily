@@ -22,7 +22,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('student.create');
+        $teste = "FOI";
+        return view('student.create', ["teste" => $teste]);
     }
 
     /**
