@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Skill;
+use App\Models\Note;
 use Illuminate\Http\Request;
-use Nette\Utils\Strings;
 
-class SkillController extends Controller
+class NoteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $skills = Skill::all();
+        $notes = Note::all();
 
-        return view('skill.index', ['skills' => $skills]);
+        return view('note.index', ['notes' => $notes]);
     }
 
     /**
@@ -37,7 +36,7 @@ class SkillController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(String $id)
+    public function show(Note $note)
     {
         //
     }
@@ -45,7 +44,7 @@ class SkillController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(String $id)
+    public function edit(Note $note)
     {
         //
     }
@@ -53,7 +52,7 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)
+    public function update(Request $request, Note $note)
     {
         //
     }
@@ -61,7 +60,7 @@ class SkillController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $id)
+    public function destroy(Note $note)
     {
         //
     }

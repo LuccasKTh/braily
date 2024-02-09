@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 use App\Models\Skill;
+use App\Models\Note;
 
 class Student extends Model
 {
@@ -30,5 +31,10 @@ class Student extends Model
     public function skill() 
     {
         return $this->hasOne(Skill::class);
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
     }
 }

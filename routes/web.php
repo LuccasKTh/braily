@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\NoteController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::resource('/student', StudentController::class);
+    Route::resource('/note', NoteController::class);
     Route::resource('/skill', SkillController::class);
 });
 
