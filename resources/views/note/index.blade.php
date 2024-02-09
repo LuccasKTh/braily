@@ -8,11 +8,11 @@
                 </h2>
             </div>
             <div>
-                <x-primary-button>
-                    <a href="{{ route('note.create') }}">
+                <a href="{{ route('note.create') }}">
+                    <x-primary-button>
                         {{ 'Nova Anotação' }}
-                    </a>
-                </x-primary-button>
+                    </x-primary-button>
+                </a>
             </div>
         </div>
     </x-slot>
@@ -33,11 +33,11 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <x-secondary-button>
-                                            <a href="{{ route('note.show', $note->id) }}">
+                                        <a href="{{ route('note.show', $note->id) }}">
+                                            <x-secondary-button>
                                                 {{ 'Ver Aluno' }}
-                                            </a>
-                                        </x-secondary-button>
+                                            </x-secondary-button>
+                                        </a>
                                     </div>
                                 </li>
                             @endif

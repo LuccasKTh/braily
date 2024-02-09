@@ -8,11 +8,11 @@
                 </h2>
             </div>
             <div class="flex flex-row gap-x-6">
-                <x-primary-button>
-                    <a href="{{ route('student.edit', $student->id) }}">
+                <a href="{{ route('student.edit', $student->id) }}">
+                    <x-primary-button>
                         {{ __('Editar') }}
-                    </a>
-                </x-primary-button>
+                    </x-primary-button>
+                </a>
                 <x-danger-button
                     x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'confirm-student-deletion')"

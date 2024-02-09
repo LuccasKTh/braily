@@ -6,7 +6,7 @@
             class="block mt-1 w-full" 
             type="text" 
             name="name"
-            :value="@isset($student->id) ? __($student->name) : old('name')"
+            :value="@isset($student->id) ? $student->name : old('name')"
             required 
             autofocus 
             autocomplete="name" 
@@ -20,7 +20,7 @@
             class="block mt-1 w-full" 
             type="number" 
             name="age"
-            :value="@isset($student->id) ? __($student->age) : old('age')"
+            :value="@isset($student->id) ? $student->age : old('age')"
             required 
             autofocus 
         />
@@ -33,7 +33,7 @@
             class="block mt-1 w-full" 
             type="number" 
             name="registration"
-            :value="@isset($student->id) ? __($student->registration) : old('registration')"
+            :value="@isset($student->id) ? $student->registration : old('registration')"
             required 
             autofocus 
         />
@@ -41,12 +41,7 @@
     </div>
     <div>
         <x-input-label for="education" :value="__('Escolaridade do Aluno')" />
-        <x-select-input 
-            id="education" 
-            class="block mt-1 w-full" 
-            name="education"
-            required 
-            autofocus
+        <x-select-input id="education" class="block mt-1 w-full" name="education" required autofocus
         >
         
             @foreach($educations as $education)
@@ -65,13 +60,7 @@
     </div>
     <div>
         <x-input-label for="skill" :value="__('Habilidade do Aluno')" />
-        <x-select-input 
-            id="skill" 
-            class="block mt-1 w-full" 
-            name="skill"
-            required 
-            autofocus
-        >
+        <x-select-input id="skill" class="block mt-1 w-full" name="skill" required autofocu>
         
             @foreach($skills as $skill)
                 <option 
@@ -102,7 +91,7 @@
     </div>
     <div class="mt-4">
         <x-primary-button>
-            @isset($student->id) {{ __("Alterar") }} @else {{ __("Adicionar") }} @endif
+            {{ isset($student->id) ? "Alterar" : "Adicionar" }}
         </x-primary-button>
     </div>
 </fieldset>

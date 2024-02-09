@@ -8,11 +8,11 @@
                 </h2>
             </div>
             <div>
-                <x-primary-button>
-                    <a href="{{ route('student.create') }}">
+                <a href="{{ route('student.create') }}">
+                    <x-primary-button>
                         {{ 'Nova Anotação' }}
-                    </a>
-                </x-primary-button>
+                    </x-primary-button>
+                </a>
             </div>
         </div>
     </x-slot>

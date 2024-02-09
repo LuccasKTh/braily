@@ -8,11 +8,11 @@
                 </h2>
             </div>
             <div>
-                <x-primary-button>
-                    <a href="{{ route('student.create') }}">
+                <a href="{{ route('student.create') }}">
+                    <x-primary-button>
                         {{ __('Adicionar Aluno') }}
-                    </a>
-                </x-primary-button>
+                    </x-primary-button>
+                </a>
             </div>
         </div>
     </x-slot>
@@ -33,11 +33,11 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <x-secondary-button>
-                                            <a href="{{ route('student.show', $student->id) }}">
+                                        <a href="{{ route('student.show', $student->id) }}">
+                                            <x-secondary-button>
                                                 {{ __('Ver Aluno') }}
-                                            </a>
-                                        </x-secondary-button>
+                                            </x-secondary-button>
+                                        </a>
                                     </div>
                                 </li>
                             @endif
