@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
 
+            $table->text('title');
             $table->text('annotation')->nullable();
 
             $table->foreignId('student_id')->references('id')->on('students');

@@ -2,19 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Skill;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    
-    public function skills() {
-        return [
-            (object)['id' => 1, 'option' => 'Iniciante'],
-            (object)['id' => 2, 'option' => 'Intermediário'],
-            (object)['id' => 3, 'option' => 'Avançado']
-        ];
-    } 
 
     public function education() {
         return [
@@ -39,7 +32,9 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('student.create', ['options_skills' => $this->skills(), 'options_education' => $this->education()]);
+        $skills = Skill::all();
+
+        return view('student.create', ['skills' => $skills, 'educations' => $this->education()]);
     }
 
     /**
@@ -109,7 +104,9 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
-        return view('student.edit', ['student' => $student, 'options_skills' => $this->skills(), 'options_education' => $this->education()]);
+        $skills = Skill::all();
+
+        return view('student.edit', ['student' => $student, 'skills' => $skills, 'educations' => $this->education()]);
     }
 
     /**

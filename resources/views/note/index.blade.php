@@ -9,7 +9,7 @@
             </div>
             <div>
                 <x-primary-button>
-                    <a href="{{ route('student.create') }}">
+                    <a href="{{ route('note.create') }}">
                         {{ 'Nova Anotação' }}
                     </a>
                 </x-primary-button>

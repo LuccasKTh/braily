@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Note;
 use Illuminate\Http\Request;
+
+use App\Models\Note;
+use App\Models\User;
 
 class NoteController extends Controller
 {
@@ -22,7 +24,9 @@ class NoteController extends Controller
      */
     public function create()
     {
-        //
+        $students = Auth()->user()->students;
+
+        return view('note.create', ['students' => $students]);
     }
 
     /**
@@ -30,7 +34,19 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $note = new Note();
+
+        $input = $request->all();
+
+        var_dump($input);
+
+        $note->title = $input['title'];
+        $note->annotation = $input['annotation'];
+        $note->student_id = $input['student_id'];
+
+        $note->save();
+
+        return to_route('note.index');
     }
 
     /**
@@ -52,7 +68,7 @@ class NoteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Note $note)
+    public function update(Request $request, String $id)
     {
         //
     }
@@ -60,7 +76,7 @@ class NoteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Note $note)
+    public function destroy(String $id)
     {
         //
     }

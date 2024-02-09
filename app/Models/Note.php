@@ -12,11 +12,13 @@ class Note extends Model
     use HasFactory;
 
     protected $fillable = [
-        'annotation'
+        'title',
+        'annotation',
+        'student_id'
     ];
 
     public function student() 
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'student_id');
     }
 }

@@ -45,10 +45,22 @@
             id="education" 
             class="block mt-1 w-full" 
             name="education"
-            :options="$options_education" 
-            :value="@isset($student->id) ? __($student->education) : old('education')" 
             required 
-        />
+            autofocus
+        >
+        
+            @foreach($educations as $education)
+                <option 
+                    value="{{ $education->id }}"
+                    @isset($student->id)
+                        @if($student->education == $education->id)
+                            {{ "selected" }}
+                        @endif
+                    @endisset    
+                >{{ $education->option }}</option>
+            @endforeach 
+
+        </x-select-input>
         <x-input-error :messages="$errors->get('education')" class="mt-2" />
     </div>
     <div>
@@ -57,9 +69,22 @@
             id="skill" 
             class="block mt-1 w-full" 
             name="skill"
-            :options="$options_skills" 
-            :value="@isset($student->id) ? __($student->skill) : old('skill')" 
-            required />
+            required 
+            autofocus
+        >
+        
+            @foreach($skills as $skill)
+                <option 
+                    value="{{ $skill->id }}"
+                    @isset($student->id)
+                        @if($student->skill == $skill->id)
+                            {{ "selected" }}
+                        @endif
+                    @endisset  
+                >{{ $skill->description }}</option>
+            @endforeach 
+
+        </x-select-input>
         <x-input-error :messages="$errors->get('skill')" class="mt-2" />
     </div>
     <div>

@@ -3,14 +3,15 @@
 namespace App\View\Components;
 
 use Closure;
-use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\View\Component;
 
-class SelectInput extends Component
+class TextareaInput extends Component
 {
     /**
      * Create a new component instance.
      */
+
     public function __construct()
     {
         //
@@ -21,6 +22,6 @@ class SelectInput extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.select-input');
+        return view('components.textarea-input');
     }
 }

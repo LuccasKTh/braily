@@ -23,9 +23,13 @@
                 id="skill" 
                 class="block mt-1 w-full" 
                 name="skill"
-                :options="$options_skills" 
-                :value="old('skill')" 
-                required />
+                required
+                autofocus
+            >
+                <option value="1">Iniciante</option>
+                <option value="2">Intermediário</option>
+                <option value="3">Avançado</option>
+            </x-select-input>
             <x-input-error :messages="$errors->get('skill')" class="mt-2" />
         </div>
 
