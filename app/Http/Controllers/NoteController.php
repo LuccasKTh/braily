@@ -38,11 +38,9 @@ class NoteController extends Controller
 
         $input = $request->all();
 
-        var_dump($input);
-
         $note->title = $input['title'];
         $note->annotation = $input['annotation'];
-        $note->student_id = $input['student_id'];
+        $note->student_id = $input['student'];
 
         $note->save();
 
@@ -52,17 +50,23 @@ class NoteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Note $note)
+    public function show(String $id)
     {
-        //
+        $note = Note::find($id);
+
+        return view('note.show', ['note' => $note]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Note $note)
+    public function edit(String $id)
     {
-        //
+        $note = Note::find($id);
+
+        $students = Auth()->user()->students;
+
+        return view('note.edit', ['note' => $note, 'students' => $students]);
     }
 
     /**
@@ -70,7 +74,17 @@ class NoteController extends Controller
      */
     public function update(Request $request, String $id)
     {
-        //
+        $note = Note::find($id);
+
+        $input = $request->all();
+
+        $note->title = $input['title'];
+        $note->annotation = $input['annotation'];
+        $note->student_id = $input['student'];
+
+        $note->save();
+
+        return to_route('note.index');
     }
 
     /**
@@ -78,6 +92,10 @@ class NoteController extends Controller
      */
     public function destroy(String $id)
     {
-        //
+        $note = Note::find($id);
+
+        $note->delete();
+
+        return to_route('note.index');
     }
 }

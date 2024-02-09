@@ -6,18 +6,18 @@
             class="block mt-1 w-full"  
             type="text" 
             name="title"
-            :value="@isset($student->id) ? $student->title : old('title')"
+            :value="@isset($note->id)?$note->title:old('title')"
             required 
             autofocus
         />
         <x-input-error :messages="$errors->get('title')" class="mt-2" />
     </div>
     <div>
-        <x-input-label for="student_id" :value="__('Lista de Alunos')" />
+        <x-input-label for="student" :value="__('Lista de Alunos')" />
         <x-select-input 
-            id="student_id" 
+            id="student" 
             class="block mt-1 w-full" 
-            name="student_id"
+            name="student"
             required 
             autofocus
         ><option value="0">Nenhum</option>
