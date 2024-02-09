@@ -18,7 +18,7 @@
         <x-text-input 
             id="age" 
             class="block mt-1 w-full" 
-            type="text" 
+            type="number" 
             name="age"
             :value="@isset($student->id) ? __($student->age) : old('age')"
             required 
@@ -31,7 +31,7 @@
         <x-text-input 
             id="registration" 
             class="block mt-1 w-full" 
-            type="text" 
+            type="number" 
             name="registration"
             :value="@isset($student->id) ? __($student->registration) : old('registration')"
             required 
@@ -44,17 +44,22 @@
         <x-select-input 
             id="education" 
             class="block mt-1 w-full" 
-            name="education" 
-            selected="" 
+            name="education"
             :options="$options_education" 
-            :value="old('education')" 
+            :value="@isset($student->id) ? __($student->education) : old('education')" 
             required 
         />
         <x-input-error :messages="$errors->get('education')" class="mt-2" />
     </div>
     <div>
-        <x-input-label for="about" :value="__('Habilidade do Aluno')" />
-        <x-select-input id="skill" class="block mt-1 w-full" name="skill" selected="" :options="$options_skills" :value="old('skill')" required />
+        <x-input-label for="skill" :value="__('Habilidade do Aluno')" />
+        <x-select-input 
+            id="skill" 
+            class="block mt-1 w-full" 
+            name="skill"
+            :options="$options_skills" 
+            :value="@isset($student->id) ? __($student->skill) : old('skill')" 
+            required />
         <x-input-error :messages="$errors->get('skill')" class="mt-2" />
     </div>
     <div>

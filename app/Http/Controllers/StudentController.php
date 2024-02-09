@@ -7,6 +7,22 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    
+    public function skills() {
+        return [
+            (object)['id' => 1, 'option' => 'Iniciante'],
+            (object)['id' => 2, 'option' => 'Intermediário'],
+            (object)['id' => 3, 'option' => 'Avançado']
+        ];
+    } 
+
+    public function education() {
+        return [
+            (object)['id' => 1, 'option' => 'Ensino Fundamental'],
+            (object)['id' => 2, 'option' => 'Ensino Médio'],
+            (object)['id' => 3, 'option' => 'Ensino Superior']
+        ];
+    } 
 
     /**
      * Display a listing of the resource.
@@ -22,20 +38,8 @@ class StudentController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {   
-        $skills = [
-            (object)['id' => 1, 'option' => 'Iniciante'],
-            (object)['id' => 2, 'option' => 'Intermediário'],
-            (object)['id' => 3, 'option' => 'Avançado']
-        ];
-
-        $education = [
-            (object)['id' => 1, 'option' => 'Ensino Fundamental'],
-            (object)['id' => 2, 'option' => 'Ensino Médio'],
-            (object)['id' => 3, 'option' => 'Ensino Superior']
-        ];
-
-        return view('student.create', ['options_skills' => $skills, 'options_education' => $education]);
+    {
+        return view('student.create', ['options_skills' => $this->skills(), 'options_education' => $this->education()]);
     }
 
     /**
@@ -45,7 +49,14 @@ class StudentController extends Controller
     {
         $student = new Student();
 
-        $student->name = $request->input('name');
+        $input = $request->all();
+
+        $student->name = $input['name'];
+        $student->age = $input['age'];
+        $student->registration = $input['registration'];
+        $student->education = $input['education'];
+        $student->skill = $input['skill'];
+        $student->about = $input['about'];
         $student->teacher_id = Auth()->user()->id;
 
         $student->save();
@@ -60,6 +71,34 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
+        switch ($student->education) {
+            case 1:
+                $student->education = "Ensino Fundamental";
+                break;
+                
+            case 2:
+                $student->education = "Ensino Médio";
+                break;
+
+            case 3:
+                $student->education = "Ensino Superior";
+                break;
+        }
+
+        switch ($student->skill) {
+            case 1:
+                $student->skill = "Iniciante";
+                break;
+                
+            case 2:
+                $student->skill = "Intermediário";
+                break;
+
+            case 3:
+                $student->skill = "Avançado";
+                break;
+        }
+
         return view('student.show', ['student' => $student]);
     }
 
@@ -70,7 +109,7 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
-        return view('student.edit', ['student' => $student]);
+        return view('student.edit', ['student' => $student, 'options_skills' => $this->skills(), 'options_education' => $this->education()]);
     }
 
     /**
@@ -80,7 +119,14 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
-        $student->name = $request->input('name');
+        $input = $request->all();
+
+        $student->name = $input['name'];
+        $student->age = $input['age'];
+        $student->registration = $input['registration'];
+        $student->education = $input['education'];
+        $student->skill = $input['skill'];
+        $student->about = $input['about'];
 
         $student->save();
 

@@ -15,14 +15,22 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
+
+    public function skills() {
+        return [
+            (object)['id' => 1, 'option' => 'Iniciante'],
+            (object)['id' => 2, 'option' => 'Intermediário'],
+            (object)['id' => 3, 'option' => 'Avançado']
+        ];
+    }
+
     /**
      * Display the registration view.
      */
     public function create(): View
-    {
-        $model = User::make();
+    {    
 
-        return view('auth.register', ['options' => $model->skills]);
+        return view('auth.register', ['options_skills' => $this->skills()]);
     }
 
     /**

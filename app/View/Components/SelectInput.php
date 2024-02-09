@@ -14,11 +14,11 @@ class SelectInput extends Component
 
     public $options;
 
-    public $selected;
+    public $value;
 
-    public function __construct($selected, $options)
+    public function __construct($value, $options)
     {
-        isset($selected) ? $this->selected = $selected : $this->selected = "";
+        isset($value) ? $this->value = $value : $this->value = "";
         $this->options = $options;
     }
 

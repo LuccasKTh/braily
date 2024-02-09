@@ -1,4 +1,5 @@
 <x-app-layout>
+    
     <x-slot name="header">
         <div class="flex flex-row items-center justify-between">
             <div>
@@ -43,5 +44,15 @@
                 </x-modal>
             </div>
         </div>
+        <div class="">
+            <div class="grid grid-cols-2 gap-x-4 text-gray-400">
+                <h4>Idade: {{ __($student->age) }}</h4>
+                <h4>Matrícula: {{ __($student->registration) }}</h4>
+                <h4>Escolaridade: {{ __($student->education) }}</h4>
+                <h4>Habilidade: {{ __($student->skill) }}</h4>
+                <h4>Observações: {{ __($student->about) }}</h4>
+            </div>
+        </div>
     </x-slot>
+
 </x-app-layout>

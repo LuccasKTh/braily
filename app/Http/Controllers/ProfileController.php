@@ -11,19 +11,20 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    public function skills() {
+        return [
+            (object)['id' => 1, 'option' => 'Iniciante'],
+            (object)['id' => 2, 'option' => 'Intermediário'],
+            (object)['id' => 3, 'option' => 'Avançado']
+        ];
+    } 
 
     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): View
     {
-        $skills = [
-            (object)['id' => 1, 'option' => 'Iniciante'],
-            (object)['id' => 2, 'option' => 'Intermediário'],
-            (object)['id' => 3, 'option' => 'Avançado']
-        ];
-
-        return view('profile.edit', ['user' => $request->user(), 'options' => $skills]);
+        return view('profile.edit', ['user' => $request->user(), 'options_skills' => $this->skills()]);
     }
 
     /**

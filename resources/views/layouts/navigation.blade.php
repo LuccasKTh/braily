@@ -21,6 +21,10 @@
                         {{ __('Alunos') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('skill.index')" :active="request()->routeIs('skill.index')">
+                        {{ __('Habilidades') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 
