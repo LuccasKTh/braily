@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Student;
+use App\Models\Topic;
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,12 +14,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topics', function (Blueprint $table) {
-            $table->id();
+        Schema::create('student_topic', function (Blueprint $table) {
+            $table->foreignId('student_id')->constrained('students');
+            $table->foreignId('topic_id')->constrained('topics');
 
-            $table->string('title');
-
-            $table->timestamps();
+            $table->primary(['student_id', 'topic_id']);
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topics');
+        Schema::dropIfExists('student_topic');
     }
 };

@@ -22,7 +22,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
+        $students = Student::paginate(2);
 
         return view('student.index', ['students' => $students]);
     }

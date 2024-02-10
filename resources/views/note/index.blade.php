@@ -3,7 +3,7 @@
     <x-slot name="header">
         <div class="flex flex-row items-center justify-between">
             <div>
-                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                <h2 class="font-semibold text-xl my-2 text-gray-800 dark:text-gray-200 leading-tight">
                     {{ 'Lista de Anotações' }}
                 </h2>
             </div>
@@ -19,28 +19,28 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="grid grid-cols-3 gap-x-4 gap-y-2">
+                    <ul role="list" class="divide-y divide-gray-100">
                         @foreach ($notes as $note)
-                            <div class="flex justify-between items-center gap-x-6 py-2 bg-white dark:bg-gray-800">
+                            <li class="flex justify-between items-center gap-x-6 py-5">
                                 <div class="flex min-w-0 gap-x-4">
-                                    <div class="min-w-0 w-4/5">
-                                        <h2 class="text-xl">{{ $note->title }}</h2>
-                                        <p class="truncate text-xs leading-5 text-gray-500">Aluno: {{ $note->id }}</p>
-                                        <p class="mt-2 text-sm font-semibold leading-6 text-gray-100 truncate">{{ $note->annotation }}</p>
+                                    <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                    <div class="min-w-0 flex-auto">
+                                        <p class="text-sm font-semibold leading-6 text-gray-100">{{ $note->title }}</p>
+                                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Id: {{ $note->id }}</p>
                                     </div>
                                 </div>
                                 <div>
                                     <a href="{{ route('note.show', $note->id) }}">
                                         <x-secondary-button>
-                                            {{ 'Ver Anotação' }}
+                                            {{ __('Ver Anotação') }}
                                         </x-secondary-button>
                                     </a>
                                 </div>
-                            </div>
+                            </li>
                         @endforeach
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>

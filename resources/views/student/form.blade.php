@@ -41,7 +41,12 @@
     </div>
     <div>
         <x-input-label for="education" :value="__('Escolaridade do Aluno')" />
-        <x-select-input id="education" class="block mt-1 w-full" name="education" required autofocus
+        <x-select-input 
+            id="education" 
+            class="block mt-1 w-full" 
+            name="education" 
+            required 
+            autofocus
         >
         
             @foreach($educations as $education)

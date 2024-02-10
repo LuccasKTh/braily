@@ -24,6 +24,10 @@
                     <x-nav-link :href="route('note.index')" :active="request()->routeIs('note.index')">
                         {{ __('Anotações') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('topic.index')" :active="request()->routeIs('topic.index')">
+                        {{ __('Tópicos') }}
+                    </x-nav-link>
                     
                     <x-nav-link :href="route('skill.index')" :active="request()->routeIs('skill.index')">
                         {{ __('Habilidades') }}
@@ -96,6 +100,10 @@
 
             <x-responsive-nav-link :href="route('note.index')" :active="request()->routeIs('note.index')">
                 {{ __('Anotações') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('topic.index')" :active="request()->routeIs('topic.index')">
+                {{ __('Tópicos') }}
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('skill.index')" :active="request()->routeIs('skill.index')">

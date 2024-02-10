@@ -20,7 +20,7 @@
             name="student"
             required 
             autofocus
-        ><option value="0">Nenhum</option>
+        >
         
             @foreach($students as $student)
                 <option 
@@ -40,12 +40,14 @@
         <x-input-label for="annotation" :value="__('Anotação')" />
         <x-textarea-input 
             id="annotation" 
-            class="block mt-1 w-full h-24" 
+            class="block mt-1 w-full h-24 resize-y" 
             name="annotation"
             required 
             autofocus
         >
-        {{ isset($note->id) ? $note->annotation : old('annotation') }}
+
+            {{ isset($note->id) ? $note->annotation : old('annotation') }}
+
         </x-textarea-input>
         <x-input-error :messages="$errors->get('education')" class="mt-2" />
     </div>

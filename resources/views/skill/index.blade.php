@@ -3,7 +3,7 @@
     <x-slot name="header">
         <div class="flex flex-row items-center justify-between">
             <div>
-                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                <h2 class="font-semibold text-xl my-2 text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Lista de Habilidades') }}
                 </h2>
             </div>

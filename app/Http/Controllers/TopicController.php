@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\Topic;
+
 use Illuminate\Http\Request;
 
 class TopicController extends Controller
@@ -12,7 +14,13 @@ class TopicController extends Controller
      */
     public function index()
     {
-        //
+        $students = Auth()->user()->students;
+
+        foreach ($students as $student) {
+            $topics = $student->topics;
+        }
+
+        return view('topic.index', ['topics' => $topics]);
     }
 
     /**
@@ -20,7 +28,9 @@ class TopicController extends Controller
      */
     public function create()
     {
-        //
+        $students = Student::all();
+
+        return view('topic.create', ['students' => $students]);
     }
 
     /**
@@ -28,13 +38,35 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $topic = new Topic();
+
+        $input = $request->all();
+
+        $topic->title = $input['title'];
+
+        $topic->save();
+
+        $students = Auth()->user()->students;
+        
+        if ($input['student'] == 0) {
+
+            foreach ($students as $student) {
+                $topic->students()->attach($student->id);
+            }
+
+        } else {
+            $student = Student::find($input['student']);
+
+            $topic->students()->attach($student->id);
+        }
+        
+        return to_route('topic.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Topic $topic)
+    public function show(String $id)
     {
         //
     }
@@ -42,7 +74,7 @@ class TopicController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Topic $topic)
+    public function edit(String $id)
     {
         //
     }
@@ -50,7 +82,7 @@ class TopicController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Topic $topic)
+    public function update(Request $request, String $id)
     {
         //
     }
@@ -58,7 +90,7 @@ class TopicController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Topic $topic)
+    public function destroy(String $id)
     {
         //
     }
