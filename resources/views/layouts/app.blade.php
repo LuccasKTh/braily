@@ -33,4 +33,7 @@
             </main>
         </div>
     </body>
+
+    @stack('topic')
+    
 </html>

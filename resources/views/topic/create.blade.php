@@ -19,4 +19,8 @@
         </div>
     </div>
 
+    @push('topic')
+        <script src="{{ asset('js/wordsList.js') }}"></script>
+    @endpush
+
 </x-app-layout>
