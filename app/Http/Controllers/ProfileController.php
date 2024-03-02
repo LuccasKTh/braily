@@ -11,14 +11,19 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+
     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $skills = [
+            (object)['id' => 1, 'option' => 'Iniciante'],
+            (object)['id' => 2, 'option' => 'Intermediário'],
+            (object)['id' => 3, 'option' => 'Avançado']
+        ];
+
+        return view('profile.edit', ['user' => $request->user(), 'options' => $skills]);
     }
 
     /**

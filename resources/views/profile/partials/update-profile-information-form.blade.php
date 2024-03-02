@@ -48,9 +48,9 @@
         </div>
 
         <div>
-            <x-input-label for="ability" :value="__('Habilidade')" />
-            <x-select-input id="ability" name="ability" class="mt-1 block w-full" :selecionado="$user->ability" required autofocus />
-            <x-input-error class="mt-2" :messages="$errors->get('ability')" />
+            <x-input-label for="skill" :value="__('Habilidade')" />
+            <x-select-input id="skill" name="skill" class="mt-1 block w-full" :selected="$user->skill" :options="$options" required autofocus />
+            <x-input-error class="mt-2" :messages="$errors->get('skill')" />
         </div>
 
         <div class="flex items-center gap-4">
