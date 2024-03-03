@@ -15,12 +15,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $students = Auth()->user()->students;
-
-        $topics = [];
-        foreach ($students as $student) {
-            $topics = $student->topics;
-        }
+        $topics = Topic::all();
 
         return view('topic.index', ['topics' => $topics]);
     }
@@ -57,7 +52,9 @@ class TopicController extends Controller
      */
     public function show(String $id)
     {
-        //
+        $topic = Topic::find($id);
+
+        return view('topic.show', ['topic' => $topic]);
     }
 
     /**

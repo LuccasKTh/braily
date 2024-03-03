@@ -48,12 +48,13 @@ class TopicWordController extends Controller
     {
         $topic = Topic::find($id);
 
-        $words = [];
-        foreach ($topic->words as $word) {
-            $words[] = $word;
-        }
+        $words = TopicWord::where('topic_id', $id)->orderByDesc('id')->paginate(15);
 
-        return view('topic.make', ['topic' => $topic, 'words' => array_reverse($words)]);
+        $words->each(function ($word, $key) use ($words) {
+            $word->reverseKey = $words->total() - (($words->currentPage() - 1) * $words->perPage()) - $key;
+        });
+
+        return view('topic.make', ['topic' => $topic, 'words' => $words]);
     }
 
     /**

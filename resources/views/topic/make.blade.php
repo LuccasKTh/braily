@@ -28,6 +28,9 @@
                             {{ "Nenhum título adicionado" }}
                         @endif
                     </div>
+                    <div>
+                        {{ $words->links() }}
+                    </div>
                 </div>
             </div>
         </div>

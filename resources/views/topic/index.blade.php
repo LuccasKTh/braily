@@ -34,7 +34,7 @@
                                 <div>
                                     <a href="{{ route('topic.show', $topic->id) }}">
                                         <x-secondary-button>
-                                            {{ __('Ver Aluno') }}
+                                            {{ __('Ver Tópico') }}
                                         </x-secondary-button>
                                     </a>
                                 </div>

@@ -8,29 +8,31 @@
         </tr>
     </thead>
     <tbody>
-        @php
-            $key = count($words)
-        @endphp
         @forelse ($words as $word)
             <tr>
                 <th>
-                    {{ $key }}
+                    {{ $word->reverseKey }}
                 </th>
                 <th class="truncate">
-                    {{ $word->word }}
+                    @isset($editing)
+                        <form action="{{ route('topicCreated.update', $word->id) }}">
+                            <input type="text">
+                        </form>
+                    @else
+                        {{ $word->word }}
+                    @endisset
                 </th>
                 <th>
-                    <button>Editar</button>
+                    <a href="{{ route('topicCreated.edit', $word->id) }}">Editar</a>
                 </th>
                 <th>
                     <button>Excluir</button>
                 </th>
             </tr>
-            @php
-                $key-- 
-            @endphp
         @empty
             {{ "Nenhuma palavra adicionada" }}
+        @else
+            <h3>Lista de palavras:</h3>
         @endforelse
     </tbody>
 </table>
