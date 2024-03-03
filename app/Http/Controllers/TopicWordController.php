@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Topic;
 use App\Models\TopicWord;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class TopicWordController extends Controller
      */
     public function index()
     {
-        //
+        return view('topic.create');
     }
 
     /**
@@ -28,21 +29,37 @@ class TopicWordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $topicWord = new TopicWord();
+
+        $input = $request->all();
+
+        $topicWord->word = $input['word'];
+        $topicWord->topic_id = $input['topic_id'];
+
+        $topicWord->save();
+
+        return to_route('topicCreated.show', $topicWord->topic_id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(TopicWord $topicWord)
+    public function show(String $id)
     {
-        //
+        $topic = Topic::find($id);
+
+        $words = [];
+        foreach ($topic->words as $word) {
+            $words[] = $word;
+        }
+
+        return view('topic.make', ['topic' => $topic, 'words' => array_reverse($words)]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TopicWord $topicWord)
+    public function edit(String $id)
     {
         //
     }
@@ -50,7 +67,7 @@ class TopicWordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TopicWord $topicWord)
+    public function update(Request $request, String $id)
     {
         //
     }
@@ -58,7 +75,7 @@ class TopicWordController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TopicWord $topicWord)
+    public function destroy(String $id)
     {
         //
     }

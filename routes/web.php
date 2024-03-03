@@ -5,7 +5,8 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TopicController;
-
+use App\Http\Controllers\TopicWordController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    Auth::loginUsingId(1);
+
     return view('welcome');
 });
 
@@ -37,6 +40,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::resource('/student', StudentController::class);
     Route::resource('/note', NoteController::class);
     Route::resource('/topic', TopicController::class);
+    Route::resource('/topicCreated', TopicWordController::class);
     Route::resource('/skill', SkillController::class);
 });
 

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTopicRequest;
 use App\Models\Student;
 use App\Models\Topic;
-
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class TopicController extends Controller
@@ -16,6 +17,7 @@ class TopicController extends Controller
     {
         $students = Auth()->user()->students;
 
+        $topics = [];
         foreach ($students as $student) {
             $topics = $student->topics;
         }
@@ -28,9 +30,7 @@ class TopicController extends Controller
      */
     public function create()
     {
-        $students = Student::all();
-
-        return view('topic.create', ['students' => $students]);
+        return view('topic.make');
     }
 
     /**
@@ -40,27 +40,16 @@ class TopicController extends Controller
     {
         $topic = new Topic();
 
-        $input = $request->all();
+        $validate = $request->validate([
+            'title' => 'required|string|min:3',
+        ]);
 
-        $topic->title = $input['title'];
+        $topic->title = $validate['title'];
+        $topic->user_id = auth()->user()->id;
 
         $topic->save();
-
-        $students = Auth()->user()->students;
         
-        if ($input['student'] == 0) {
-
-            foreach ($students as $student) {
-                $topic->students()->attach($student->id);
-            }
-
-        } else {
-            $student = Student::find($input['student']);
-
-            $topic->students()->attach($student->id);
-        }
-        
-        return to_route('topic.index');
+        return to_route('topicCreated.show', $topic->id);
     }
 
     /**
@@ -84,7 +73,15 @@ class TopicController extends Controller
      */
     public function update(Request $request, String $id)
     {
-        //
+        $topic = Topic::find($id);
+
+        $input = $request->all();
+
+        $topic->title = $input['title'];
+
+        $topic->save();
+
+        return to_route('topicCreated.show', $topic->id);
     }
 
     /**
