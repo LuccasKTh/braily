@@ -21,16 +21,23 @@
                         @csrf
                         @include('topic.formWord')
                     </form>
-                    <div>
+                    <div class="mt-2 mx-20">
                         @isset($words)
+                            @empty($words->items())
+                                {{ 'Nenhuma palavra adicionada' }}
+                            @else
+                                {{ 'Lista de palavras' }}
+                            @endempty
                             @include('topic.list')
                         @else
-                            {{ "Nenhum título adicionado" }}
+                            {{ 'Nenhum título adicionado' }}
                         @endif
                     </div>
-                    <div>
-                        {{ $words->links() }}
-                    </div>
+                    @isset($words)
+                        <div>
+                            {{ $words->links() }}
+                        </div>
+                    @endisset
                 </div>
             </div>
         </div>
@@ -63,7 +70,6 @@
             });
             
             $('#formWord').validate({
-                onsubmit: true,
                 rules: {
                     word: {
                         required: true,
@@ -81,6 +87,42 @@
             });
 
         });
+    </script>
+    <script>
+        function FormEditWord(botao, id) {
+            var form = $(`#${id}`);
+            if (id == form.attr('id')) {
+
+                $('.btnFormEditWord').not(botao).addClass('hidden');
+
+                var input = form.find('[id="word"]');;
+                input.prop('disabled', false);
+                input.prop('autofocus', true);
+
+                var inputValue = input.val();
+                input.val('');
+                input.val(inputValue);
+                input[0].setSelectionRange(inputValue.length, inputValue.length);
+                input.focus();
+
+            }
+            $(form).validate({
+                rules: {
+                    word: {
+                        required: true,
+                        lettersOnly: true,
+                        noSpace: true
+                    }
+                },
+                messages: {
+                    word: {
+                        required: 'Adicione uma palavra',
+                        lettersOnly: 'Não pode conter números',
+                        noSpace: 'Não pode conter espaços'
+                    }
+                }
+            });
+        }
     </script>
 
 </x-app-layout>

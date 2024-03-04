@@ -70,7 +70,15 @@ class TopicWordController extends Controller
      */
     public function update(Request $request, String $id)
     {
-        //
+        $topicWord = TopicWord::find($id);
+
+        $input = $request->all();
+
+        $topicWord->word = $input['word'];
+
+        $topicWord->save();
+
+        return to_route('topicCreated.show', $input['topic_id']);
     }
 
     /**

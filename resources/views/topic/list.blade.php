@@ -1,38 +1,39 @@
-<table class="table-fixed w-full">
+<table class="table-auto w-full mt-6">
     <thead>
         <tr>
-            <th class="w-1/4">Id</th>
-            <th class="w-1/4">Palavra</th>
-            <th class="w-1/4">Editar</th>
-            <th class="w-1/4">Excluir</th>
+            <th class="">#</th>
+            <th class="w-4/5">Palavra</th>
+            <th colspan="2" class="">Ação</th>
         </tr>
     </thead>
     <tbody>
-        @forelse ($words as $word)
+        @foreach ($words as $word)
             <tr>
                 <th>
                     {{ $word->reverseKey }}
                 </th>
-                <th class="truncate">
-                    @isset($editing)
-                        <form action="{{ route('topicCreated.update', $word->id) }}">
-                            <input type="text">
-                        </form>
-                    @else
-                        {{ $word->word }}
-                    @endisset
+                <th>
+                    <form id="{{ $word->id }}" action="{{ route('topicCreated.update', $word->id) }}" method="post">
+                        @method('PUT')
+                        @csrf
+                        <input type="hidden" id="topic_id" name="topic_id" value="{{ $topic->id }}">
+                        <x-text-input 
+                            id="word" 
+                            class="block w-full disabled:opacity-50 disabled:cursor-not-allowed" 
+                            type="text" 
+                            name="word"
+                            :value="$word->word"
+                            disabled
+                        />
+                    </form>
                 </th>
                 <th>
-                    <a href="{{ route('topicCreated.edit', $word->id) }}">Editar</a>
+                    <button id="{{ $word->id }}" class="btnFormEditWord" onclick="FormEditWord(this, {{ $word->id }})">Editar</button>
                 </th>
                 <th>
                     <button>Excluir</button>
                 </th>
             </tr>
-        @empty
-            {{ "Nenhuma palavra adicionada" }}
-        @else
-            <h3>Lista de palavras:</h3>
-        @endforelse
+        @endforeach
     </tbody>
 </table>
