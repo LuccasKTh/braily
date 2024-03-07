@@ -23,7 +23,7 @@ class SkillController extends Controller
      */
     public function create()
     {
-        return view('skill.create');
+        //
     }
 
     /**
@@ -31,11 +31,7 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        $skill = new Skill();
-
-        $skill->save();
-
-        return to_route('skill.index');
+        //
     }
 
     /**

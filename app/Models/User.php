@@ -49,12 +49,17 @@ class User extends Authenticatable
 
     public function students()
     {
-        return $this->hasMany(Student::class, 'id');
+        return $this->hasMany(Student::class, 'teacher_id');
     }
 
     public function skill()
     {
-        return $this->hasOne(Skill::class);
+        return $this->hasOne(Skill::class, 'id');
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class, 'teacher_id');
     }
 
 }

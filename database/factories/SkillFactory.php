@@ -17,9 +17,9 @@ class SkillFactory extends Factory
     public function definition(): array
     {
         return [
-            ["description" => "Iniciante"],
-            ["description" => "Intermediário"],
-            ["description" => "Avançado"]
+            ['description' => 'Iniciante'],
+            ['description' => 'Intermediário'],
+            ['description' => 'Avançado']
         ];
     }
 }

@@ -18,15 +18,17 @@
         
         <!-- User Skill -->
         <div class="mt-4">
-            <x-input-label for="skill" :value="__('Seu Nível de Habilidade')" />
-            <x-select-input 
-                id="skill" 
-                class="block mt-1 w-full" 
-                name="skill"
-                :options="$options_skills" 
-                :value="old('skill')" 
-                required />
-            <x-input-error :messages="$errors->get('skill')" class="mt-2" />
+            <x-input-label for="skill_id" :value="__('Habilidade')" />
+            <x-select-input id="skill_id" class="block mt-1 w-full" name="skill_id" required autofocus>
+        
+                @foreach($skills as $skill)
+                    <option 
+                        value="{{ $skill->id }}"
+                    >{{ $skill->description }}</option>
+                @endforeach 
+    
+            </x-select-input>
+            <x-input-error class="mt-2" :messages="$errors->get('skill_id')" />
         </div>
 
         <!-- Password -->
