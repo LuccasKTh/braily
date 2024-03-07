@@ -32,6 +32,10 @@
                     <x-nav-link :href="route('skill.index')" :active="request()->routeIs('skill.index')">
                         {{ __('Habilidades') }}
                     </x-nav-link>
+                    
+                    <x-nav-link :href="route('education.index')" :active="request()->routeIs('education.index')">
+                        {{ __('Escolaridade') }}
+                    </x-nav-link>
 
                 </div>
             </div>

@@ -38,8 +38,8 @@ class Student extends Model
         return $this->hasMany(Note::class);
     }
 
-    public function topics()
+    public function education()
     {
-        return $this->belongsToMany(Topic::class);
+        return $this->hasOne(Education::class);
     }
 }

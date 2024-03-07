@@ -14,14 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            SkillSeeder::class,
+            EducationSeeder::class
+        ]);
+
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
-            'skill' => 1
-        ]);
-
-        $this->call([
-            SkillSeeder::class
+            'skill_id' => 1
         ]);
     }
 }

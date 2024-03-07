@@ -14,11 +14,17 @@ class Note extends Model
     protected $fillable = [
         'title',
         'annotation',
-        'student_id'
+        'student_id',
+        'user_id'
     ];
 
     public function student() 
     {
         return $this->belongsTo(Student::class, 'student_id');
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
