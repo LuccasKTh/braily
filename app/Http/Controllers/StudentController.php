@@ -50,7 +50,7 @@ class StudentController extends Controller
         $student->age = $input['age'];
         $student->registration = $input['registration'];
         $student->education = $input['education'];
-        $student->skill = $input['skill'];
+        $student->skill_id = $input['skill_id'];
         $student->about = $input['about'];
         $student->teacher_id = Auth()->user()->id;
 
@@ -80,7 +80,7 @@ class StudentController extends Controller
                 break;
         }
 
-        switch ($student->skill) {
+        switch ($student->skill_id) {
             case 1:
                 $student->skill = "Iniciante";
                 break;

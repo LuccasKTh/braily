@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Note;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
@@ -41,6 +42,7 @@ class NoteController extends Controller
         $note->title = $input['title'];
         $note->annotation = $input['annotation'];
         $note->student_id = $input['student'];
+        $note->user_id = Auth::user()->id;
 
         $note->save();
 

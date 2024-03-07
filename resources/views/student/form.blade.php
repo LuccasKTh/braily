@@ -64,8 +64,8 @@
         <x-input-error :messages="$errors->get('education')" class="mt-2" />
     </div>
     <div>
-        <x-input-label for="skill" :value="__('Habilidade do Aluno')" />
-        <x-select-input id="skill" class="block mt-1 w-full" name="skill" required autofocu>
+        <x-input-label for="skill_id" :value="__('Habilidade do Aluno')" />
+        <x-select-input id="skill_id" class="block mt-1 w-full" name="skill_id" required autofocu>
         
             @foreach($skills as $skill)
                 <option 
@@ -79,7 +79,7 @@
             @endforeach 
 
         </x-select-input>
-        <x-input-error :messages="$errors->get('skill')" class="mt-2" />
+        <x-input-error :messages="$errors->get('skill_id')" class="mt-2" />
     </div>
     <div>
         <x-input-label for="about" :value="__('Observações do Aluno')" />

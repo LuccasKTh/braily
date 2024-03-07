@@ -37,9 +37,4 @@ class Student extends Model
     {
         return $this->hasMany(Note::class);
     }
-
-    public function topics()
-    {
-        return $this->belongsToMany(Topic::class);
-    }
 }
