@@ -9,15 +9,6 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-
-    public function education() {
-        return [
-            (object)['id' => 1, 'option' => 'Ensino Fundamental'],
-            (object)['id' => 2, 'option' => 'Ensino Médio'],
-            (object)['id' => 3, 'option' => 'Ensino Superior']
-        ];
-    } 
-
     /**
      * Display a listing of the resource.
      */
@@ -51,7 +42,7 @@ class StudentController extends Controller
         $student->name = $input['name'];
         $student->age = $input['age'];
         $student->registration = $input['registration'];
-        $student->education = $input['education'];
+        $student->education_id = $input['education_id'];
         $student->skill_id = $input['skill_id'];
         $student->about = $input['about'];
         $student->teacher_id = Auth()->user()->id;
@@ -68,7 +59,7 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
-        switch ($student->education) {
+        switch ($student->education_id) {
             case 1:
                 $student->education = "Ensino Fundamental";
                 break;
@@ -107,8 +98,9 @@ class StudentController extends Controller
         $student = Student::find($id);
 
         $skills = Skill::all();
+        $educations = Education::all();
 
-        return view('student.edit', ['student' => $student, 'skills' => $skills, 'educations' => $this->education()]);
+        return view('student.edit', ['student' => $student, 'skills' => $skills, 'educations' => $educations]);
     }
 
     /**
@@ -123,8 +115,8 @@ class StudentController extends Controller
         $student->name = $input['name'];
         $student->age = $input['age'];
         $student->registration = $input['registration'];
-        $student->education = $input['education'];
-        $student->skill = $input['skill'];
+        $student->education_id = $input['education_id'];
+        $student->skill_id = $input['skill_id'];
         $student->about = $input['about'];
 
         $student->save();
