@@ -40,27 +40,32 @@
         <x-input-error :messages="$errors->get('registration')" class="mt-2" />
     </div>
     <div>
-        <x-input-label for="education" :value="__('Escolaridade do Aluno')" />
-        <x-select-input id="education" class="block mt-1 w-full" name="education" required autofocus
+        <x-input-label for="education_id" :value="__('Escolaridade do Aluno')" />
+        <x-select-input 
+            id="education_id" 
+            class="block mt-1 w-full" 
+            name="education_id" 
+            required 
+            autofocus
         >
         
             @foreach($educations as $education)
                 <option 
                     value="{{ $education->id }}"
                     @isset($student->id)
-                        @if($student->education == $education->id)
+                        @if($student->education_id == $education->id)
                             {{ "selected" }}
                         @endif
                     @endisset    
-                >{{ $education->option }}</option>
+                >{{ $education->description }}</option>
             @endforeach 
 
         </x-select-input>
         <x-input-error :messages="$errors->get('education')" class="mt-2" />
     </div>
     <div>
-        <x-input-label for="skill" :value="__('Habilidade do Aluno')" />
-        <x-select-input id="skill" class="block mt-1 w-full" name="skill" required autofocu>
+        <x-input-label for="skill_id" :value="__('Habilidade do Aluno')" />
+        <x-select-input id="skill_id" class="block mt-1 w-full" name="skill_id" required autofocu>
         
             @foreach($skills as $skill)
                 <option 
@@ -74,7 +79,7 @@
             @endforeach 
 
         </x-select-input>
-        <x-input-error :messages="$errors->get('skill')" class="mt-2" />
+        <x-input-error :messages="$errors->get('skill_id')" class="mt-2" />
     </div>
     <div>
         <x-input-label for="about" :value="__('Observações do Aluno')" />

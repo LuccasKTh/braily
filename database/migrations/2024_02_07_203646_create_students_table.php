@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('name');
             $table->integer('age');
             $table->integer('registration')->unique();
-            $table->integer('education');
-            $table->integer('skill');
             $table->text('about')->nullable();
 
             $table->foreignId('teacher_id')->references('id')->on('users');
+            $table->foreignId('skill_id')->references('id')->on('skills');
+            $table->foreignId('education_id')->references('id')->on('education');
 
             $table->timestamps();
         });

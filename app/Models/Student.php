@@ -37,4 +37,9 @@ class Student extends Model
     {
         return $this->hasMany(Note::class);
     }
+
+    public function education()
+    {
+        return $this->hasOne(Education::class);
+    }
 }
