@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SkillController;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // Auth::loginUsingId(1);
+    Auth::loginUsingId(1);
 
     return view('welcome');
 });
@@ -42,6 +43,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::resource('/topic', TopicController::class);
     Route::resource('/topicCreated', TopicWordController::class);
     Route::resource('/skill', SkillController::class);
+    Route::resource('/education', EducationController::class);
 });
 
 require __DIR__.'/auth.php';

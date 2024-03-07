@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Education;
 use App\Models\Skill;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -33,8 +34,9 @@ class StudentController extends Controller
     public function create()
     {
         $skills = Skill::all();
+        $educations = Education::all();
 
-        return view('student.create', ['skills' => $skills, 'educations' => $this->education()]);
+        return view('student.create', ['skills' => $skills, 'educations' => $educations]);
     }
 
     /**

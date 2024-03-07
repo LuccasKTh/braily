@@ -40,11 +40,11 @@
         <x-input-error :messages="$errors->get('registration')" class="mt-2" />
     </div>
     <div>
-        <x-input-label for="education" :value="__('Escolaridade do Aluno')" />
+        <x-input-label for="education_id" :value="__('Escolaridade do Aluno')" />
         <x-select-input 
-            id="education" 
+            id="education_id" 
             class="block mt-1 w-full" 
-            name="education" 
+            name="education_id" 
             required 
             autofocus
         >
@@ -53,11 +53,11 @@
                 <option 
                     value="{{ $education->id }}"
                     @isset($student->id)
-                        @if($student->education == $education->id)
+                        @if($student->education_id == $education->id)
                             {{ "selected" }}
                         @endif
                     @endisset    
-                >{{ $education->option }}</option>
+                >{{ $education->description }}</option>
             @endforeach 
 
         </x-select-input>
