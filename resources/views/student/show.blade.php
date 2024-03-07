@@ -1,17 +1,18 @@
 <x-app-layout>
+    
     <x-slot name="header">
         <div class="flex flex-row items-center justify-between">
             <div>
-                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {{ __($student->name) }}
+                <h2 class="font-semibold text-xl my-2 text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ $student->name }}
                 </h2>
             </div>
             <div class="flex flex-row gap-x-6">
-                <x-primary-button>
-                    <a href="{{ route('student.edit', $student->id) }}">
+                <a href="{{ route('student.edit', $student->id) }}">
+                    <x-primary-button>
                         {{ __('Editar') }}
-                    </a>
-                </x-primary-button>
+                    </x-primary-button>
+                </a>
                 <x-danger-button
                     x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'confirm-student-deletion')"
@@ -43,5 +44,15 @@
                 </x-modal>
             </div>
         </div>
+        <div class="">
+            <div class="grid grid-cols-2 gap-x-4 text-gray-400">
+                <h4>Idade: {{ __($student->age) }}</h4>
+                <h4>Matrícula: {{ __($student->registration) }}</h4>
+                <h4>Escolaridade: {{ __($student->education) }}</h4>
+                <h4>Habilidade: {{ __($student->skill) }}</h4>
+                <h4>Observações: {{ __($student->about) }}</h4>
+            </div>
+        </div>
     </x-slot>
+
 </x-app-layout>

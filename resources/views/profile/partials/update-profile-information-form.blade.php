@@ -48,9 +48,20 @@
         </div>
 
         <div>
-            <x-input-label for="skill" :value="__('Habilidade')" />
-            <x-select-input id="skill" name="skill" class="mt-1 block w-full" :selected="$user->skill" :options="$options" required autofocus />
-            <x-input-error class="mt-2" :messages="$errors->get('skill')" />
+            <x-input-label for="skill_id" :value="__('Habilidade')" />
+            <x-select-input id="skill_id" class="block mt-1 w-full" name="skill_id" required autofocus>
+        
+                @foreach($skills as $skill)
+                    <option 
+                        value="{{ $skill->id }}"
+                        @if($user->skill_id == $skill->id)
+                            {{ "selected" }}
+                        @endif
+                    >{{ $skill->description }}</option>
+                @endforeach 
+    
+            </x-select-input>
+            <x-input-error class="mt-2" :messages="$errors->get('skill_id')" />
         </div>
 
         <div class="flex items-center gap-4">

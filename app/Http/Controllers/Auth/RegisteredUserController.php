@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Skill;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -19,10 +20,10 @@ class RegisteredUserController extends Controller
      * Display the registration view.
      */
     public function create(): View
-    {
-        $model = User::make();
+    {    
+        $skills = Skill::all();
 
-        return view('auth.register', ['options' => $model->skills]);
+        return view('auth.register', ['skills' => $skills]);
     }
 
     /**
@@ -35,15 +36,15 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'skill' => ['required', 'string', 'max:1'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'skill_id' => ['required'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()]
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'skill' => $request->skill,
-            'password' => Hash::make($request->password),
+            'skill_id' => $request->skill_id,
+            'password' => Hash::make($request->password)
         ]);
 
         event(new Registered($user));

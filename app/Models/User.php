@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\Student;
+use App\Models\Skill;
 
 class User extends Authenticatable
 {
@@ -22,7 +23,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'skill',
+        'skill_id',
         'password',
     ];
 
@@ -48,6 +49,17 @@ class User extends Authenticatable
 
     public function students()
     {
-        return $this->hasMany(Student::class, 'id');
+        return $this->hasMany(Student::class, 'teacher_id');
     }
+
+    public function skill()
+    {
+        return $this->hasOne(Skill::class, 'id');
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class, 'teacher_id');
+    }
+
 }
