@@ -15,11 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
         $students = Student::where('user_id', Auth::user()->id)->paginate(10);
-=======
-        $students = Student::paginate(10);
->>>>>>> add1938502e6c7f53c0bec72e5ee2033f498b364
 
         return view('student.index', ['students' => $students]);
     }
