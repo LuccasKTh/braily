@@ -16,13 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             SkillSeeder::class,
-            EducationSeeder::class
-        ]);
-
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'skill_id' => 1
+            EducationSeeder::class,
+            UserSeeder::class
         ]);
     }
 }
