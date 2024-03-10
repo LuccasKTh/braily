@@ -6,6 +6,7 @@ use App\Models\Education;
 use App\Models\Skill;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -14,7 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::paginate(2);
+        $students = Student::where('user_id', Auth::user()->id)->paginate(10);
 
         return view('student.index', ['students' => $students]);
     }
