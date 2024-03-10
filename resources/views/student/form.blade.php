@@ -71,7 +71,7 @@
                 <option 
                     value="{{ $skill->id }}"
                     @isset($student->id)
-                        @if($student->skill == $skill->id)
+                        @if($student->skill_id == $skill->id)
                             {{ "selected" }}
                         @endif
                     @endisset  
