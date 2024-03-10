@@ -20,12 +20,12 @@ class Student extends Model
         'about',
         'education_id',
         'skill_id',
-        'teacher_id'
+        'user_id'
     ];
 
     public function teacher()
     {
-        return $this->belongsTo(User::class, 'teacher_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function skill() 

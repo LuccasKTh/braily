@@ -45,7 +45,7 @@ class StudentController extends Controller
         $student->education_id = $input['education_id'];
         $student->skill_id = $input['skill_id'];
         $student->about = $input['about'];
-        $student->teacher_id = Auth()->user()->id;
+        $student->user_id = Auth()->user()->id;
 
         $student->save();
 
