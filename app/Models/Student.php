@@ -42,4 +42,9 @@ class Student extends Model
     {
         return $this->hasOne(Education::class);
     }
+
+    public function classrooms()
+    {
+        return $this->hasMany(Classroom::class);    
+    }
 }

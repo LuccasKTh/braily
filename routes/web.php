@@ -1,12 +1,17 @@
 <?php
 
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\ClassroomWordController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\LessionController;
+use App\Http\Controllers\LessionWordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\TopicWordController;
+use App\Models\Classroom;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +49,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::resource('/topicCreated', TopicWordController::class);
     Route::resource('/skill', SkillController::class);
     Route::resource('/education', EducationController::class);
+    Route::resource('/classroom', ClassroomController::class);
+    Route::resource('/classroomCreated', ClassroomWordController::class);
 });
 
 require __DIR__.'/auth.php';

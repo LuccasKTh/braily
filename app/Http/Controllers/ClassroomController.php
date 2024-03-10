@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LessionWord;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 
-class LessionWordController extends Controller
+class ClassroomController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class LessionWordController extends Controller
      */
     public function create()
     {
-        //
+        return view('student.classroom.make');
     }
 
     /**
@@ -28,13 +28,23 @@ class LessionWordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $classroom = new Classroom();
+
+        $input = $request->all();
+
+        $classroom->title = $input['title'];
+        $classroom->student_id = $input['student_id'];
+        $classroom->topic_id = 1;
+
+        $classroom->save();
+
+        return to_route('classroomCreated.show', $classroom->id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(LessionWord $lessionWord)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +52,7 @@ class LessionWordController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(LessionWord $lessionWord)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +60,7 @@ class LessionWordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, LessionWord $lessionWord)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +68,7 @@ class LessionWordController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(LessionWord $lessionWord)
+    public function destroy(string $id)
     {
         //
     }

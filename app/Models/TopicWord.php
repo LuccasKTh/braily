@@ -18,6 +18,6 @@ class TopicWord extends Model
 
     public function topic()
     {
-        return $this->belongsTo(Topic::class, 'id');
+        return $this->belongsTo(Topic::class);
     }
 }

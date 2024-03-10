@@ -2,7 +2,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl my-2 text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Adicionar Tópico') }}
+            {{ __('Adicionar Aula') }}
         </h2>
     </x-slot>
 
@@ -10,16 +10,16 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 flex flex-col gap-4">
-                    <form id="formTitle" action="{{ isset($topic) ? route('topic.update', $topic->id) : route('topic.store') }}" method="post">
-                        @isset($topic)
+                    <form id="formTitle" action="{{ isset($classroom) ? route('classroom.update', $classroom->id) : route('classroom.store') }}" method="post">
+                        @isset($classroom)
                             @method('PUT')
                         @endisset
                         @csrf
-                        @include('topic.formTitle')
+                        @include('student.classroom.formTitle')
                     </form> 
-                    <form id="formWord" action="{{ route('topicCreated.store') }}" method="post">
+                    <form id="formWord" action="{{ route('classroomCreated.store') }}" method="post">
                         @csrf
-                        @include('topic.formWord')
+                        @include('student.classroom.formWord')
                     </form>
                     <div class="mt-2 mx-20">
                         @isset($words)
@@ -28,7 +28,7 @@
                             @else
                                 {{ 'Lista de palavras' }}
                             @endempty
-                            @include('topic.listWord')
+                            @include('student.classroom.listWord')
                         @else
                             {{ 'Nenhum título adicionado' }}
                         @endif

@@ -9,14 +9,19 @@
             </div>
             <div class="flex flex-row gap-x-6">
                 <a href="{{ route('student.edit', $student->id) }}">
-                    <x-primary-button>
+                    <x-secondary-button>
                         {{ __('Editar') }}
-                    </x-primary-button>
+                    </x-secondary-button>
                 </a>
                 <x-danger-button
                     x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'confirm-student-deletion')"
                 > {{ __('Excluir') }} </x-danger-button>
+                <a href="{{ route('classroom.create', ['id' => $student->id]) }}">
+                    <x-primary-button>
+                        {{ __('Adicionar Aula') }}
+                    </x-primary-button>
+                </a>
 
                 <x-modal name="confirm-student-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
                     <form action="{{ route('student.destroy', $student->id) }}" method="post" class="p-6">
