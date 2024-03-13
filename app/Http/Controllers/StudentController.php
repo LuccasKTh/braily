@@ -88,7 +88,7 @@ class StudentController extends Controller
                 break;
         }
 
-        return view('student.show', ['student' => $student]);
+        return view('student.show', ['student' => $student, 'classrooms' => $student->classrooms]);
     }
 
     /**

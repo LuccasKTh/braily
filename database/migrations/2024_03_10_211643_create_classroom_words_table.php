@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('word', 10);
 
-            $table->foreignId('classroom_id')->references('id')->on('classrooms');
+            $table->foreignId('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
 
             $table->timestamps();
         });

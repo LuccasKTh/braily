@@ -34,7 +34,6 @@ class ClassroomController extends Controller
 
         $classroom->title = $input['title'];
         $classroom->student_id = $input['student_id'];
-        $classroom->topic_id = 1;
 
         $classroom->save();
 
