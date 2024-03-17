@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
-use App\Models\ClassroomWord;
+use App\Models\Lesson;
+use App\Models\LessonWord;
 use Illuminate\Http\Request;
 
-class ClassroomWordController extends Controller
+class LessonWordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,16 +29,16 @@ class ClassroomWordController extends Controller
      */
     public function store(Request $request)
     {
-        $classroomWord = new ClassroomWord();
+        $lessonWord = new LessonWord();
 
         $input = $request->all();
 
-        $classroomWord->word = $input['word'];
-        $classroomWord->classroom_id = $input['classroom_id'];
+        $lessonWord->word = $input['word'];
+        $lessonWord->lesson_id = $input['lesson_id'];
 
-        $classroomWord->save();
+        $lessonWord->save();
 
-        return to_route('classroomCreated.show', $classroomWord->classroom_id);
+        return to_route('lessonCreated.show', $lessonWord->lesson_id);
     }
 
     /**
@@ -46,11 +46,11 @@ class ClassroomWordController extends Controller
      */
     public function show(string $id)
     {
-        $clasroom = Classroom::find($id);
+        $clasroom = Lesson::find($id);
 
-        $words = ClassroomWord::where('classroom_id', $id)->orderByDesc('id')->paginate(15);
+        $words = LessonWord::where('lesson_id', $id)->orderByDesc('id')->paginate(15);
 
-        return view('student.classroom.make', ['classroom' => $clasroom, 'words' => $words]);
+        return view('student.lesson.make', ['lesson' => $clasroom, 'words' => $words]);
     }
 
     /**
@@ -66,15 +66,15 @@ class ClassroomWordController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $classroomWord = ClassroomWord::find($id);
+        $lessonWord = LessonWord::find($id);
 
         $input = $request->all();
 
-        $classroomWord->word = $input['word'];
+        $lessonWord->word = $input['word'];
 
-        $classroomWord->save();
+        $lessonWord->save();
 
-        return to_route('classroomCreated.show', $input['classroom_id']);
+        return to_route('lessonCreated.show', $input['lesson_id']);
     }
 
     /**

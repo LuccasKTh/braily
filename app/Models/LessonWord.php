@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ClassroomWord extends Model
+class LessonWord extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'word',
-        'classroom_id'
+        'lesson_id'
     ];
 
-    public function classroom()
+    public function lesson()
     {
-        return $this->belongsTo(Classroom::class);
+        return $this->belongsTo(Lesson::class);
     }
 }

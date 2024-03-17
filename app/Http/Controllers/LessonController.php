@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
+use App\Models\Lesson;
 use Illuminate\Http\Request;
 
-class ClassroomController extends Controller
+class LessonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class ClassroomController extends Controller
      */
     public function create()
     {
-        return view('student.classroom.make');
+        return view('student.lesson.make');
     }
 
     /**
@@ -28,16 +28,16 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-        $classroom = new Classroom();
+        $lesson = new Lesson();
 
         $input = $request->all();
 
-        $classroom->title = $input['title'];
-        $classroom->student_id = $input['student_id'];
+        $lesson->title = $input['title'];
+        $lesson->student_id = $input['student_id'];
 
-        $classroom->save();
+        $lesson->save();
 
-        return to_route('classroomCreated.show', $classroom->id);
+        return to_route('lessonCreated.show', $lesson->id);
     }
 
     /**
@@ -61,7 +61,15 @@ class ClassroomController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $lesson = Lesson::find($id);
+
+        $input = $request->all();
+
+        $lesson->title = $input['title'];
+
+        $lesson->save();
+
+        return to_route('lessonCreated.show', $lesson->id);
     }
 
     /**
