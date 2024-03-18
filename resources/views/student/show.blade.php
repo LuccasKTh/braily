@@ -46,12 +46,11 @@
                 </x-modal>
 
                 <x-primary-button
-                    x-data=""
-                    x-on:click.prevent="$dispatch('open-modal', 'create-title-classroom')"
+                    x-on:click.prevent="$dispatch('open-modal', 'create-title-lesson')"
                 > {{ __('Adicionar Aula') }} </x-primary-button>
 
-                <x-modal name="create-title-classroom" focusable>
-                    <form action="{{ route('classroom.store') }}" method="post" class="p-6">
+                <x-modal name="create-title-lesson" focusable>
+                    <form action="{{ route('lesson.store') }}" method="post" class="p-6">
                         @csrf
 
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -64,6 +63,7 @@
 
                         <input type="hidden" name="student_id" id="student_id" value="{{ $student->id }}">
 
+                        <x-input-label for="title" class="py-0.5 mt-1 self-end" value="Título da aula" />
                         <x-text-input 
                             id="title" 
                             class="block mt-1 w-full" 
@@ -72,6 +72,26 @@
                             required 
                             autofocus 
                         />
+
+                        <x-input-label for="select-topic" class="peer mt-2 flex items-center gap-1">
+                            <input type="checkbox" name="select-topic" id="select-topic" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800">
+                            {{ 'Selecionar um tópico?' }}
+                        </x-input-label>
+
+                        <x-input-label for="topic_id" value="Escolha um tópico" class="hidden peer-has-[:checked]:block mt-2" />
+
+                        <x-select-input 
+                            id="topic_id" 
+                            class="hidden mt-1 w-full peer-has-[:checked]:block" 
+                            name="topic_id"
+                            autofocus
+                        >
+                        
+                            @foreach($topics as $topic)
+                                <option value="{{ $topic->id }}">{{ $topic->title }}</option>
+                            @endforeach 
+
+                        </x-select-input>
             
                         <div class="mt-6 flex justify-end">
                             <x-secondary-button x-on:click="$dispatch('close')">
@@ -84,6 +104,7 @@
                         </div>
                     </form>
                 </x-modal>
+                
             </div>
         </div>
         <div class="hidden">
@@ -100,34 +121,21 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-    
-                <div class="flex justify-around w-full h-12 border-b border-gray-100 dark:border-gray-700">
-                    
-                    <x-nav-link id="classrooms" href="?hash=classrooms">
-                        {{ __('Aulas') }}
-                    </x-nav-link>
-
-                    <x-nav-link id="notes" href="#notes" >
-                        {{ __('Tópicos') }}
-                    </x-nav-link>
-
-                </div>
-
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <ul role="list" class="divide-y divide-gray-100">
-                        @foreach ($student->classrooms as $classroom)
+                        @foreach ($lessons as $lesson)
                             <li class="flex justify-between items-center gap-x-6 py-5">
                                 <div class="flex min-w-0 gap-x-4">
                                     <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                     <div class="min-w-0 flex-auto">
-                                        <p class="text-sm font-semibold leading-6 text-gray-100">{{ $classroom->title }}</p>
-                                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Id: {{ $classroom->id }}</p>
+                                        <p class="text-sm font-semibold leading-6 text-gray-100">{{ $lesson->title }}</p>
+                                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Realizada em: {{ date('d/m/Y', strtotime($lesson->created_at)) }}</p>
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="{{ route('classroom.show', $classroom->id) }}">
+                                    <a href="{{ route('lesson.show', $lesson->id) }}">
                                         <x-secondary-button>
-                                            {{ __('Ver Aluno') }}
+                                            {{ __('Ver Aula') }}
                                         </x-secondary-button>
                                     </a>
                                 </div>
@@ -135,15 +143,10 @@
                         @endforeach
                     </ul>
                     {{-- <div>
-                        {{ $classrooms->links() }}
+                        {{ $lessons->links() }}
                     </div> --}}
                 </div>
             </div>
         </div>
     </div>
-
-    @push('toggeClassroom&Topic')
-        @vite('resources/js/toggeClassroom&Topic.js')
-    @endpush
-
 </x-app-layout>

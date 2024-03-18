@@ -26,8 +26,8 @@ class Topic extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function classroom()
+    public function lesson()
     {
-        return $this->hasOne(Classroom::class); 
+        return $this->hasOne(Lesson::class); 
     }
 }

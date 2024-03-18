@@ -13,10 +13,10 @@
                     {{ $word->reverseKey }}
                 </th>
                 <th>
-                    <form id="{{ $word->id }}" action="{{ route('classroomCreated.update', $word->id) }}" method="post" class="formEditWord">
+                    <form id="{{ $word->id }}" action="{{ route('lessonCreated.update', $word->id) }}" method="post" class="formEditWord">
                         @method('PUT')
                         @csrf
-                        <input type="hidden" id="classroom_id" name="classroom_id" value="{{ $classroom->id }}">
+                        <input type="hidden" id="lesson_id" name="lesson_id" value="{{ $lesson->id }}">
                         <div class="flex flex-row items-center gap-4">
                             <x-text-input 
                                 id="word" 
@@ -34,7 +34,7 @@
                     <button id="{{ $word->id }}" class="btnFormEditWord" onclick="FormEditWord(this, {{ $word->id }})">Editar</button>
                 </th>
                 <th>
-                    <button>Excluir</button>
+                    <button id="{{ $word->id }}" class="btnFormDeleteWord" onclick="FormDeleteWord(this, {{ $word->id }})">Editar</button>
                 </th>
             </tr>
         @endforeach

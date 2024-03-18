@@ -4,8 +4,8 @@
         <div class="flex flex-row gap-3 items-stretch">
             <x-input-label for="word" class="py-0.5 mt-0.5 self-end" :value="__('Palavra da Aula')" />
     
-            <label id="word-error" class="error self-start text-yellow-500 text-xs font-medium px-2 py-0.5 rounded dark:bg-gray-700/70 dark:text-yellow-500 border border-yellow-500" for="word" style="display: @isset($classroom) none @else block @endisset">
-                @if(!isset($classroom))
+            <label id="word-error" class="error self-start text-yellow-500 text-xs font-medium px-2 py-0.5 rounded dark:bg-gray-700/70 dark:text-yellow-500 border border-yellow-500" for="word" style="display: @isset($lesson) none @else block @endisset">
+                @if(!isset($lesson))
                     Adicione um título
                 @endif
             </label>
@@ -16,10 +16,10 @@
             <div class="w-full">
     
                 <x-text-input 
-                    id="classroom_id"
+                    id="lesson_id"
                     type="hidden"
-                    name="classroom_id"
-                    :value="isset($classroom) ? $classroom->id : null"
+                    name="lesson_id"
+                    :value="isset($lesson) ? $lesson->id : null"
                 />
     
                 <x-text-input 
@@ -28,7 +28,7 @@
                     type="text" 
                     name="word"
                     autofocus 
-                    :disabled="isset($classroom->id) ? false : true"
+                    :disabled="isset($lesson->id) ? false : true"
                 />
                 <x-input-error :messages="$errors->get('word')" class="mt-2" />
                     
@@ -38,7 +38,7 @@
     
                 <x-primary-button 
                     class="w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                    :disabled="isset($classroom->id) ? false : true">
+                    :disabled="isset($lesson->id) ? false : true">
                     {{ "Adicionar" }}
                 </x-primary-button>
             

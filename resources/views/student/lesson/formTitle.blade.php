@@ -23,8 +23,8 @@
                     class="block w-full" 
                     type="text" 
                     name="title"
-                    :value="isset($classroom->id) ? $classroom->title : old('title')"
-                    :autofocus="isset($classroom->id) ? false : true"
+                    :value="isset($lesson->id) ? $lesson->title : old('title')"
+                    :autofocus="isset($lesson->id) ? false : true"
                     required
                 />
     
@@ -33,7 +33,7 @@
             <div class="w-32 flex items-center">
     
                 <x-primary-button id="btnFormTitle" class="w-full justify-center">
-                    {{ isset($classroom->id) ? "Alterar" : "Adicionar" }}
+                    {{ isset($lesson->id) ? "Alterar" : "Adicionar" }}
                 </x-primary-button>
     
             </div>

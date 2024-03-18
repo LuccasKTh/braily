@@ -43,8 +43,15 @@ class Student extends Model
         return $this->hasOne(Education::class);
     }
 
-    public function classrooms()
+    public function lessons()
     {
-        return $this->hasMany(Classroom::class);    
+        return $this->hasMany(Lesson::class);    
+    }
+
+    public function lastLesson()
+    {
+        if ($this->lessons->isNotEmpty()) {
+            return $this->lessons->last()->created_at;
+        }
     }
 }

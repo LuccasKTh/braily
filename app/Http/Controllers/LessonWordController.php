@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
+use App\Models\Lesson;
+use App\Models\LessonWord;
 use Illuminate\Http\Request;
 
-class ClassroomController extends Controller
+class LessonWordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +21,7 @@ class ClassroomController extends Controller
      */
     public function create()
     {
-        return view('student.classroom.make');
+        //
     }
 
     /**
@@ -28,17 +29,16 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-        $classroom = new Classroom();
+        $lessonWord = new LessonWord();
 
         $input = $request->all();
 
-        $classroom->title = $input['title'];
-        $classroom->student_id = $input['student_id'];
-        $classroom->topic_id = 1;
+        $lessonWord->word = $input['word'];
+        $lessonWord->lesson_id = $input['lesson_id'];
 
-        $classroom->save();
+        $lessonWord->save();
 
-        return to_route('classroomCreated.show', $classroom->id);
+        return to_route('lessonCreated.show', $lessonWord->lesson_id);
     }
 
     /**
@@ -46,7 +46,11 @@ class ClassroomController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $clasroom = Lesson::find($id);
+
+        $words = LessonWord::where('lesson_id', $id)->orderByDesc('id')->paginate(15);
+
+        return view('student.lesson.make', ['lesson' => $clasroom, 'words' => $words]);
     }
 
     /**
@@ -62,7 +66,15 @@ class ClassroomController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $lessonWord = LessonWord::find($id);
+
+        $input = $request->all();
+
+        $lessonWord->word = $input['word'];
+
+        $lessonWord->save();
+
+        return to_route('lessonCreated.show', $input['lesson_id']);
     }
 
     /**

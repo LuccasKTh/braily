@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
-use App\Models\ClassroomWord;
+use App\Models\Lesson;
+use App\Models\LessonWord;
 use Illuminate\Http\Request;
 
-class ClassroomWordController extends Controller
+class LessonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class ClassroomWordController extends Controller
      */
     public function create()
     {
-        //
+        return view('student.lesson.make');
     }
 
     /**
@@ -29,16 +29,20 @@ class ClassroomWordController extends Controller
      */
     public function store(Request $request)
     {
-        $classroomWord = new ClassroomWord();
+        $lesson = new Lesson();
 
         $input = $request->all();
 
-        $classroomWord->word = $input['word'];
-        $classroomWord->classroom_id = $input['classroom_id'];
+        $lesson->title = $input['title'];
+        $lesson->student_id = $input['student_id'];
 
-        $classroomWord->save();
+        if (isset($input['select-topic'])) {
+            $lesson->topic_id = $input['topic_id'];
+        }
 
-        return to_route('classroomCreated.show', $classroomWord->classroom_id);
+        $lesson->save();
+
+        return to_route('lessonCreated.show', $lesson->id);
     }
 
     /**
@@ -46,11 +50,9 @@ class ClassroomWordController extends Controller
      */
     public function show(string $id)
     {
-        $clasroom = Classroom::find($id);
+        $lesson = Lesson::find($id);
 
-        $words = ClassroomWord::where('classroom_id', $id)->orderByDesc('id')->paginate(15);
-
-        return view('student.classroom.make', ['classroom' => $clasroom, 'words' => $words]);
+        return view('student.lesson.show', ['lesson' => $lesson, 'lessonWords' => $lesson->words]);
     }
 
     /**
@@ -66,15 +68,15 @@ class ClassroomWordController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $classroomWord = ClassroomWord::find($id);
+        $lesson = Lesson::find($id);
 
         $input = $request->all();
 
-        $classroomWord->word = $input['word'];
+        $lesson->title = $input['title'];
 
-        $classroomWord->save();
+        $lesson->save();
 
-        return to_route('classroomCreated.show', $input['classroom_id']);
+        return to_route('lessonCreated.show', $lesson->id);
     }
 
     /**
@@ -82,6 +84,12 @@ class ClassroomWordController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $lesson = Lesson::find($id);
+
+        $student_id = $lesson->student_id;
+
+        $lesson->delete();
+
+        return to_route('student.show', $student_id);
     }
 }
