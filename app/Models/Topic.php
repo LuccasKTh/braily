@@ -13,16 +13,21 @@ class Topic extends Model
 
     protected $fillable = [
         'title',
+        'user_id'
     ];
 
     public function words()
     {
-        return $this->hasMany(TopicWord::class, 'topic_id');
+        return $this->hasMany(TopicWord::class);
     }
 
-    public function teacher()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
+    public function lesson()
+    {
+        return $this->hasOne(Lesson::class); 
+    }
 }

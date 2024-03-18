@@ -19,13 +19,11 @@ class DatabaseSeeder extends Seeder
             SkillSeeder::class,
             EducationSeeder::class,
             TopicSeeder::class,
-            TopicWordSeeder::class
-        ]);
-
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'skill_id' => 1
+            TopicWordSeeder::class,
+            UserSeeder::class,
+            StudentSeeder::class,
+            LessonSeeder::class,
+            LessonWordSeeder::class
         ]);
     }
 }

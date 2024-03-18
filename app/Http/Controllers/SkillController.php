@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Skill;
 use Illuminate\Http\Request;
-use Nette\Utils\Strings;
 
 class SkillController extends Controller
 {

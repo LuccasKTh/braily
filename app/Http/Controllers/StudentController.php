@@ -6,6 +6,7 @@ use App\Models\Education;
 use App\Models\Skill;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -14,7 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::paginate(2);
+        $students = Student::where('user_id', Auth::user()->id)->paginate(10);
 
         return view('student.index', ['students' => $students]);
     }
@@ -45,7 +46,7 @@ class StudentController extends Controller
         $student->education_id = $input['education_id'];
         $student->skill_id = $input['skill_id'];
         $student->about = $input['about'];
-        $student->teacher_id = Auth()->user()->id;
+        $student->user_id = Auth()->user()->id;
 
         $student->save();
 
@@ -87,7 +88,9 @@ class StudentController extends Controller
                 break;
         }
 
-        return view('student.show', ['student' => $student]);
+        $topics = Auth::user()->topics;
+
+        return view('student.show', ['student' => $student, 'lessons' => $student->lessons, 'topics' => $topics]);
     }
 
     /**
@@ -135,4 +138,5 @@ class StudentController extends Controller
 
         return to_route('student.index');
     }
+
 }

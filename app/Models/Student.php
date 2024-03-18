@@ -20,12 +20,12 @@ class Student extends Model
         'about',
         'education_id',
         'skill_id',
-        'teacher_id'
+        'user_id'
     ];
 
-    public function teacher()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'teacher_id');
+        return $this->belongsTo(User::class);
     }
 
     public function skill() 
@@ -41,5 +41,17 @@ class Student extends Model
     public function education()
     {
         return $this->hasOne(Education::class);
+    }
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);    
+    }
+
+    public function lastLesson()
+    {
+        if ($this->lessons->isNotEmpty()) {
+            return $this->lessons->last()->created_at;
+        }
     }
 }
