@@ -46,8 +46,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::resource('/topicCreated', TopicWordController::class);
     Route::resource('/skill', SkillController::class);
     Route::resource('/education', EducationController::class);
-    Route::resource('/lesson', lessonController::class);
-    Route::resource('/lessonCreated', lessonWordController::class);
+    Route::resource('/lesson', LessonController::class);
+    Route::resource('/lessonCreated', LessonWordController::class);
 });
 
 require __DIR__.'/auth.php';

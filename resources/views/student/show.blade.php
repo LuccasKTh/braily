@@ -8,11 +8,13 @@
                 </h2>
             </div>
             <div class="flex flex-row gap-x-6">
+
                 <a href="{{ route('student.edit', $student->id) }}">
                     <x-secondary-button>
                         {{ __('Editar') }}
                     </x-secondary-button>
                 </a>
+
                 <x-danger-button
                     x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'confirm-student-deletion')"
@@ -44,7 +46,6 @@
                 </x-modal>
 
                 <x-primary-button
-                    x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'create-title-lesson')"
                 > {{ __('Adicionar Aula') }} </x-primary-button>
 
@@ -103,10 +104,10 @@
                         </div>
                     </form>
                 </x-modal>
-
+                
             </div>
         </div>
-        <div class="">
+        <div class="hidden">
             <div class="grid grid-cols-2 gap-x-4 text-gray-400">
                 <h4>Idade: {{ __($student->age) }}</h4>
                 <h4>Matrícula: {{ __($student->registration) }}</h4>
@@ -148,5 +149,4 @@
             </div>
         </div>
     </div>
-
 </x-app-layout>

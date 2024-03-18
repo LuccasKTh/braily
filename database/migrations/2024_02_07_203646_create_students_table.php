@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('registration')->unique();
             $table->text('about')->nullable();
 
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('skill_id')->references('id')->on('skills');
             $table->foreignId('education_id')->references('id')->on('education');
 
