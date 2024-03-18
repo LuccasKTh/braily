@@ -10,5 +10,7 @@
     focus:ring-indigo-500 
     dark:focus:ring-indigo-600 
     rounded-md 
-    shadow-sm'
+    shadow-sm
+    w-full
+    mt-1'
 ]) !!}>{{ $slot }}</textarea>
