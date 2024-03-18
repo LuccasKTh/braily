@@ -80,6 +80,12 @@ class LessonController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $lesson = Lesson::find($id);
+
+        $student_id = $lesson->student_id;
+
+        $lesson->delete();
+
+        return to_route('student.show', $student_id);
     }
 }
