@@ -42,4 +42,16 @@ class Student extends Model
     {
         return $this->hasOne(Education::class);
     }
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);    
+    }
+
+    public function lastLesson()
+    {
+        if ($this->lessons->isNotEmpty()) {
+            return $this->lessons->last()->created_at;
+        }
+    }
 }

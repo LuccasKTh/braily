@@ -88,7 +88,9 @@ class StudentController extends Controller
                 break;
         }
 
-        return view('student.show', ['student' => $student]);
+        $topics = Auth::user()->topics;
+
+        return view('student.show', ['student' => $student, 'lessons' => $student->lessons, 'topics' => $topics]);
     }
 
     /**
@@ -136,4 +138,5 @@ class StudentController extends Controller
 
         return to_route('student.index');
     }
+
 }
