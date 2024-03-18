@@ -136,4 +136,5 @@ class StudentController extends Controller
 
         return to_route('student.index');
     }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lesson;
+use App\Models\LessonWord;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
@@ -45,7 +46,9 @@ class LessonController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $lesson = Lesson::find($id);
+
+        return view('student.lesson.show', ['lesson' => $lesson, 'lessonWords' => $lesson->words]);
     }
 
     /**
