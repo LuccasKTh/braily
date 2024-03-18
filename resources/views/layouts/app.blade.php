@@ -39,6 +39,4 @@
 
     @stack('topic')
     
-    @stack('toggeClassroom&Topic')
-    
 </html>
