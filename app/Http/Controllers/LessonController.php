@@ -36,6 +36,10 @@ class LessonController extends Controller
         $lesson->title = $input['title'];
         $lesson->student_id = $input['student_id'];
 
+        if (isset($input['select-topic'])) {
+            $lesson->topic_id = $input['topic_id'];
+        }
+
         $lesson->save();
 
         return to_route('lessonCreated.show', $lesson->id);

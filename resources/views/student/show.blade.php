@@ -17,11 +17,6 @@
                     x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'confirm-student-deletion')"
                 > {{ __('Excluir') }} </x-danger-button>
-                <a href="{{ route('lesson.create', ['id' => $student->id]) }}">
-                    <x-primary-button>
-                        {{ __('Adicionar Aula') }}
-                    </x-primary-button>
-                </a>
 
                 <x-modal name="confirm-student-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
                     <form action="{{ route('student.destroy', $student->id) }}" method="post" class="p-6">
@@ -47,6 +42,68 @@
                         </div>
                     </form>
                 </x-modal>
+
+                <x-primary-button
+                    x-data=""
+                    x-on:click.prevent="$dispatch('open-modal', 'create-title-lesson')"
+                > {{ __('Adicionar Aula') }} </x-primary-button>
+
+                <x-modal name="create-title-lesson" focusable>
+                    <form action="{{ route('lesson.store') }}" method="post" class="p-6">
+                        @csrf
+
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                            {{ __('Adicione um título a esta aula!') }}
+                        </h2>
+            
+                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                            {{ __('Isso facilitará a sua organização.') }}
+                        </p>
+
+                        <input type="hidden" name="student_id" id="student_id" value="{{ $student->id }}">
+
+                        <x-input-label for="title" class="py-0.5 mt-1 self-end" value="Título da aula" />
+                        <x-text-input 
+                            id="title" 
+                            class="block mt-1 w-full" 
+                            type="text" 
+                            name="title"
+                            required 
+                            autofocus 
+                        />
+
+                        <x-input-label for="select-topic" class="peer mt-2 flex items-center gap-1">
+                            <input type="checkbox" name="select-topic" id="select-topic" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800">
+                            {{ 'Selecionar um tópico?' }}
+                        </x-input-label>
+
+                        <x-input-label for="topic_id" value="Escolha um tópico" class="hidden peer-has-[:checked]:block mt-2" />
+
+                        <x-select-input 
+                            id="topic_id" 
+                            class="hidden mt-1 w-full peer-has-[:checked]:block" 
+                            name="topic_id"
+                            autofocus
+                        >
+                        
+                            @foreach($topics as $topic)
+                                <option value="{{ $topic->id }}">{{ $topic->title }}</option>
+                            @endforeach 
+
+                        </x-select-input>
+            
+                        <div class="mt-6 flex justify-end">
+                            <x-secondary-button x-on:click="$dispatch('close')">
+                                {{ __('Cancelar') }}
+                            </x-secondary-button>
+            
+                            <x-primary-button class="ms-3">
+                                {{ __('Ir para aula') }}
+                            </x-primary-button>
+                        </div>
+                    </form>
+                </x-modal>
+
             </div>
         </div>
         <div class="">

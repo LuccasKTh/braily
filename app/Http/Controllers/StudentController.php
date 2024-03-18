@@ -88,7 +88,9 @@ class StudentController extends Controller
                 break;
         }
 
-        return view('student.show', ['student' => $student, 'lessons' => $student->lessons]);
+        $topics = Auth::user()->topics;
+
+        return view('student.show', ['student' => $student, 'lessons' => $student->lessons, 'topics' => $topics]);
     }
 
     /**

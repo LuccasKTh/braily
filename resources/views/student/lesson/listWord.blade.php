@@ -34,7 +34,7 @@
                     <button id="{{ $word->id }}" class="btnFormEditWord" onclick="FormEditWord(this, {{ $word->id }})">Editar</button>
                 </th>
                 <th>
-                    <button>Excluir</button>
+                    <button id="{{ $word->id }}" class="btnFormDeleteWord" onclick="FormDeleteWord(this, {{ $word->id }})">Editar</button>
                 </th>
             </tr>
         @endforeach
