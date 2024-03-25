@@ -2,7 +2,9 @@
 
 ## Sobre o Braily
 
-Braily é um sistema voltado à professores para ajudar no desenvolvimento de aprendizagem do Código Braile. Apresentamos, um website para gerenciar aulas e, um sistema físico feito para utilização em aulas práticas, ajudando os alunos a integrarem-se no mundo real. Visamos proporcionar:
+Braily é um sistema voltado à professores para ajudar no desenvolvimento de aprendizagem do Código Braile. Apresentamos, um website para gerenciar aulas e um sistema físico feito para utilização em aulas práticas, ajudando os alunos a integrarem-se no mundo real.
+
+**Visamos proporcionar:**
 
 - Sistema profissional simples e de fácil usabilidade.
 - Poder de aprendizagem do Código Braile.
