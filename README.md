@@ -12,7 +12,9 @@ Braily é um sistema voltado à professores para ajudar no desenvolvimento de ap
 
 Braily é acessível, poderoso, e apresenta ferramentas abrengentes com aplicações robustas.
 
-## 1. Utilização local em seu computador
+## Utilização local em seu computador
+
+### 1. Itens requeridos
 
 Alguns itens precisam ser instalados antes da execução local: 
 
