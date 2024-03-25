@@ -52,4 +52,4 @@ Braily é acessível, poderoso, e apresenta ferramentas abrengentes com aplicaç
     npm build
 ```
 
-O sistema Braily é uma aplicação de código aberto licenciado por [licensa MIT](https://opensource.org/licenses/MIT).
+O sistema Braily é uma aplicação de código aberto licenciado por [MIT license](https://opensource.org/licenses/MIT).
