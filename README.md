@@ -12,24 +12,22 @@ Braily é um sistema voltado à professores para ajudar no desenvolvimento de ap
 
 Braily é acessível, poderoso, e apresenta ferramentas abrengentes com aplicações robustas.
 
-## Utilização local em seu computador
+## 1. Utilização local em seu computador
 
-1. Alguns itens precisam ser instalados antes da utulização local: 
+Alguns itens precisam ser instalados antes da execução local: 
 
 - **[Composer](https://getcomposer.org/)**
 - **[Nodejs](https://nodejs.org/)**
 - **[PHP 8.1](https://www.php.net/)**
 - **[XAMPP](https://www.apachefriends.org/)**
 
-2. Após a instalação dos itens acima, abra a pasta raiz do projeto e escrevas estes comandos:
-
-### Baixar repositório
+### 2. Baixar repositório
 
 ```
     git clone https://github.com/LuccasKTh/braily.git
 ```
 
-### Instalar dependências dentro da pasta raiz do projeto
+### 3. Instalar dependências dentro da pasta raiz do projeto
 
 ```
     composer install
@@ -38,15 +36,13 @@ Braily é acessível, poderoso, e apresenta ferramentas abrengentes com aplicaç
     npm install
 ```
 
-3. Executar estes comandos para abrir o servidor local
-
-### Servidor PHP
+### 4. Servidor PHP
 
 ```
     php artisan serve
 ```
 
-### Compilar códigos
+**Fazer a compilação dos códigos**
 
 ```
     npm build
