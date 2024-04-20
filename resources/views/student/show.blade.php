@@ -46,6 +46,7 @@
                 </x-modal>
 
                 <x-primary-button
+                    x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'create-title-lesson')"
                 > {{ __('Adicionar Aula') }} </x-primary-button>
 

@@ -83,8 +83,8 @@
             <x-input-error :messages="$errors->get('skill_id')" class="mt-2" />
         </div>
         <div class="col-span-3">
-            <x-input-label for="about" :value="__('Observações do Aluno')" />
-            <x-textarea-input>
+            <x-input-label for="about" value="Observações do Aluno" />
+            <x-textarea-input id="about" name="about" class="mt-1">
                 {{ isset($student->about) ? $student->about : old('about') }}
             </x-textarea-input>
             <x-input-error :messages="$errors->get('about')" class="mt-2" />
