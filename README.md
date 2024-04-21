@@ -46,7 +46,7 @@ Alguns itens precisam ser instalados antes da execução local:
 **Fazer a compilação dos códigos**
 
 ```
-    npm build
+    npm run build
 ```
 
 O sistema Braily é uma aplicação de código aberto licenciado por [MIT license](https://opensource.org/licenses/MIT).
