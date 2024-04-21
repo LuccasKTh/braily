@@ -21,7 +21,6 @@ Alguns itens precisam ser instalados antes da execução local:
 - **[Composer](https://getcomposer.org/)**
 - **[Nodejs](https://nodejs.org/)**
 - **[PHP 8.1](https://www.php.net/)**
-- **[XAMPP](https://www.apachefriends.org/)**
 
 ### 2. Baixar repositório
 
@@ -47,7 +46,7 @@ Alguns itens precisam ser instalados antes da execução local:
 **Fazer a compilação dos códigos**
 
 ```
-    npm build
+    npm run build
 ```
 
 O sistema Braily é uma aplicação de código aberto licenciado por [MIT license](https://opensource.org/licenses/MIT).

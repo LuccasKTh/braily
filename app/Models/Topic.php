@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\TopicWord;
-
 class Topic extends Model
 {
     use HasFactory;
@@ -26,8 +24,8 @@ class Topic extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function lesson()
+    public function lessons()
     {
-        return $this->hasOne(Lesson::class); 
+        return $this->hasMany(Lesson::class); 
     }
 }

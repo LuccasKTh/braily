@@ -4,12 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
-use App\Models\Student;
-use App\Models\Skill;
 
 class User extends Authenticatable
 {
@@ -24,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'skill_id',
+        'userType_id',
         'password',
     ];
 
@@ -47,23 +46,28 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function students()
+    public function students(): HasMany
     {
         return $this->hasMany(Student::class);
     }
 
     public function skill()
     {
-        return $this->hasOne(Skill::class, 'id');
+        return $this->hasOne(Skill::class);
     }
 
     public function notes()
     {
-        return $this->hasMany(Note::class, 'user_id');
+        return $this->hasMany(Note::class);
     }
 
     public function topics()
     {
         return $this->hasMany(Topic::class);    
+    }
+
+    public function userType()
+    {
+        return $this->belongsTo(UserType::class);
     }
 }

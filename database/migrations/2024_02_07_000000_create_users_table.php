@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
 
             $table->foreignId('skill_id')->references('id')->on('skills');
+            $table->foreignId('userType_id')->references('id')->on('user_types');
 
             $table->rememberToken();
             $table->timestamps();

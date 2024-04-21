@@ -9,12 +9,10 @@ class Education extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'description'
-    ];
+    protected $fillable = ['description'];
 
     public function student()
     {
-        return $this->belongsTo(Student::class, 'education_id');
+        return $this->belongsTo(Student::class);
     }
 }

@@ -15,7 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::where('user_id', Auth::user()->id)->orderByDesc('id')->paginate(10);
+        $students = Auth::user()->students()->orderByDesc('id')->paginate();
 
         return view('student.index', ['students' => $students]);
     }
