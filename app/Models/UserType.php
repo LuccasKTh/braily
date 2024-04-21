@@ -5,20 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Skill extends Model
+class UserType extends Model
 {
     use HasFactory;
 
     protected $fillable = ['description'];
 
-    public function student() 
+    public function user()
     {
-        return $this->belongsTo(Student::class);
+        return $this->hasOne(User::class);
     }
-
-    public function user() 
-    {
-        return $this->belongsTo(User::class);
-    }
-
 }

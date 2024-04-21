@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Lesson>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserType>
  */
-class LessonFactory extends Factory
+class UserTypeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +17,8 @@ class LessonFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(1),
-            'student_id' => fake()->randomElement(Student::pluck('id'))
+            ['description' => 'Administrador'],
+            ['description' => 'Professor']
         ];
     }
 }
