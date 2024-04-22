@@ -34,7 +34,11 @@
                     <button id="{{ $word->id }}" class="btnFormEditWord" onclick="FormEditWord(this, {{ $word->id }})">Editar</button>
                 </th>
                 <th>
-                    <button id="{{ $word->id }}" class="btnFormDeleteWord" onclick="FormDeleteWord(this, {{ $word->id }})">Editar</button>
+                    <form action="{{ route('lessonCreated.destroy', $word->id) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button>Excluir</button>
+                    </form>
                 </th>
             </tr>
         @endforeach

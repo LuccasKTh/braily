@@ -17,7 +17,7 @@ class StudentController extends Controller
     {
         $students = Auth::user()->students()->orderByDesc('id')->paginate();
 
-        return view('student.index', ['students' => $students]);
+        return view('student.index', ['students' => $students])->with(session('toast'));
     }
 
     /**
@@ -50,7 +50,7 @@ class StudentController extends Controller
 
         $student->save();
 
-        return to_route('student.index');
+        return to_route('student.index')->with('toast', ['type' => 'success', 'message' => 'Aluno adicionado com sucesso.']);
     }
 
     /**

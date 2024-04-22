@@ -12,7 +12,9 @@ class UserTypeController extends Controller
      */
     public function index()
     {
-        //
+        $types = UserType::all();
+
+        return view('userType.index', ['types' => $types]);
     }
 
     /**
@@ -20,7 +22,7 @@ class UserTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('userType.create');
     }
 
     /**
@@ -28,38 +30,62 @@ class UserTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $type = new UserType();
+
+        $input = $request->all();
+
+        $type->description = $input['description'];
+
+        $type->save();
+
+        return to_route('userType.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(UserType $userType)
+    public function show(String $id)
     {
-        //
+        $type = UserType::find($id);
+
+        return view('userType.show', ['type' => $type]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UserType $userType)
+    public function edit(String $id)
     {
-        //
+        $type = UserType::find($id);
+
+        return view('userType.edit', ['type' => $type]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserType $userType)
+    public function update(Request $request, String $id)
     {
-        //
+        $type = UserType::find($id);
+
+        $input = $request->all();
+
+        $type->description = $input['description'];
+
+        $type->save();
+
+        return to_route('userType.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserType $userType)
+    public function destroy(String $id)
     {
-        //
+        $type = UserType::find($id);
+
+        $type->delete();
+
+        return to_route('userType.index');
     }
 }

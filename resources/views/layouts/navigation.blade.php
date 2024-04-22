@@ -29,6 +29,10 @@
                         {{ __('Tópicos') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('userType.index')" :active="request()->routeIs('userType.index')">
+                        {{ __('Tipo de usuário') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 

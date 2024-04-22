@@ -13,7 +13,6 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -35,8 +34,16 @@
                 {{ $slot }}
             </main>
         </div>
+
+        {{-- @if (session()->has('toast')) --}}  
+            <x-toast :type="null != session('toast') ? session('toast')['type'] : 'danger'">
+                {{ null != session('toast') ? session('toast')['message'] : 'Teste' }}
+            </x-toast>
+        {{-- @endif --}}
+
     </body>
 
     @stack('topic')
+    @stack('validation')
     
 </html>

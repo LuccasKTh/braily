@@ -29,16 +29,16 @@ class LessonWordController extends Controller
      */
     public function store(Request $request)
     {
-        $lessonWord = new LessonWord();
+        $word = new LessonWord();
 
         $input = $request->all();
 
-        $lessonWord->word = $input['word'];
-        $lessonWord->lesson_id = $input['lesson_id'];
+        $word->word = $input['word'];
+        $word->lesson_id = $input['lesson_id'];
 
-        $lessonWord->save();
+        $word->save();
 
-        return to_route('lessonCreated.show', $lessonWord->lesson_id);
+        return to_route('lessonCreated.show', $word->lesson_id);
     }
 
     /**
@@ -46,11 +46,11 @@ class LessonWordController extends Controller
      */
     public function show(string $id)
     {
-        $clasroom = Lesson::find($id);
+        $lesson = Lesson::find($id);
 
         $words = LessonWord::where('lesson_id', $id)->orderByDesc('id')->paginate(15);
 
-        return view('student.lesson.make', ['lesson' => $clasroom, 'words' => $words]);
+        return view('student.lesson.make', ['lesson' => $lesson, 'words' => $words]);
     }
 
     /**
@@ -82,6 +82,10 @@ class LessonWordController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $word = LessonWord::find($id);
+
+        $word->delete();
+
+        return to_route('lessonCreated.show', $word->lesson_id);
     }
 }
