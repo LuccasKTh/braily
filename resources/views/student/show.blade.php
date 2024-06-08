@@ -108,7 +108,7 @@
                 
             </div>
         </div>
-        <div class="hidden">
+        <div class="">
             <div class="grid grid-cols-2 gap-x-4 text-gray-400">
                 <h4>Idade: {{ __($student->age) }}</h4>
                 <h4>Matrícula: {{ __($student->registration) }}</h4>

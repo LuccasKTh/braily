@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             "skill_id" => fake()->randomElement(Skill::pluck('id')),
             "userType_id" => 1,
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => 12345678,
             'remember_token' => Str::random(10),
         ]);
         
