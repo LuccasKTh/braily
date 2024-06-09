@@ -7,14 +7,10 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
+                'resources/js/validation/lesson.js',
                 'resources/js/toggeClassroom&Topic.js'
             ],
             refresh: true,
         }),
     ],
-    resolve: {
-        alias: {
-            '$': 'jQuery'
-        },
-    },
 });

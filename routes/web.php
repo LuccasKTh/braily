@@ -9,6 +9,7 @@ use App\Http\Controllers\SkillController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\TopicWordController;
+use App\Http\Controllers\UserTypeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     Auth::loginUsingId(1);
 
-    return view('welcome');
+    return to_route('dashboard');
 });
 
 Route::get('/dashboard', function () {
@@ -48,6 +49,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::resource('/education', EducationController::class);
     Route::resource('/lesson', LessonController::class);
     Route::resource('/lessonCreated', LessonWordController::class);
+    Route::resource('/userType', UserTypeController::class);
 });
 
 require __DIR__.'/auth.php';

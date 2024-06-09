@@ -29,6 +29,18 @@
                         {{ __('Tópicos') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('userType.index')" :active="request()->routeIs('userType.index')">
+                        {{ __('Tipo de usuário') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('skill.index')" :active="request()->routeIs('skill.index')">
+                        {{ __('Habilidade') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('education.index')" :active="request()->routeIs('education.index')">
+                        {{ __('Escolaridade') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 

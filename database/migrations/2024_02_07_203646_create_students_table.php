@@ -16,7 +16,7 @@ return new class extends Migration
             
             $table->string('name');
             $table->integer('age');
-            $table->integer('registration')->unique();
+            $table->integer('enroll')->unique();
             $table->text('about')->nullable();
 
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
