@@ -42,7 +42,7 @@ class StudentController extends Controller
 
         $student->name = $input['name'];
         $student->age = $input['age'];
-        $student->registration = $input['registration'];
+        $student->enroll = $input['enroll'];
         $student->education_id = $input['education_id'];
         $student->skill_id = $input['skill_id'];
         $student->about = $input['about'];
@@ -117,7 +117,7 @@ class StudentController extends Controller
 
         $student->name = $input['name'];
         $student->age = $input['age'];
-        $student->registration = $input['registration'];
+        $student->enroll = $input['enroll'];
         $student->education_id = $input['education_id'];
         $student->skill_id = $input['skill_id'];
         $student->about = $input['about'];

@@ -22,7 +22,7 @@ class EducationController extends Controller
      */
     public function create()
     {
-        //
+        return view('education.create');
     }
 
     /**
@@ -30,7 +30,15 @@ class EducationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $education = new Education();
+
+        $input = $request->all();
+
+        $education->description = $input['description'];
+
+        $education->save();
+
+        return to_route('education.index');
     }
 
     /**
@@ -38,7 +46,7 @@ class EducationController extends Controller
      */
     public function show(Education $education)
     {
-        //
+        return view('education.show', ["education" => $education]);    
     }
 
     /**
@@ -46,7 +54,7 @@ class EducationController extends Controller
      */
     public function edit(Education $education)
     {
-        //
+        return view('education.edit', ["education" => $education]);
     }
 
     /**
@@ -54,7 +62,13 @@ class EducationController extends Controller
      */
     public function update(Request $request, Education $education)
     {
-        //
+        $input = $request->all();
+
+        $education->description = $input['description'];
+
+        $education->save();
+
+        return to_route('education.index');
     }
 
     /**
@@ -62,6 +76,8 @@ class EducationController extends Controller
      */
     public function destroy(Education $education)
     {
-        //
+        $education->delete();
+
+        return to_route('education.index');
     }
 }

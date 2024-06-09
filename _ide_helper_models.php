@@ -139,7 +139,7 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property int $age
- * @property int $registration
+ * @property int $enroll
  * @property string|null $about
  * @property int $user_id
  * @property int $skill_id
@@ -163,7 +163,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereEducationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Student whereRegistration($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Student whereenroll($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereSkillId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereUserId($value)

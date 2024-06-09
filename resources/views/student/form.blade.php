@@ -28,17 +28,17 @@
             <x-input-error :messages="$errors->get('age')" class="mt-2" />
         </div>
         <div class="col-span-1">
-            <x-input-label for="registration" :value="__('Matrícula do Aluno')" />
+            <x-input-label for="enroll" :value="__('Matrícula do Aluno')" />
             <x-text-input 
-                id="registration" 
+                id="enroll" 
                 class="block mt-1 w-full" 
                 type="number" 
-                name="registration"
-                :value="@isset($student->id) ? $student->registration : old('registration')"
+                name="enroll"
+                :value="@isset($student->id) ? $student->enroll : old('enroll')"
                 required 
                 autofocus 
             />
-            <x-input-error :messages="$errors->get('registration')" class="mt-2" />
+            <x-input-error :messages="$errors->get('enroll')" class="mt-2" />
         </div>
         <div class="col-span-1">
             <x-input-label for="education_id" :value="__('Escolaridade do Aluno')" />

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Skill;
 use Illuminate\Http\Request;
+use Laravel\SerializableClosure\Serializers\Signed;
 
 class SkillController extends Controller
 {
@@ -22,7 +23,7 @@ class SkillController extends Controller
      */
     public function create()
     {
-        //
+        return view('skill.create');
     }
 
     /**
@@ -30,7 +31,15 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $skill = new Skill();
+
+        $input = $request->all();
+
+        $skill->description = $input['description'];
+
+        $skill->save();
+
+        return to_route('skill.index');
     }
 
     /**
@@ -38,7 +47,9 @@ class SkillController extends Controller
      */
     public function show(String $id)
     {
-        //
+        $skill = Skill::find($id);
+
+        return view('skill.show', ["skill" => $skill]);
     }
 
     /**
@@ -46,7 +57,9 @@ class SkillController extends Controller
      */
     public function edit(String $id)
     {
-        //
+        $skill = Skill::find($id);
+
+        return view('skill.edit', ["skill" => $skill]);
     }
 
     /**
@@ -54,7 +67,15 @@ class SkillController extends Controller
      */
     public function update(Request $request, String $id)
     {
-        //
+        $skill = Skill::find($id);
+
+        $input = $request->all();
+
+        $skill->description = $input["description"];
+
+        $skill->save();
+
+        return to_route('skill.index');
     }
 
     /**
@@ -62,6 +83,10 @@ class SkillController extends Controller
      */
     public function destroy(String $id)
     {
-        //
+        $skill = Skill::find($id);
+
+        $skill->delete();
+
+        return to_route('skill.index');
     }
 }
