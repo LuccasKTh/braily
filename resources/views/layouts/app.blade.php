@@ -35,14 +35,15 @@
             </main>
         </div>
 
-        @if (session()->has('toast'))  
-            <x-toast :type="session('toast')['type']">
-                {{ session('toast')['message'] }}
+        {{-- @if (session()->has('toast')) --}}  
+            <x-toast :type="null != session('toast') ? session('toast')['type'] : 'danger'">
+                {{ null != session('toast') ? session('toast')['message'] : 'Teste' }}
             </x-toast>
-        @endif
+        {{-- @endif --}}
 
     </body>
 
+    @stack('topic')
     @stack('validation')
     
 </html>

@@ -17,14 +17,15 @@
     }
 @endphp
 
+
 <div class="fixed top-10 end-28"> 
     <div 
         x-data="{ show: true }"
         x-show="show"
         x-transition
-        x-init="setTimeout(() => show = false, 8000)"
+        {{-- x-init="setTimeout(() => show = false, 5000)" --}}
         id="toast-simple" 
-        class="flex items-center shadow z-50 w-full max-w-sm p-4 space-x-4 rtl:space-x-reverse divide-x rtl:divide-x-reverse rounded-lg divide-gray-700 space-x {{ $typeClass }}"
+        class="flex items-center shadow z-50 w-full max-w-xs p-4 space-x-4 rtl:space-x-reverse divide-x rtl:divide-x-reverse rounded-lg divide-gray-700 space-x {{ $typeClass }}"
         role="alert"
     >
         <svg class="w-5 h-5 {{ $svgColor }} rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
