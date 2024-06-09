@@ -26,7 +26,7 @@ class Student extends Model
 
     public function skill() 
     {
-        return $this->hasOne(Skill::class);
+        return $this->belongsTo(Skill::class);
     }
 
     public function notes()
@@ -36,7 +36,7 @@ class Student extends Model
 
     public function education()
     {
-        return $this->hasOne(Education::class);
+        return $this->belongsTo(Education::class);
     }
 
     public function lessons()

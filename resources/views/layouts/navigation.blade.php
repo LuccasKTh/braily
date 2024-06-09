@@ -30,15 +30,19 @@
                     </x-nav-link>
 
                     <x-nav-link :href="route('userType.index')" :active="request()->routeIs('userType.index')">
-                        {{ __('Tipo de usuário') }}
+                        {{ __('Tipos de usuário') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('skill.index')" :active="request()->routeIs('skill.index')">
-                        {{ __('Habilidade') }}
+                        {{ __('Habilidades') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('education.index')" :active="request()->routeIs('education.index')">
-                        {{ __('Escolaridade') }}
+                        {{ __('Escolaridades') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                        {{ __('Usuários') }}
                     </x-nav-link>
 
                 </div>
