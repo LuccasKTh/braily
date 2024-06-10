@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Education;
+use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
 
 class EducationController extends Controller
 {
+    use ToastNotifications;
+
     /**
      * Display a listing of the resource.
      */
@@ -32,11 +35,14 @@ class EducationController extends Controller
     {
         $education = new Education();
 
-        $input = $request->all();
+        $education->fill($request->all());
 
-        $education->description = $input['description'];
-
-        $education->save();
+        try {
+            $education->save();
+            $this->sendToast('success', "Escolaridade adicionada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível adicionar a escolaridade. Erro n° {$th->getCode()}.");
+        }
 
         return to_route('education.index');
     }
@@ -62,11 +68,14 @@ class EducationController extends Controller
      */
     public function update(Request $request, Education $education)
     {
-        $input = $request->all();
+        $education->fill($request->all());
 
-        $education->description = $input['description'];
-
-        $education->save();
+        try {
+            $education->save();
+            $this->sendToast('success', "Escolaridade alterada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível alterar a escolaridade. Erro n° {$th->getCode()}.");
+        }
 
         return to_route('education.index');
     }
@@ -76,7 +85,14 @@ class EducationController extends Controller
      */
     public function destroy(Education $education)
     {
-        $education->delete();
+        try {
+            $education->delete();
+            $this->sendToast('success', "Escolaridade excluída com sucesso.");
+        } catch (\Throwable $th) {
+            $th->errorInfo[1] == 1451
+                ? $this->sendToast('warning', "Escolaridade possui vínculos. Não foi possível excluí-la.")
+                : $this->sendToast('danger', "Algo de inesperado aconteceu. Erro n° {$th->getCode()}");
+        }
 
         return to_route('education.index');
     }
