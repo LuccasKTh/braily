@@ -26,6 +26,7 @@
     }
 @endphp
 
+
 <div class="fixed top-10 end-28"> 
     <div 
         x-data="{ show: true }"

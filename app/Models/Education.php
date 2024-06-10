@@ -11,8 +11,8 @@ class Education extends Model
 
     protected $fillable = ['description'];
 
-    public function students()
+    public function student()
     {
-        return $this->hasMany(Student::class);
+        return $this->belongsTo(Student::class);
     }
 }
