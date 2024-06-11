@@ -11,14 +11,14 @@ class Skill extends Model
 
     protected $fillable = ['description'];
 
-    public function student() 
+    public function students() 
     {
-        return $this->belongsTo(Student::class);
+        return $this->hasMany(Student::class);
     }
 
-    public function user() 
+    public function users() 
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 
 }

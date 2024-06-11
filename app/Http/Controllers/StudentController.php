@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Education;
 use App\Models\Skill;
 use App\Models\Student;
+use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
+    use ToastNotifications;
     /**
      * Display a listing of the resource.
      */
@@ -38,56 +40,25 @@ class StudentController extends Controller
     {
         $student = new Student();
 
-        $input = $request->all();
+        $student->fill($request->all());
+        $student->user_id = Auth::user()->id;
 
-        $student->name = $input['name'];
-        $student->age = $input['age'];
-        $student->enroll = $input['enroll'];
-        $student->education_id = $input['education_id'];
-        $student->skill_id = $input['skill_id'];
-        $student->about = $input['about'];
-        $student->user_id = Auth()->user()->id;
+        try {
+            $student->save();
+            $this->sendToast('success', "Aluno adicionado com sucesso.");
+        } catch (\Throwable $th) {
+            dd($th);
+            $this->sendToast('warning', "Não foi possível adicionar o aluno. Erro n° {$th->getCode()}");
+        }
 
-        $student->save();
-
-        return to_route('student.index')->with('toast', ['type' => 'success', 'message' => 'Aluno adicionado com sucesso.']);
+        return to_route('student.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(String $id)
+    public function show(Student $student)
     {
-        $student = Student::find($id);
-
-        switch ($student->education_id) {
-            case 1:
-                $student->education = "Ensino Fundamental";
-                break;
-                
-            case 2:
-                $student->education = "Ensino Médio";
-                break;
-
-            case 3:
-                $student->education = "Ensino Superior";
-                break;
-        }
-
-        switch ($student->skill_id) {
-            case 1:
-                $student->skill = "Iniciante";
-                break;
-                
-            case 2:
-                $student->skill = "Intermediário";
-                break;
-
-            case 3:
-                $student->skill = "Avançado";
-                break;
-        }
-
         $topics = Auth::user()->topics;
 
         return view('student.show', ['student' => $student, 'lessons' => $student->lessons, 'topics' => $topics]);
@@ -96,10 +67,8 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(String $id)
+    public function edit(Student $student)
     {
-        $student = Student::find($id);
-
         $skills = Skill::all();
         $educations = Education::all();
 
@@ -109,20 +78,16 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)
+    public function update(Request $request, Student $student)
     {
-        $student = Student::find($id);
+        $student->fill($request->all());
 
-        $input = $request->all();
-
-        $student->name = $input['name'];
-        $student->age = $input['age'];
-        $student->enroll = $input['enroll'];
-        $student->education_id = $input['education_id'];
-        $student->skill_id = $input['skill_id'];
-        $student->about = $input['about'];
-
-        $student->save();
+        try {
+            $student->save();
+            $this->sendToast('success', "Aluno atualizado com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível atualizar o aluno. Erro n° {$th->getCode()}");
+        }
 
         return to_route('student.show', $student->id);
     }
@@ -130,11 +95,14 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $id)
+    public function destroy(Student $student)
     {
-        $student = Student::find($id);
-
-        $student->delete();
+        try {
+            $student->delete();
+            $this->sendToast('success', "Aluno excluído com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível excluir o aluno. Erro n° {$th->getCode()}");
+        }
 
         return to_route('student.index');
     }

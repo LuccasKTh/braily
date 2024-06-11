@@ -27,7 +27,7 @@
 @endphp
 
 
-<div class="fixed top-10 end-28"> 
+<div class="fixed bottom-8 end-8"> 
     <div 
         x-data="{ show: true }"
         x-show="show"
