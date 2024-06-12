@@ -28,7 +28,7 @@
                     type="text" 
                     name="word"
                     autofocus 
-                    :disabled="isset($lesson->id) ? false : true"
+                    :disabled="isset($lesson) ? false : true"
                 />
                 <x-input-error :messages="$errors->get('word')" class="mt-2" />
                     
@@ -38,7 +38,7 @@
     
                 <x-primary-button 
                     class="w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                    :disabled="isset($lesson->id) ? false : true">
+                    :disabled="isset($lesson) ? false : true">
                     {{ "Adicionar" }}
                 </x-primary-button>
             

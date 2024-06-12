@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Lesson;
 use App\Models\LessonWord;
+use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
 
 class LessonWordController extends Controller
 {
+    use ToastNotifications;
+
     /**
      * Display a listing of the resource.
      */
@@ -33,12 +36,16 @@ class LessonWordController extends Controller
 
         $input = $request->all();
 
-        $word->word = $input['word'];
-        $word->lesson_id = $input['lesson_id'];
+        $word->fill($input);
 
-        $word->save();
+        try {
+            $word->save();
+            $this->sendToast('success', "Palavra adicionada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível adicionar a palavra. Erro n° {$th->getCode()}");
+        }
 
-        return to_route('lessonCreated.show', $word->lesson_id);
+        return to_route('lessonCreated.show', $input['lesson_id']);
     }
 
     /**
@@ -50,7 +57,11 @@ class LessonWordController extends Controller
 
         $words = LessonWord::where('lesson_id', $id)->orderByDesc('id')->paginate(15);
 
-        return view('student.lesson.make', ['lesson' => $lesson, 'words' => $words]);
+        $words->each(function ($word, $key) use ($words) {
+            $word->reverseKey = $words->total() - (($words->currentPage() - 1) * $words->perPage()) - $key;
+        });
+
+        return view('student.lesson.make', ['lesson' => $lesson, 'words' => $words])->with(session('toast'));
     }
 
     /**
@@ -64,15 +75,18 @@ class LessonWordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, LessonWord $lessonWord)
     {
-        $lessonWord = LessonWord::find($id);
-
         $input = $request->all();
 
-        $lessonWord->word = $input['word'];
+        $lessonWord->fill($input);
 
-        $lessonWord->save();
+        try {
+            $lessonWord->save();
+            $this->sendToast('success', "Palavra alterada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível altarar a palavra. Erro n° {$th->getCode()}");
+        }
 
         return to_route('lessonCreated.show', $input['lesson_id']);
     }
@@ -80,12 +94,17 @@ class LessonWordController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(String $id)
     {
-        $word = LessonWord::find($id);
+        $lessonWord = LessonWord::find($id);
 
-        $word->delete();
+        try {
+            $lessonWord->delete();
+            $this->sendToast('success', "Palavra excluída com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não possível excluir a palavra. Erro n° {$th->getCode()}");
+        }
 
-        return to_route('lessonCreated.show', $word->lesson_id);
+        return to_route('lessonCreated.show', $lessonWord->lesson_id);
     }
 }

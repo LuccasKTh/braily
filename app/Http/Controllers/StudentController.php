@@ -61,7 +61,7 @@ class StudentController extends Controller
     {
         $topics = Auth::user()->topics;
 
-        return view('student.show', ['student' => $student, 'lessons' => $student->lessons, 'topics' => $topics]);
+        return view('student.show', ['student' => $student, 'lessons' => $student->lessons, 'topics' => $topics])->with(session('toast'));
     }
 
     /**
