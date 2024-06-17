@@ -89,9 +89,9 @@ class EducationController extends Controller
             $education->delete();
             $this->sendToast('success', "Escolaridade excluída com sucesso.");
         } catch (\Throwable $th) {
-            $th->errorInfo[1] == 1451
-                ? $this->sendToast('warning', "Escolaridade possui vínculos. Não foi possível excluí-la.")
-                : $this->sendToast('danger', "Algo de inesperado aconteceu. Erro n° {$th->getCode()}");
+        $th->errorInfo[1] == 1451
+            ? $this->sendToast('warning', "Escolaridade possui vínculos. Não foi possível excluí-la.")
+            : $this->sendToast('danger', "Algo de inesperado aconteceu. Erro n° {$th->getCode()}");
         }
 
         return to_route('education.index');

@@ -47,7 +47,7 @@ class LessonController extends Controller
             $lesson->save();
             $this->sendToast('success', "Aula adicionada com sucesso.");
         } catch (\Throwable $th) {
-            $this->sendToast('warning', "Erro ao adicionar aula. Erro n° {$th->getCode()}");
+            $this->sendToast('warning', "Erro ao adicionar a aula. Erro n° {$th->getCode()}");
             return to_route('student.show', $student_id);
         }
 

@@ -75,8 +75,10 @@ class LessonWordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, LessonWord $lessonWord)
+    public function update(Request $request, String $id)
     {
+        $lessonWord = LessonWord::find($id);
+
         $input = $request->all();
 
         $lessonWord->fill($input);

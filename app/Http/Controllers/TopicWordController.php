@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Topic;
 use App\Models\TopicWord;
+use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
 
 class TopicWordController extends Controller
 {
+    use ToastNotifications;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('topic.create');
+        return view('topic.create')->with(session());
     }
 
     /**
@@ -33,12 +36,16 @@ class TopicWordController extends Controller
 
         $input = $request->all();
 
-        $topicWord->word = $input['word'];
-        $topicWord->topic_id = $input['topic_id'];
+        $topicWord->fill($input);
 
-        $topicWord->save();
+        try {
+            $topicWord->save();
+            $this->sendToast('success', "Palavra adicionada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível adicionar a palavra. Erro n° {$th->getCode()}");
+        }
 
-        return to_route('topicCreated.show', $topicWord->topic_id);
+        return to_route('topicCreated.show', $input['topic_id']);
     }
 
     /**
@@ -71,12 +78,17 @@ class TopicWordController extends Controller
     public function update(Request $request, String $id)
     {
         $topicWord = TopicWord::find($id);
-
+        
         $input = $request->all();
 
-        $topicWord->word = $input['word'];
+        $topicWord->fill($input);
 
-        $topicWord->save();
+        try {
+            $topicWord->save();
+            $this->sendToast('success', "Palavra atualizada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível atualizar a palavra. Erro n° {$th->getCode()}");
+        }
 
         return to_route('topicCreated.show', $input['topic_id']);
     }
@@ -86,6 +98,15 @@ class TopicWordController extends Controller
      */
     public function destroy(String $id)
     {
-        //
+        $topicWord = TopicWord::find($id);
+
+        try {
+            $topicWord->delete();
+            $this->sendToast('success', "Palavra excluída com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível excluir a palavra. Erro n° {$th->getCode()}");
+        }
+
+        return to_route('topicCreated.show', $topicWord->topic_id);
     }
 }

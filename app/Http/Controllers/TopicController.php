@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Topic;
+use App\Traits\ToastNotifications;
+use Auth;
 use Illuminate\Http\Request;
 
 class TopicController extends Controller
 {
+    use ToastNotifications;
+
     /**
      * Display a listing of the resource.
      */
@@ -32,14 +36,16 @@ class TopicController extends Controller
     {
         $topic = new Topic();
 
-        $validate = $request->validate([
-            'title' => 'required|string|min:3',
-        ]);
+        $topic->fill($request->all());
+        $topic->user_id = Auth::user()->id;
 
-        $topic->title = $validate['title'];
-        $topic->user_id = auth()->user()->id;
-
-        $topic->save();
+        try {
+            $topic->save();
+            $this->sendToast('success', "Tópico adicionado com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível adicionar o tópico. Erro n° {$th->getCode()}");
+            return to_route('topic.create');
+        }
         
         return to_route('topicCreated.show', $topic->id);
     }
@@ -47,17 +53,15 @@ class TopicController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(String $id)
+    public function show(Topic $topic)
     {
-        $topic = Topic::find($id);
-
         return view('topic.show', ['topic' => $topic]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(String $id)
+    public function edit(Topic $topic)
     {
         //
     }
@@ -65,15 +69,16 @@ class TopicController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)
+    public function update(Request $request, Topic $topic)
     {
-        $topic = Topic::find($id);
+        $topic->fill($request->all());
 
-        $input = $request->all();
-
-        $topic->title = $input['title'];
-
-        $topic->save();
+        try {
+            $topic->save();
+            $this->sendToast('success', "Tópico atualizado com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível atualizar o tópico. Erro n° {$th->getCode()}");
+        }
 
         return to_route('topicCreated.show', $topic->id);
     }
@@ -81,8 +86,15 @@ class TopicController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $id)
+    public function destroy(Topic $topic)
     {
-        //
+        try {
+            $topic->delete();
+            $this->sendToast('success', "Tópico excluído com sucesso.");
+        } catch (\Throwable $th) {
+            $th->getCode() == 1451
+            ? $this->sendToast('success', "Tópico possui vínculos. Não foi possível excluí-lo.")
+            : $this->sendToast('success', "Algo de inesperado aconteceu. Erro n° {$th->getCode()}");
+        }
     }
 }
