@@ -7,8 +7,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'resources/js/validation/lesson.js',
-                'resources/js/toggeClassroom&Topic.js'
+                'resources/js/validation/lesson.js'
             ],
             refresh: true,
         }),

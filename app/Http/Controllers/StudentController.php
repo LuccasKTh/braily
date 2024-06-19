@@ -47,7 +47,6 @@ class StudentController extends Controller
             $student->save();
             $this->sendToast('success', "Aluno adicionado com sucesso.");
         } catch (\Throwable $th) {
-            dd($th);
             $this->sendToast('warning', "Não foi possível adicionar o aluno. Erro n° {$th->getCode()}");
         }
 
