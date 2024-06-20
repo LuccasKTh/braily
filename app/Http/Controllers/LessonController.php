@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Lesson;
 use App\Models\LessonWord;
+use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
+    use ToastNotifications;
     /**
      * Display a listing of the resource.
      */
@@ -33,14 +35,21 @@ class LessonController extends Controller
 
         $input = $request->all();
 
-        $lesson->title = $input['title'];
-        $lesson->student_id = $input['student_id'];
+        $student_id = $input['student_id'];
 
-        if (isset($input['select-topic'])) {
-            $lesson->topic_id = $input['topic_id'];
+        $lesson->fill($input);
+        
+        if (!isset($input['select-topic'])) {
+            $lesson->topic_id = null;
         }
 
-        $lesson->save();
+        try {
+            $lesson->save();
+            $this->sendToast('success', "Aula adicionada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Erro ao adicionar a aula. Erro n° {$th->getCode()}");
+            return to_route('student.show', $student_id);
+        }
 
         return to_route('lessonCreated.show', $lesson->id);
     }
@@ -48,10 +57,8 @@ class LessonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Lesson $lesson)
     {
-        $lesson = Lesson::find($id);
-
         return view('student.lesson.show', ['lesson' => $lesson, 'lessonWords' => $lesson->words]);
     }
 
@@ -66,15 +73,16 @@ class LessonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Lesson $lesson)
     {
-        $lesson = Lesson::find($id);
+        $lesson->fill($request->all());
 
-        $input = $request->all();
-
-        $lesson->title = $input['title'];
-
-        $lesson->save();
+        try {
+            $lesson->save();
+            $this->sendToast('success', "Aula adicionada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível atualizar a aula. Erro n° {$th->getCode()}");
+        }
 
         return to_route('lessonCreated.show', $lesson->id);
     }
@@ -82,13 +90,16 @@ class LessonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Lesson $lesson)
     {
-        $lesson = Lesson::find($id);
-
         $student_id = $lesson->student_id;
 
-        $lesson->delete();
+        try {
+            $lesson->delete();
+            $this->sendToast('success', "Aula excluída com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível excluir a aula. Erro n° {$th->getCode()}");
+        }
 
         return to_route('student.show', $student_id);
     }

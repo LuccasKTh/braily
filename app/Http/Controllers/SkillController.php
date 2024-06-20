@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Skill;
+use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
 use Laravel\SerializableClosure\Serializers\Signed;
 
 class SkillController extends Controller
 {
+    use ToastNotifications;
+
     /**
      * Display a listing of the resource.
      */
@@ -15,7 +18,7 @@ class SkillController extends Controller
     {
         $skills = Skill::all();
 
-        return view('skill.index', ['skills' => $skills]);
+        return view('skill.index', ['skills' => $skills])->with(session('toast'));
     }
 
     /**
@@ -33,11 +36,14 @@ class SkillController extends Controller
     {
         $skill = new Skill();
 
-        $input = $request->all();
+        $skill->fill($request->all());
 
-        $skill->description = $input['description'];
-
-        $skill->save();
+        try {
+            $skill->save();
+            $this->sendToast('success', "Habilidade adicionada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi posssível adicionar a habilidade. Erro n° {$th->getCode()}");
+        }
 
         return to_route('skill.index');
     }
@@ -45,35 +51,32 @@ class SkillController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(String $id)
+    public function show(Skill $skill)
     {
-        $skill = Skill::find($id);
-
         return view('skill.show', ["skill" => $skill]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(String $id)
+    public function edit(Skill $skill)
     {
-        $skill = Skill::find($id);
-
         return view('skill.edit', ["skill" => $skill]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)
+    public function update(Request $request, Skill $skill)
     {
-        $skill = Skill::find($id);
+        $skill->fill($request->all());
 
-        $input = $request->all();
-
-        $skill->description = $input["description"];
-
-        $skill->save();
+        try {
+            $skill->save();
+            $this->sendToast('success', "Habilidade atualizada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível atualizar a habilidade. Erro n° {$th->getCode()}");
+        }
 
         return to_route('skill.index');
     }
@@ -81,12 +84,17 @@ class SkillController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $id)
+    public function destroy(Skill $skill)
     {
-        $skill = Skill::find($id);
-
-        $skill->delete();
-
+        try {
+            $skill->delete();
+            $this->sendToast('success', "Habilidade excluída com sucesso.");
+        } catch (\Throwable $th) {
+            $th->errorInfo[1] == 1451
+                ? $this->sendToast('warning', "Habilidade possui vínculos. Não foi possível excluí-la.")
+                : $this->sendToast('danger', "Algo de inesperado aconteceu. Erro n° {$th->getCode()}");
+        }
+        
         return to_route('skill.index');
     }
 }

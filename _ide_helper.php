@@ -12519,7 +12519,7 @@ namespace Illuminate\Support\Facades {
          * @param string $name
          * @param string $controller
          * @param array $options
-         * @return \Illuminate\Routing\PendingResourceenroll 
+         * @return \Illuminate\Routing\PendingResourceRegistration 
          * @static 
          */        public static function resource($name, $controller, $options = [])
         {
@@ -12544,7 +12544,7 @@ namespace Illuminate\Support\Facades {
          * @param string $name
          * @param string $controller
          * @param array $options
-         * @return \Illuminate\Routing\PendingResourceenroll 
+         * @return \Illuminate\Routing\PendingResourceRegistration 
          * @static 
          */        public static function apiResource($name, $controller, $options = [])
         {
@@ -12569,7 +12569,7 @@ namespace Illuminate\Support\Facades {
          * @param string $name
          * @param string $controller
          * @param array $options
-         * @return \Illuminate\Routing\PendingSingletonResourceenroll 
+         * @return \Illuminate\Routing\PendingSingletonResourceRegistration 
          * @static 
          */        public static function singleton($name, $controller, $options = [])
         {
@@ -12594,7 +12594,7 @@ namespace Illuminate\Support\Facades {
          * @param string $name
          * @param string $controller
          * @param array $options
-         * @return \Illuminate\Routing\PendingSingletonResourceenroll 
+         * @return \Illuminate\Routing\PendingSingletonResourceRegistration 
          * @static 
          */        public static function apiSingleton($name, $controller, $options = [])
         {

@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Note;
+use App\Traits\ToastNotifications;
 use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
+    use ToastNotifications;
+
     /**
      * Display a listing of the resource.
      */
@@ -16,7 +19,7 @@ class NoteController extends Controller
     {
         $notes = Note::all();
 
-        return view('note.index', ['notes' => $notes]);
+        return view('note.index', ['notes' => $notes])->with(session('toast'));
     }
 
     /**
@@ -36,14 +39,15 @@ class NoteController extends Controller
     {
         $note = new Note();
 
-        $input = $request->all();
-
-        $note->title = $input['title'];
-        $note->annotation = $input['annotation'];
-        $note->student_id = $input['student'];
+        $note->fill($request->all());
         $note->user_id = Auth::user()->id;
 
-        $note->save();
+        try {
+            $note->save();
+            $this->sendToast('success', "Anotação adicionada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível adicionar a anotação. Erro n° {$th->getCode()}");
+        }
 
         return to_route('note.index');
     }
@@ -61,10 +65,8 @@ class NoteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(String $id)
+    public function edit(Note $note)
     {
-        $note = Note::find($id);
-
         $students = Auth()->user()->students;
 
         return view('note.edit', ['note' => $note, 'students' => $students]);
@@ -73,17 +75,16 @@ class NoteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)
+    public function update(Request $request, Note $note)
     {
-        $note = Note::find($id);
-
-        $input = $request->all();
-
-        $note->title = $input['title'];
-        $note->annotation = $input['annotation'];
-        $note->student_id = $input['student'];
-
-        $note->save();
+        $note->fill($request->all());
+        
+        try {
+            $note->save();
+            $this->sendToast('success', "Anotação atualizada com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível atualizar a anotação. Erro n° {$th->getCode()}");
+        }
 
         return to_route('note.index');
     }
@@ -91,12 +92,15 @@ class NoteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $id)
+    public function destroy(Note $note)
     {
-        $note = Note::find($id);
-
-        $note->delete();
-
+        try {
+            $note->delete();
+            $this->sendToast('success', "Anotação excluída com sucesso.");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível excluir a anotação. Erro n° {$th->getCode()}");
+        }
+ 
         return to_route('note.index');
     }
 }
