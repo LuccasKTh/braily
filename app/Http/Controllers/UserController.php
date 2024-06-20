@@ -12,9 +12,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $teachers = User::where('type_id', 2)->get();
 
-        return view('user.index', ['users' => $users]);
+        return view('user.index', ['teachers' => $teachers]);
     }
 
     /**

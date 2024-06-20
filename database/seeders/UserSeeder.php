@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'name' => 'Lucas Kelim Thiel',
             'email' => 'lucas.kthiel@gmail.com',
             "skill_id" => fake()->randomElement(Skill::pluck('id')),
-            "userType_id" => 1,
+            "type_id" => 1,
             'email_verified_at' => now(),
             'password' => 12345678,
             'remember_token' => Str::random(10),
