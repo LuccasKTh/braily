@@ -34,7 +34,11 @@
                     <button id="{{ $word->id }}" class="btnFormEditWord" onclick="FormEditWord(this, {{ $word->id }})">Editar</button>
                 </th>
                 <th>
-                    <button>Excluir</button>
+                    <form action="{{ route('topicCreated.destroy', $word->id) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <input type="submit" value="Excluir">
+                    </form>
                 </th>
             </tr>
         @endforeach

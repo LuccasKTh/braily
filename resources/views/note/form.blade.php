@@ -13,11 +13,11 @@
         <x-input-error :messages="$errors->get('title')" class="mt-2" />
     </div>
     <div>
-        <x-input-label for="student" :value="__('Lista de Alunos')" />
+        <x-input-label for="student_id" :value="__('Lista de Alunos')" />
         <x-select-input 
-            id="student" 
+            id="student_id" 
             class="block mt-1 w-full" 
-            name="student"
+            name="student_id"
             required 
             autofocus
         >
@@ -34,7 +34,7 @@
             @endforeach 
 
         </x-select-input>
-        <x-input-error :messages="$errors->get('education')" class="mt-2" />
+        <x-input-error :messages="$errors->get('student_id')" class="mt-2" />
     </div>
     <div>
         <x-input-label for="annotation" :value="__('Anotação')" />
@@ -49,7 +49,7 @@
             {{ isset($note->id) ? $note->annotation : old('annotation') }}
 
         </x-textarea-input>
-        <x-input-error :messages="$errors->get('education')" class="mt-2" />
+        <x-input-error :messages="$errors->get('annotation')" class="mt-2" />
     </div>
     <div class="mt-4">
         <x-primary-button>
