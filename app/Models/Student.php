@@ -16,10 +16,10 @@ class Student extends Model
         'about',
         'education_id',
         'skill_id',
-        'user_id'
+        'teacher_id'
     ];
 
-    public function user()
+    public function teacher()
     {
         return $this->belongsTo(User::class);
     }

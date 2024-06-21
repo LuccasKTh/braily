@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +20,7 @@ class TopicFactory extends Factory
     {
         return [
             'title' => fake()->sentence(2),
-            'user_id' => fake()->randomElement(User::pluck('id'))
+            'teacher_id' => fake()->randomElement(Teacher::pluck('id'))
         ];
     }
 }

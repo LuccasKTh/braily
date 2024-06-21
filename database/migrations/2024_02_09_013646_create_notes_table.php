@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('annotation')->nullable();
 
             $table->foreignId('student_id')->references('id')->on('students');
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('teacher')->references('id')->on('teachers');
 
             $table->timestamps();
         });
