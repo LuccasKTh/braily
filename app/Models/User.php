@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'skill_id',
-        'userType_id',
+        'type_id',
         'password',
     ];
 
@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function skill()
     {
-        return $this->hasOne(Skill::class);
+        return $this->belongsTo(Skill::class);
     }
 
     public function notes()
