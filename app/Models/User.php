@@ -4,7 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -21,7 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'skill_id',
+        'user_role_id',
         'password',
     ];
 
@@ -45,23 +46,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function students(): HasMany
+    public function role(): BelongsTo 
     {
-        return $this->hasMany(Student::class);
+        return $this->belongsTo(UserRole::class, 'id');
     }
 
-    public function skill()
+    public function teacher(): HasOne 
     {
-        return $this->belongsTo(Skill::class);
+        return $this->hasOne(Teacher::class);
     }
 
-    public function notes()
+    public function admin(): HasOne 
     {
-        return $this->hasMany(Note::class);
-    }
-
-    public function topics()
-    {
-        return $this->hasMany(Topic::class);    
+        return $this->hasOne(Admin::class);
     }
 }

@@ -3,20 +3,14 @@
 namespace Database\Factories;
 
 use App\Models\Skill;
-use Hash;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teacher>
  */
 class TeacherFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
     /**
      * Define the model's default state.
      *
@@ -25,12 +19,8 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            "skill_id" => fake()->randomElement(Skill::pluck('id')),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'skill_id' => fake()->randomElement(Skill::pluck('id')),
+            'user_id' => fake()->unique()->randomElement(User::where('user_role_id', 2)->pluck('id'))
         ];
     }
 }

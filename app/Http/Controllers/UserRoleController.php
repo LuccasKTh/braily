@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teacher;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class TeacherController extends Controller
+class UserRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        $teachers = Teacher::all();
+        $userRoles = UserRole::all();
 
-        return view('teacher.index', ['teachers' => $teachers]);
+        return view('userRole.index', ['userRoles' => $userRoles]);
     }
 
     /**
@@ -37,22 +37,15 @@ class TeacherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Teacher $teacher): View
+    public function show(UserRole $userRole)
     {
-        $studens = $teacher->students;
-
-        $data = [
-            'teacher' => $teacher,
-            'students' => $studens
-        ];
-
-        return view('teacher.show', $data);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Teacher $teacher)
+    public function edit(UserRole $userRole)
     {
         //
     }
@@ -60,7 +53,7 @@ class TeacherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, UserRole $userRole)
     {
         //
     }
@@ -68,7 +61,7 @@ class TeacherController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Teacher $teacher)
+    public function destroy(UserRole $userRole)
     {
         //
     }

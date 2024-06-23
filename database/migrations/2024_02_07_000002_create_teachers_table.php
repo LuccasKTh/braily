@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Skill;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,15 +16,9 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->foreignId('skill_id')->constrained('skills');
+            $table->foreignId('user_id')->unique()->constrained('users')->onDelete('cascade');
 
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-
-            $table->foreignId('skill_id')->references('id')->on('skills');
-
-            $table->rememberToken();
             $table->timestamps();
         });
     }

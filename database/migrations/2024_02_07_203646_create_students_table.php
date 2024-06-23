@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Education;
+use App\Models\Skill;
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,9 +23,9 @@ return new class extends Migration
             $table->integer('enroll')->unique();
             $table->text('about')->nullable();
 
-            $table->foreignId('teacher_id')->references('id')->on('teachers')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('skill_id')->references('id')->on('skills');
-            $table->foreignId('education_id')->references('id')->on('education');
+            $table->foreignId('teacher_id')->constrained('teachers');
+            $table->foreignId('skill_id')->constrained('skills');
+            $table->foreignId('education_id')->constrained('education');
 
             $table->timestamps();
         });

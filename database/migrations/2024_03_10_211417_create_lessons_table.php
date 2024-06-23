@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Student;
+use App\Models\Topic;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +18,8 @@ return new class extends Migration
 
             $table->string('title', 45);
 
-            $table->foreignId('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->foreignId('topic_id')->nullable()->references('id')->on('topics');
+            $table->foreignId('student_id')->constrained('students');
+            $table->foreignId('topic_id')->nullable()->constrained('topics');
 
             $table->timestamps();
         });

@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserRole>
  */
-class AdminFactory extends Factory
+class UserRoleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +17,8 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            ['description' => 'Admin'],
+            ['description' => 'Professor']
         ];
     }
 }

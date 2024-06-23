@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,8 +20,8 @@ return new class extends Migration
             $table->text('title');
             $table->text('annotation')->nullable();
 
-            $table->foreignId('student_id')->references('id')->on('students');
-            $table->foreignId('teacher')->references('id')->on('teachers');
+            $table->foreignId('student_id')->constrained('students');
+            $table->foreignId('teacher_id')->constrained('teachers');
 
             $table->timestamps();
         });

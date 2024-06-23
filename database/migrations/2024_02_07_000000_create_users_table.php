@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Skill;
+use App\Models\UserRole;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,13 +18,12 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('email')->unique();
-
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
-            $table->foreignId('skill_id')->references('id')->on('skills');
+            $table->foreignId('user_role_id')->constrained('user_roles');
 
             $table->rememberToken();
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
     }
