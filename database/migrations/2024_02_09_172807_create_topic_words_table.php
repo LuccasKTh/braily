@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Topic;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +17,8 @@ return new class extends Migration
 
             $table->string('word');
 
-            $table->foreignId('topic_id')->references('id')->on('topics');
-            
+            $table->foreignId('topic_id')->constrained('topics');
+
             $table->timestamps();
         });
     }

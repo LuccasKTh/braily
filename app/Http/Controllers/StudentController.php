@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Education;
 use App\Models\Skill;
 use App\Models\Student;
+use App\Models\Topic;
 use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Auth::user()->students()->orderByDesc('id')->paginate();
+        Auth::user()->role->description == 'Professor'
+            ? $students = Auth::user()->teacher->students()->orderByDesc('id')->paginate()
+            : $students = Student::orderBy('id')->paginate();
 
         return view('student.index', ['students' => $students])->with(session('toast'));
     }
@@ -58,7 +61,9 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $topics = Auth::user()->topics;
+        Auth::user()->role->description == 'Professor'
+            ? $topics = Auth::user()->teacher->topics
+            : $topics = Topic::all();
 
         return view('student.show', ['student' => $student, 'lessons' => $student->lessons, 'topics' => $topics])->with(session('toast'));
     }

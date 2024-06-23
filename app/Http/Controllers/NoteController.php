@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Note;
+use App\Models\Student;
 use App\Traits\ToastNotifications;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,9 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $notes = Note::all();
+        Auth::user()->role->description == 'Professor'
+            ? $notes = Auth::user()->teacher->notes()->orderByDesc('id')->paginate()
+            : $notes = Note::orderBy('id')->paginate();
 
         return view('note.index', ['notes' => $notes])->with(session('toast'));
     }
@@ -27,7 +30,9 @@ class NoteController extends Controller
      */
     public function create()
     {
-        $students = Auth()->user()->students;
+        Auth::user()->role->description == 'Professor'
+            ? $students = Auth::user()->teacher->students()->orderByDesc('id')->paginate()
+            : $students = Student::all();
 
         return view('note.create', ['students' => $students]);
     }

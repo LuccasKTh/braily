@@ -5,9 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\Skill;
-use App\Models\UserType;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
+use App\Models\UserRole;
 use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
@@ -22,8 +20,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Lucas Kelim Thiel',
             'email' => 'lucas.kthiel@gmail.com',
-            "skill_id" => fake()->randomElement(Skill::pluck('id')),
-            "type_id" => 1,
+            'user_role_id' => fake()->randomElement(UserRole::pluck('id')),
             'email_verified_at' => now(),
             'password' => 12345678,
             'remember_token' => Str::random(10),

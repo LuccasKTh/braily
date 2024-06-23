@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\LessonController;
+use App\Http\Controllers\LessonWordController;
+use App\Http\Controllers\NoteController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TopicController;
+use App\Http\Controllers\TopicWordController;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -35,6 +41,15 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+        });
+
+        Route::macro('teacherAndAdminRoutes', function () {
+            Route::resource('/student', StudentController::class);
+            Route::resource('/note', NoteController::class);
+            Route::resource('/topic', TopicController::class);
+            Route::resource('/topicCreated', TopicWordController::class);
+            Route::resource('/lesson', LessonController::class);
+            Route::resource('/lessonCreated', LessonWordController::class);
         });
     }
 }
