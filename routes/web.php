@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    Auth::loginUsingId(1);
+    Auth::loginUsingId(2);
 
     return to_route('dashboard');
 });
@@ -43,7 +43,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // Rotas comuns para administradores e professores
     Route::resource('/student', StudentController::class);
     Route::resource('/note', NoteController::class);
     Route::resource('/topic', TopicController::class);
@@ -51,7 +50,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/lesson', LessonController::class);
     Route::resource('/lessonCreated', LessonWordController::class);
 
-    // Grupo de rotas para administradores
     Route::prefix('admin')->middleware(['role:Admin'])->group(function () {
         Route::resource('/skill', SkillController::class);
         Route::resource('/education', EducationController::class);
