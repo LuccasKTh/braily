@@ -1,12 +1,10 @@
+import { lettersOnly } from "./newMethod/lettersOnly";
+import { noSpace } from "./newMethod/noSpace";
+
 $(document).ready(function () {
-            
-    $.validator.addMethod('lettersOnly', function(value, element) {
-        return this.optional(element) || /^[a-z ]+$/i.test(value);
-    });
-    
-    $.validator.addMethod('noSpace', function (value, element) {
-        return !(value == '' || value.indexOf(' ') !== -1);
-    });
+
+    lettersOnly();
+    noSpace();
     
     var form = $('#formWord');
 
@@ -48,24 +46,3 @@ $(document).ready(function () {
     }
 
 });
-
-function formValidation(form) {
-    $(form).validate({
-        rules: {
-            word: {
-                required: true,
-                lettersOnly: true,
-                noSpace: true,
-                maxlength: 10
-            }
-        },
-        messages: {
-            word: {
-                required: 'Adicione uma palavra',
-                lettersOnly: 'Não pode conter números',
-                noSpace: 'Não pode conter espaços',
-                maxlength: 'Não pode conter mais de 10 caracteres'
-            }
-        }
-    });
-}

@@ -11,7 +11,7 @@ class Topic extends Model
 
     protected $fillable = [
         'title',
-        'user_id'
+        'teacher_id'
     ];
 
     public function words()
@@ -19,9 +19,9 @@ class Topic extends Model
         return $this->hasMany(TopicWord::class);
     }
 
-    public function user()
+    public function teacher()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Teacher::class);
     }
 
     public function lessons()
