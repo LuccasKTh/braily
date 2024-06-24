@@ -20,12 +20,12 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Lucas Kelim Thiel',
             'email' => 'lucas.kthiel@gmail.com',
-            'user_role_id' => fake()->randomElement(UserRole::pluck('id')),
+            'user_role_id' => 1,
             'email_verified_at' => now(),
             'password' => 12345678,
             'remember_token' => Str::random(10),
         ]);
         
-        User::factory(11)->create();
+        User::factory(10)->create();
     }
 }

@@ -1,13 +1,9 @@
-import { lettersOnly } from "./newMethod/lettersOnly";
-import { noSpace } from "./newMethod/noSpace";
+import { formValidation } from "./formWord/formWordValidation";
 
 $(document).ready(function () {
 
-    lettersOnly();
-    noSpace();
-    
     var form = $('#formWord');
-
+    
     formValidation(form);
 
     var forms = $('.formEditWord');

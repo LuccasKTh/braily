@@ -1,4 +1,11 @@
+import { lettersOnly } from "../newMethod/lettersOnly";
+import { noSpace } from "../newMethod/noSpace";
+
 export function formValidation(form) {
+
+    lettersOnly();
+    noSpace();
+
     $(form).validate({
         rules: {
             word: {

@@ -43,8 +43,8 @@
         </div>
     </div>
 
-    <script type="module">
-        
-    </script>
+    @push('validation')
+        @vite('resources/js/validation/topic.js')
+    @endpush
 
 </x-app-layout>
