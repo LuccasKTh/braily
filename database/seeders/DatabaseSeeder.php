@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             TopicSeeder::class,
             TopicWordSeeder::class,
             StudentSeeder::class,
+            NoteSeeder::class,
             LessonSeeder::class,
             LessonWordSeeder::class
         ]);

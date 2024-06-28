@@ -16,7 +16,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Auth::user()->teacher->topics()->orderBy('id')->paginate();
+        Auth::user()->role->description == "Professor"
+            ? $topics = Auth::user()->teacher->topics()->orderBy('id')->paginate()
+            : $topics = Topic::orderBy('id')->paginate();
 
         return view('topic.index', ['topics' => $topics]);
     }

@@ -45,6 +45,9 @@
                             </h2>
                         @endforelse
                     </ul>
+                    <div>
+                        {{ $topics->links() }}
+                    </div>
                 </div>
             </div>
         </div>
