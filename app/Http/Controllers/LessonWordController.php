@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lesson;
 use App\Models\LessonWord;
+use App\Models\TopicWord;
 use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
 
@@ -56,6 +57,10 @@ class LessonWordController extends Controller
         $lesson = Lesson::find($id);
 
         $words = LessonWord::where('lesson_id', $id)->orderByDesc('id')->paginate(15);
+
+        if ($lesson->topic_id) {
+            $words = TopicWord::where('topic_id', $lesson->topic_id)->orderBy('id')->paginate();
+        }
 
         $words->each(function ($word, $key) use ($words) {
             $word->reverseKey = $words->total() - (($words->currentPage() - 1) * $words->perPage()) - $key;
