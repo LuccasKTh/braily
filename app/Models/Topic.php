@@ -28,4 +28,11 @@ class Topic extends Model
     {
         return $this->hasMany(Lesson::class); 
     }
+
+    public function sortWords()
+    {
+        $words = $this->words()->orderBy('id')->paginate(1);
+
+        return $words;
+    }
 }

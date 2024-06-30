@@ -24,7 +24,6 @@ $(document).ready(function () {
     var forms = $('.formEditWord');
     var inputs = forms.find('[id="word"]');
     for (let x = 0; x < inputs.length; x++) {
-        console.log(inputs[x]);
         $(inputs[x]).attr('size', $(inputs[x]).val().length);
     }
 

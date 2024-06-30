@@ -55,18 +55,32 @@ class LessonWordController extends Controller
     public function show(string $id)
     {
         $lesson = Lesson::find($id);
-
-        $words = LessonWord::where('lesson_id', $id)->orderByDesc('id')->paginate(15);
+    
+        $data = [
+            'lesson' => $lesson
+        ];
 
         if ($lesson->topic_id) {
-            $words = TopicWord::where('topic_id', $lesson->topic_id)->orderBy('id')->paginate();
+            $words = $lesson->topic->sortWords();
+
+            $previousWords = $lesson->topic->words()->where('id', '<', $words->first()->id)->orderBy('id')->get();
+            $nextWords = $lesson->topic->words()->where('id', '>', $words->first()->id)->orderBy('id')->get();
+
+            $data += [
+                'words' => $words,
+                'currentWord' => $words->first(), 
+                'previousWords' => $previousWords->reverse(),
+                'nextWords' => $nextWords
+            ];
+        } else {
+            $words = $lesson->sortWords();
+            
+            $data += [
+                'words' => $words
+            ];
         }
-
-        $words->each(function ($word, $key) use ($words) {
-            $word->reverseKey = $words->total() - (($words->currentPage() - 1) * $words->perPage()) - $key;
-        });
-
-        return view('student.lesson.make', ['lesson' => $lesson, 'words' => $words])->with(session('toast'));
+    
+        return view('student.lesson.make', $data)->with(session('toast'));
     }
 
     /**
