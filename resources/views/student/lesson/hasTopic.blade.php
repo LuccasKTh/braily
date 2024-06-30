@@ -35,5 +35,3 @@
     </div>
     
 </div>
-
-@vite('resources/js/playVoice.js')

@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    @push('validation')
+    @push('script')
         @vite('resources/js/validation/topic.js')
     @endpush
 

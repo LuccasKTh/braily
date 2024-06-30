@@ -40,8 +40,8 @@
         </div>
     </div>
 
-    @push('validation')
-        @vite('resources/js/validation/lesson.js')
+    @push('script')
+        @vite(['resources/js/validation/lesson.js', 'resources/js/playVoice.js'])
     @endpush
 
 </x-app-layout>

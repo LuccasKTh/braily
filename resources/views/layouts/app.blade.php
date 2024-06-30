@@ -43,7 +43,6 @@
 
     </body>
 
-    @stack('topic')
-    @stack('validation')
+    @stack('script')
     
 </html>
