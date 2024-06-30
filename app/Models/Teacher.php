@@ -36,7 +36,7 @@ class Teacher extends Model
         return $this->hasMany(Note::class);
     }
 
-    public function topics():HasMany
+    public function topics(): HasMany
     {
         return $this->hasMany(Topic::class);    
     }

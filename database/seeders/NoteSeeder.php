@@ -2,16 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Topic;
+use App\Models\Note;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TopicSeeder extends Seeder
+class NoteSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Topic::factory(10)->create();
+        Note::factory(50)->create();
     }
 }

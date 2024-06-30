@@ -29,4 +29,15 @@ class Lesson extends Model
     {
         return $this->belongsTo(Topic::class);    
     }
+
+    public function sortWords()
+    {
+        $words = $this->words()->orderByDesc('id')->paginate();
+
+        $words->each(function ($word, $key) use ($words) {
+            $word->reverseKey = $words->total() - (($words->currentPage() - 1) * $words->perPage()) - $key;
+        });
+
+        return $words;
+    }
 }

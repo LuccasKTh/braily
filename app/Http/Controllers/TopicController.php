@@ -16,7 +16,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Topic::all();
+        Auth::user()->role->description == "Professor"
+            ? $topics = Auth::user()->teacher->topics()->orderBy('id')->paginate()
+            : $topics = Topic::orderBy('id')->paginate();
 
         return view('topic.index', ['topics' => $topics]);
     }
@@ -37,7 +39,9 @@ class TopicController extends Controller
         $topic = new Topic();
 
         $topic->fill($request->all());
-        $topic->user_id = Auth::user()->id;
+        if (Auth::user()->role->description == 'Professor') {
+            $topic->teacher_id = Auth::user()->teacher->id;
+        }
 
         try {
             $topic->save();
@@ -55,7 +59,14 @@ class TopicController extends Controller
      */
     public function show(Topic $topic)
     {
-        return view('topic.show', ['topic' => $topic]);
+        $topicWords = $topic->words;
+
+        $data = [
+            'topic' => $topic,
+            'topicWords' => $topicWords
+        ];
+
+        return view('topic.show', $data);
     }
 
     /**
@@ -92,9 +103,12 @@ class TopicController extends Controller
             $topic->delete();
             $this->sendToast('success', "Tópico excluído com sucesso.");
         } catch (\Throwable $th) {
+            dd($th);
             $th->getCode() == 1451
-            ? $this->sendToast('success', "Tópico possui vínculos. Não foi possível excluí-lo.")
-            : $this->sendToast('success', "Algo de inesperado aconteceu. Erro n° {$th->getCode()}");
+                ? $this->sendToast('success', "Tópico possui vínculos. Não foi possível excluí-lo.")
+                : $this->sendToast('success', "Algo de inesperado aconteceu. Erro n° {$th->getCode()}");
         }
+    
+        return to_route('topic.index');
     }
 }

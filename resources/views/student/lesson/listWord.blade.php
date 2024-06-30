@@ -27,6 +27,7 @@
                                 disabled
                             />
                             <label id="word-error" class="error text-yellow-500 text-xs font-medium px-2 py-0.5 rounded dark:bg-gray-700/70 dark:text-yellow-500 border border-yellow-500" for="word" style="display: none"></label>
+                            <button type="button" onclick="playSpeak('{{ $word->word }}')">Play</button>
                         </div>
                     </form>
                 </th>

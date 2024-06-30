@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lesson;
 use App\Models\LessonWord;
+use App\Models\TopicWord;
 use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
 
@@ -54,14 +55,32 @@ class LessonWordController extends Controller
     public function show(string $id)
     {
         $lesson = Lesson::find($id);
+    
+        $data = [
+            'lesson' => $lesson
+        ];
 
-        $words = LessonWord::where('lesson_id', $id)->orderByDesc('id')->paginate(15);
+        if ($lesson->topic_id) {
+            $words = $lesson->topic->sortWords();
 
-        $words->each(function ($word, $key) use ($words) {
-            $word->reverseKey = $words->total() - (($words->currentPage() - 1) * $words->perPage()) - $key;
-        });
+            $previousWords = $lesson->topic->words()->where('id', '<', $words->first()->id)->orderBy('id')->get();
+            $nextWords = $lesson->topic->words()->where('id', '>', $words->first()->id)->orderBy('id')->get();
 
-        return view('student.lesson.make', ['lesson' => $lesson, 'words' => $words])->with(session('toast'));
+            $data += [
+                'words' => $words,
+                'currentWord' => $words->first(), 
+                'previousWords' => $previousWords->reverse(),
+                'nextWords' => $nextWords
+            ];
+        } else {
+            $words = $lesson->sortWords();
+            
+            $data += [
+                'words' => $words
+            ];
+        }
+    
+        return view('student.lesson.make', $data)->with(session('toast'));
     }
 
     /**
