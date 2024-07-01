@@ -22,6 +22,8 @@
                 />
     
             </div>
+
+            <input type="checkbox" name="check-public" id="check-public">
     
             <div class="w-32 flex items-center">
     

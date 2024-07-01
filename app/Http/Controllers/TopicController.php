@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PublicTopic;
 use App\Models\Topic;
 use App\Traits\ToastNotifications;
 use Auth;
@@ -38,7 +39,9 @@ class TopicController extends Controller
     {
         $topic = new Topic();
 
-        $topic->fill($request->all());
+        $input = $request->all();
+
+        $topic->fill($input);
         if (Auth::user()->role->description == 'Professor') {
             $topic->teacher_id = Auth::user()->teacher->id;
         }
@@ -49,6 +52,20 @@ class TopicController extends Controller
         } catch (\Throwable $th) {
             $this->sendToast('warning', "Não foi possível adicionar o tópico. Erro n° {$th->getCode()}");
             return to_route('topic.create');
+        }
+
+        if (isset($input['check-public'])) 
+        {
+            $publicTopic = new PublicTopic();
+
+            $publicTopic->topic_id = $topic->id;
+
+            try {
+                $publicTopic->save();
+                $this->sendToast('success', "Tópico adicionado e publicado com sucesso.");
+            } catch (\Throwable $th) {
+                $this->sendToast('success', "Tópico adicionado com sucesso, mas não foi possível publicar este tópico");
+            }
         }
         
         return to_route('topicCreated.show', $topic->id);
