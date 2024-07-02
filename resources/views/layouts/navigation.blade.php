@@ -28,6 +28,10 @@
                     <x-nav-link :href="route('topic.index')" :active="request()->routeIs('topic.index')">
                         {{ __('Tópicos') }}
                     </x-nav-link>
+                    
+                    <x-nav-link :href="route('community.index')" :active="request()->routeIs('community.index')">
+                        {{ __('Comunidade') }}
+                    </x-nav-link>
 
                     @if (auth()->user()->role->description == 'Admin')
 

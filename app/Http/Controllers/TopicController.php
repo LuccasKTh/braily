@@ -6,7 +6,10 @@ use App\Models\PublicTopic;
 use App\Models\Topic;
 use App\Traits\ToastNotifications;
 use Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Redirect;
+use Route;
 
 class TopicController extends Controller
 {

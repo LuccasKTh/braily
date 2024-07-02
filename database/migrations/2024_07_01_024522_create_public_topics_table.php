@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('public_topics', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('topic_id')->references('id')->on('topics');
+            $table->foreignId('topic_id')->unique()->constrained('topics');
 
             $table->timestamps();
         });

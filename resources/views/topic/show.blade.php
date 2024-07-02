@@ -8,6 +8,15 @@
                 </h2>
             </div>
             <div class="flex flex-row gap-x-6">
+                <form action="{{ $topic->publicTopic ? route('publicTopic.destroy', $topic->publicTopic->id) : route('publicTopic.store') }}" method="post">
+                    @csrf
+                    @if ($topic->publicTopic)
+                        @method('delete')
+                    @endif
+                    <input type="hidden" name="topic_id" id="topic_id" value="{{ $topic->id }}">
+                    <x-secondary-button type="submit">{{ $topic->publicTopic ? 'Despublicar' : 'Publicar' }} </x-secondary-button>
+                </form>
+                
                 <x-danger-button
                     x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'confirm-topic-deletion')"

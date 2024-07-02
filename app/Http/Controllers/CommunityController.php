@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Community;
+use App\Models\PublicTopic;
 use Illuminate\Http\Request;
 
 class CommunityController extends Controller
@@ -12,7 +13,15 @@ class CommunityController extends Controller
      */
     public function index()
     {
-        //
+        $publicTopics = PublicTopic::all();
+
+        $names = [];
+        foreach ($publicTopics as $publicTopic) {
+            $name = $publicTopic->topic->teacher->user->name;
+            $names[$name][] = $publicTopic;
+        }
+
+        return view('community.index', ['names' => $names]);
     }
 
     /**

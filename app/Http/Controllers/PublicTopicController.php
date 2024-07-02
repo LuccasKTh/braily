@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\PublicTopic;
+use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
 
 class PublicTopicController extends Controller
 {
+    use ToastNotifications;
+
     /**
      * Display a listing of the resource.
      */
@@ -28,7 +31,20 @@ class PublicTopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $topic_id = $request->input('topic_id');
+
+        $publicTopic = new PublicTopic();
+
+        $publicTopic->topic_id = $topic_id;
+
+        try {
+            $publicTopic->save();
+            $this->sendToast('success', "Tópico publicado com sucesso");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível public este tópico. Erro n° {$th->getCode()}");
+        }
+
+        return to_route('topic.show', $topic_id);
     }
 
     /**
@@ -60,6 +76,13 @@ class PublicTopicController extends Controller
      */
     public function destroy(PublicTopic $publicTopic)
     {
-        //
+        try {
+            $publicTopic->delete();
+            $this->sendToast('success', "Tópic despublicado com sucesso");
+        } catch (\Throwable $th) {
+            $this->sendToast('warning', "Não foi possível despublicar o tópico. Erro n° {$th->getCode()}.");
+        }
+
+        return to_route('topic.show', $publicTopic->topic->id);
     }
 }

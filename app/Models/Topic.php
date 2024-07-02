@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Topic extends Model
 {
@@ -15,24 +17,24 @@ class Topic extends Model
         'teacher_id'
     ];
 
-    public function words()
+    public function words(): HasMany
     {
         return $this->hasMany(TopicWord::class);
     }
 
-    public function teacher()
+    public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
     }
 
-    public function lessons()
+    public function lessons(): HasMany
     {
         return $this->hasMany(Lesson::class); 
     }
 
-    public function publicTopics(): HasMany 
+    public function publicTopic(): HasOne 
     {
-        return $this->hasMany(PublicTopic::class);    
+        return $this->hasOne(PublicTopic::class);
     }
 
     public function sortWords()
