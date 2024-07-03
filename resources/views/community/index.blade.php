@@ -7,13 +7,6 @@
                     {{ __('Lista de Tópicos Públicos') }}
                 </h2>
             </div>
-            <div>
-                <a href="{{ route('community.create') }}">
-                    <x-primary-button>
-                        {{ __('Adicionar Aluno') }}
-                    </x-primary-button>
-                </a>
-            </div>
         </div>
     </x-slot>
 
@@ -21,31 +14,22 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <ul role="list" class="divide-y divide-gray-100">
-                        @foreach ($names as $name => $publicTopics)
-                            <h1>{{ $name }}</h1>
-                            @foreach ($publicTopics as $publicTopic)
-                                <li class="flex justify-between items-center gap-x-6 py-5">
-                                    <div class="flex min-w-0 gap-x-4">
-                                        <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                                        <div class="min-w-0 flex-auto">
-                                            <p class="text-sm font-semibold leading-6 text-gray-100">{{ $publicTopic->topic->title }}</p>
-                                            <p class="mt-1 truncate text-xs leading-5 text-gray-500">
-                                                {{ $publicTopic->topic_id }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <a href="{{ route('community.show', $publicTopic->id) }}">
-                                            <x-secondary-button>
-                                                {{ __('Ver Aluno') }}
-                                            </x-secondary-button>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        @endforeach
-                    </ul>
+                    @foreach ($names as $name => $publicTopics)
+                        <div class="px-2 m-2">
+                            <details class="bg-slate-900/50 ring-1 ring-white/10 shadow-lg p-6 rounded-lg" close>
+                                <summary class="text-sm leading-6 text-slate-900 dark:text-white font-semibold select-none">
+                                    {{ $name }}
+                                </summary>
+                                <ul class="list-disc">
+                                    @foreach ($publicTopics as $publicTopic)
+                                        <li class="marker:text-indigo-400 mt-3 ms-8 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                                            <a href="{{ route('publicTopic.show', $publicTopic->id) }}" class="hover:underline">{{ $publicTopic->topic->title }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </details>
+                        </div>
+                    @endforeach
                     {{-- <div>
                         {{ $students->links() }}
                     </div> --}}

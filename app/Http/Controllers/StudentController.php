@@ -61,11 +61,20 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        Auth::user()->role->description == 'Professor'
-            ? $topics = Auth::user()->teacher->topics
-            : $topics = Topic::all();
+        $topics = Topic::all();
 
-        return view('student.show', ['student' => $student, 'lessons' => $student->lessons, 'topics' => $topics])->with(session('toast'));
+        if (Auth::user()->role->description == 'Professor') {
+
+            if (!Auth::user()->teacher->is($student->teacher)) {
+                $this->sendToast('success', "Você não pode acessar essa página");
+                return to_route('student.index');
+            }
+
+            $topics = Auth::user()->teacher->topics;
+
+        }
+
+        return view('student.show', ['student' => $student, 'lessons' => $student->lessons, 'topics' => $topics]);
     }
 
     /**

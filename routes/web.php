@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    Auth::loginUsingId(4);
+    Auth::loginUsingId(2);
 
     return to_route('dashboard');
 });
@@ -55,11 +55,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/community', CommunityController::class);
 
     Route::prefix('admin')->middleware(['role:Admin'])->group(function () {
+
         Route::resource('/skill', SkillController::class);
         Route::resource('/education', EducationController::class);
         Route::resource('/userRole', UserRoleController::class);
         Route::resource('/teacher', TeacherController::class);
+
     });
+    
 });
 
 require __DIR__.'/auth.php';

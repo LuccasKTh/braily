@@ -52,7 +52,14 @@ class PublicTopicController extends Controller
      */
     public function show(PublicTopic $publicTopic)
     {
-        //
+        $topicWords = $publicTopic->topic->words;
+
+        $data = [
+            'topic' => $publicTopic->topic,
+            'topicWords' => $topicWords
+        ];
+
+        return view('topic.show', $data);
     }
 
     /**
