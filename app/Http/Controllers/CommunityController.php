@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Community;
 use App\Models\PublicTopic;
+use Auth;
 use Illuminate\Http\Request;
 
 class CommunityController extends Controller
@@ -13,15 +14,7 @@ class CommunityController extends Controller
      */
     public function index()
     {
-        $publicTopics = PublicTopic::all();
-
-        $names = [];
-        foreach ($publicTopics as $publicTopic) {
-            $name = $publicTopic->topic->teacher->user->name;
-            $names[$name][] = $publicTopic;
-        }
-
-        return view('community.index', ['names' => $names]);
+        //
     }
 
     /**
@@ -37,7 +30,16 @@ class CommunityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $community = new Community();
+
+        $input = $request->all();
+
+        $community->public_topic_id = $input['publicTopic_id'];
+        $community->teacher_id = Auth::user()->teacher->id;
+
+        $community->save();
+
+        return to_route('publicTopic.show', $input['publicTopic_id']);
     }
 
     /**

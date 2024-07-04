@@ -12,11 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('communities', function (Blueprint $table) {
+            $table->id();
 
-            $table->unsignedBigInteger('public_topic_id');
-            $table->foreign('public_topic_id')->references('id')->on('public_topics');
-            $table->unsignedBigInteger('teacher_id');
-            $table->foreign('teacher_id')->references('id')->on('teachers');
+            $table->foreignId('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+            $table->foreignId('public_topic_id')->references('id')->on('public_topics')->onDelete('cascade');
 
             $table->timestamps();
         });

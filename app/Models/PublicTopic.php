@@ -22,6 +22,6 @@ class PublicTopic extends Model
 
     public function teachers(): BelongsToMany
     {
-        return $this->belongsToMany(Teacher::class);    
+        return $this->belongsToMany(Teacher::class, 'communities', 'public_topic_id', 'teacher_id');
     }
 }

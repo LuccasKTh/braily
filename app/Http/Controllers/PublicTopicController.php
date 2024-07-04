@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PublicTopic;
 use App\Traits\ToastNotifications;
+use Auth;
 use Illuminate\Http\Request;
 
 class PublicTopicController extends Controller
@@ -15,7 +16,17 @@ class PublicTopicController extends Controller
      */
     public function index()
     {
-        //
+        $publicTopics = PublicTopic::all();
+
+        $teachers = [];
+        foreach ($publicTopics as $publicTopic) {
+            $name = $publicTopic->topic->teacher->user->name;
+            if (Auth::user() != $publicTopic->topic->teacher->user) {
+                $teachers[$name][] = $publicTopic;
+            }
+        }
+
+        return view('community.index', ['teachers' => $teachers]);
     }
 
     /**

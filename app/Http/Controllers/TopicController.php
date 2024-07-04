@@ -6,10 +6,7 @@ use App\Models\PublicTopic;
 use App\Models\Topic;
 use App\Traits\ToastNotifications;
 use Auth;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Redirect;
-use Route;
 
 class TopicController extends Controller
 {
@@ -130,5 +127,17 @@ class TopicController extends Controller
         }
     
         return to_route('topic.index');
+    }
+
+    public function othersTopics()
+    {
+        $othersTopics = Auth::user()->teacher->publicTopics;
+
+        $topics = [];
+        foreach ($othersTopics as $otherTopic) {
+            $topics[] = $otherTopic->topic;
+        }
+
+        return view('topic.index', ['topics' => $topics]);
     }
 }

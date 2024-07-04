@@ -21,6 +21,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    @if (request()->routeIs('*topic*'))
+                        <x-primary-button>Meus Tópicos</x-primary-button>
+                        <a href="{{ route('othersTopics') }}">
+                            <x-secondary-button>Tópicos De Terceiros</x-secondary-button>
+                        </a>
+                    @else
+                        <a href="{{ route('topic.index') }}">
+                            <x-secondary-button>Meus Tópicos</x-secondary-button>
+                        </a>
+                        <x-primary-button>Tópicos De Terceiros</x-primary-button>
+                    @endif
                     <ul role="list" class="divide-y divide-gray-100">
                         @forelse ($topics as $topic)
                             <li class="flex justify-between items-center gap-x-6 py-5">
@@ -44,9 +55,9 @@
                             </h2>
                         @endforelse
                     </ul>
-                    <div>
+                    {{-- <div>
                         {{ $topics->links() }}
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

@@ -7,8 +7,15 @@
                     {{ $topic->title }}
                 </h2>
             </div>
-            @if (request()->routeIs('*topic*'))
-                <div class="flex flex-row gap-x-6">
+            <div class="flex flex-row gap-x-6">
+                @if (request()->routeIs('*publicTopic*'))
+                    <form action="{{ route('community.store') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="publicTopic_id" id="publicTopic_id" value="{{ $topic->publicTopic->id }}">
+                        <x-secondary-button type="submit">{{ 'Adicionar' }} </x-secondary-button>
+                    </form>
+                @endif
+                @if (request()->routeIs('*topic*'))
                     <form action="{{ $topic->publicTopic ? route('publicTopic.destroy', $topic->publicTopic->id) : route('publicTopic.store') }}" method="post">
                         @csrf
                         @if ($topic->publicTopic)
@@ -47,8 +54,8 @@
                             </div>
                         </form>
                     </x-modal>
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
         <div class="">
             <div class="grid grid-cols-2 gap-x-4 text-gray-400">

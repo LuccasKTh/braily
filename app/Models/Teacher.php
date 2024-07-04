@@ -44,6 +44,18 @@ class Teacher extends Model
 
     public function publicTopics(): BelongsToMany 
     {
-        return $this->belongsToMany(PublicTopic::class);    
+        return $this->belongsToMany(PublicTopic::class, 'communities', 'teacher_id', 'public_topic_id');
+    }
+
+    public function publicTopicsAsTopic()
+    {
+        $publicTopics = $this->publicTopics;
+
+        $topics = [];
+        foreach ($publicTopics as $publicTopic) {
+            $topics[] = $publicTopic->topic;
+        }
+
+        return $topics;
     }
 }
