@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    Auth::loginUsingId(2);
+    Auth::loginUsingId(3);
 
     return to_route('dashboard');
 });
@@ -45,14 +45,18 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::resource('/student', StudentController::class);
-    Route::resource('/note', NoteController::class);
-    Route::resource('/topic', TopicController::class);
-    Route::resource('/publicTopic', PublicTopicController::class);
-    Route::resource('/topicCreated', TopicWordController::class);
-    Route::resource('/lesson', LessonController::class);
-    Route::resource('/lessonCreated', LessonWordController::class);
-    Route::resource('/community', CommunityController::class);
+    Route::middleware('fromTeacher')->group(function () {
+        
+        Route::resource('/student', StudentController::class);
+        Route::resource('/note', NoteController::class);
+        Route::resource('/topic', TopicController::class);
+        Route::resource('/publicTopic', PublicTopicController::class);
+        Route::resource('/topicCreated', TopicWordController::class);
+        Route::resource('/lesson', LessonController::class);
+        Route::resource('/lessonCreated', LessonWordController::class);
+        Route::resource('/community', CommunityController::class);
+
+    });
 
     Route::prefix('admin')->middleware(['role:Admin'])->group(function () {
 
