@@ -14,7 +14,21 @@ class CommunityController extends Controller
      */
     public function index()
     {
-        //
+        $publicTopics = PublicTopic::all();
+
+        $teachers = collect();
+
+        foreach ($publicTopics as $publicTopic) {
+            $teacher = $publicTopic->topic->teacher;
+            if (Auth::user() != $teacher->user) {
+                $teachers->push($teacher);
+            }
+        }
+
+        $uniqueTeachers = $teachers->unique('id');
+        $uniqueTeachers = $uniqueTeachers->values();
+
+        return view('community.index', ['teachers' => $uniqueTeachers]);
     }
 
     /**

@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    Auth::loginUsingId(3);
+    Auth::loginUsingId(4);
 
     return to_route('dashboard');
 });
@@ -45,7 +45,12 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::get('othersTopics', [TopicController::class, 'othersTopics'])->name('othersTopics');
+    Route::prefix('community')->group(function () {
+        Route::prefix('teacher')->group(function () {
+            Route::get('/{id}', [PublicTopicController::class, 'publicTopicsFromTeacher'])->name('community.teacher');
+            Route::get('/publicTopic/{id}', [PublicTopicController::class, 'publicTopicFromTeacher'])->name('community.teacher.publicTopic');
+        });
+    });
 
     Route::middleware('fromTeacher')->group(function () {
 

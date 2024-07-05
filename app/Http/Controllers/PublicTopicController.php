@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\PublicTopic;
+use App\Models\Teacher;
 use App\Traits\ToastNotifications;
-use Auth;
 use Illuminate\Http\Request;
 
 class PublicTopicController extends Controller
@@ -16,17 +16,7 @@ class PublicTopicController extends Controller
      */
     public function index()
     {
-        $publicTopics = PublicTopic::all();
-
-        $teachers = [];
-        foreach ($publicTopics as $publicTopic) {
-            $name = $publicTopic->topic->teacher->user->name;
-            if (Auth::user() != $publicTopic->topic->teacher->user) {
-                $teachers[$name][] = $publicTopic;
-            }
-        }
-
-        return view('community.index', ['teachers' => $teachers]);
+        //
     }
 
     /**
@@ -61,16 +51,9 @@ class PublicTopicController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PublicTopic $publicTopic)
+    public function show()
     {
-        $topicWords = $publicTopic->topic->words;
-
-        $data = [
-            'topic' => $publicTopic->topic,
-            'topicWords' => $topicWords
-        ];
-
-        return view('topic.show', $data);
+        //
     }
 
     /**
@@ -102,5 +85,30 @@ class PublicTopicController extends Controller
         }
 
         return to_route('topic.show', $publicTopic->topic->id);
+    }
+
+    public function publicTopicsFromTeacher(String $teacher_id)
+    {
+        $teacher = Teacher::find($teacher_id);
+
+        $publicTopicsFromTeacher = [];
+
+        foreach ($teacher->topics as $topic) {
+            $publicTopicsFromTeacher[] = $topic->publicTopic;
+        }
+
+        $data = [
+            'teacher' => $teacher,
+            'publicTopicsFromTeacher' => $publicTopicsFromTeacher
+        ];
+
+        return view('community.teacher.index', $data);
+    }
+
+    public function publicTopicFromTeacher(String $publicTopic_id)
+    {
+        $publicTopic = PublicTopic::find($publicTopic_id);
+
+        return view('community.teacher.show', ['topic' => $publicTopic->topic]);
     }
 }

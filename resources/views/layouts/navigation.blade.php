@@ -29,8 +29,8 @@
                         {{ __('Tópicos') }}
                     </x-nav-link>
                     
-                    <x-nav-link :href="route('publicTopic.index')" :active="request()->routeIs('*publicTopic*')">
-                        {{ __('Tópicos Públicos') }}
+                    <x-nav-link :href="route('community.index')" :active="request()->routeIs('*community*')">
+                        {{ __('Comunidade') }}
                     </x-nav-link>
 
                     @if (auth()->user()->role->description == 'Admin')
