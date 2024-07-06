@@ -43,6 +43,11 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        'fromTeacher' => [
+            \App\Http\Middleware\StudentFromTeacher::class,
+            \App\Http\Middleware\NoteFromTeacher::class,
+        ]
     ];
 
     /**
@@ -67,6 +72,6 @@ class Kernel extends HttpKernel
     ];
 
     protected $routeMiddleware = [
-        'role' => \App\Http\Middleware\CheckRole::class
+        'role' => \App\Http\Middleware\CheckRole::class,
     ];
 }

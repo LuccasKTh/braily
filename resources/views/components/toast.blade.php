@@ -34,7 +34,7 @@
         x-transition.duration.700ms
         x-init="setTimeout(() => show = false, 8000)"
         id="toast-simple" 
-        class="flex items-center shadow z-50 w-full max-w-md p-4 space-x-4 rtl:space-x-reverse divide-x rtl:divide-x-reverse rounded-lg divide-gray-700 space-x {{ $typeClass }}"
+        class="flex items-center shadow z-50 w-full max-w-lg p-4 space-x-4 rtl:space-x-reverse divide-x rtl:divide-x-reverse rounded-lg divide-gray-700 space-x {{ $typeClass }}"
         role="alert"
     >
         {!! $svg !!}

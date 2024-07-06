@@ -22,7 +22,7 @@
                 />
     
             </div>
-    
+
             <div class="w-32 flex items-center">
     
                 <x-primary-button id="btnFormTitle" class="w-full justify-center">

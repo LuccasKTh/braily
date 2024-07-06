@@ -8,35 +8,53 @@
                 </h2>
             </div>
             <div class="flex flex-row gap-x-6">
-                <x-danger-button
-                    x-data=""
-                    x-on:click.prevent="$dispatch('open-modal', 'confirm-topic-deletion')"
-                > {{ __('Excluir') }} </x-danger-button>
-
-                <x-modal name="confirm-topic-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-                    <form action="{{ route('topic.destroy', $topic->id) }}" method="post" class="p-6">
+                @if (request()->routeIs('*publicTopic*'))
+                    <form action="{{ route('community.store') }}" method="post">
                         @csrf
-                        @method('delete')
-
-                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                            {{ __('Você tem certeza que deseja exclur esta aula?') }}
-                        </h2>
-            
-                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                            {{ __('Uma vez excluida, todos os dados serão permanentemente deletados.') }}
-                        </p>
-            
-                        <div class="mt-6 flex justify-end">
-                            <x-secondary-button x-on:click="$dispatch('close')">
-                                {{ __('Cancelar') }}
-                            </x-secondary-button>
-            
-                            <x-danger-button class="ms-3">
-                                {{ __('Excluir Aula') }}
-                            </x-danger-button>
-                        </div>
+                        <input type="hidden" name="publicTopic_id" id="publicTopic_id" value="{{ $topic->publicTopic->id }}">
+                        <x-secondary-button type="submit">{{ 'Adicionar' }} </x-secondary-button>
                     </form>
-                </x-modal>
+                @endif
+                @if (request()->routeIs('*topic*'))
+                    <form action="{{ $topic->publicTopic ? route('publicTopic.destroy', $topic->publicTopic->id) : route('publicTopic.store') }}" method="post">
+                        @csrf
+                        @if ($topic->publicTopic)
+                            @method('delete')
+                        @endif
+                        <input type="hidden" name="topic_id" id="topic_id" value="{{ $topic->id }}">
+                        <x-secondary-button type="submit">{{ $topic->publicTopic ? 'Despublicar' : 'Publicar' }} </x-secondary-button>
+                    </form>
+                    
+                    <x-danger-button
+                        x-data=""
+                        x-on:click.prevent="$dispatch('open-modal', 'confirm-topic-deletion')"
+                    > {{ __('Excluir') }} </x-danger-button>
+
+                    <x-modal name="confirm-topic-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                        <form action="{{ route('topic.destroy', $topic->id) }}" method="post" class="p-6">
+                            @csrf
+                            @method('delete')
+
+                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                {{ __('Você tem certeza que deseja exclur esta aula?') }}
+                            </h2>
+                
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                {{ __('Uma vez excluida, todos os dados serão permanentemente deletados.') }}
+                            </p>
+                
+                            <div class="mt-6 flex justify-end">
+                                <x-secondary-button x-on:click="$dispatch('close')">
+                                    {{ __('Cancelar') }}
+                                </x-secondary-button>
+                
+                                <x-danger-button class="ms-3">
+                                    {{ __('Excluir Aula') }}
+                                </x-danger-button>
+                            </div>
+                        </form>
+                    </x-modal>
+                @endif
             </div>
         </div>
         <div class="">

@@ -38,9 +38,16 @@ class LessonController extends Controller
         $student_id = $input['student_id'];
 
         $lesson->fill($input);
+
+        $lesson->topic_id = null;
         
-        if (!isset($input['select-topic'])) {
-            $lesson->topic_id = null;
+        if (isset($input['hasTopic'])) 
+        {
+           $topic_id = $input['status'] == 'topic_id' 
+                ? $input['topic_id']
+                : $input['publicTopic_id'];
+
+            $lesson->topic_id = $topic_id;
         }
 
         try {

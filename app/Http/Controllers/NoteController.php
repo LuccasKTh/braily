@@ -60,10 +60,8 @@ class NoteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(String $id)
+    public function show(Note $note)
     {
-        $note = Note::find($id);
-
         return view('note.show', ['note' => $note]);
     }
 

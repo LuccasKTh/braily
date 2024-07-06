@@ -8,19 +8,22 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckRole
+class StudentFromTeacher
 {
     use ToastNotifications;
+    
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() || Auth::user()->role->description != $role) {
+        $student = $request->route('student');
+
+        if ($student && Auth::user()->role->description == 'Professor' && !Auth::user()->teacher->is($student->teacher)) {
             $this->sendToast('success', "Você não pode acessar essa página");
-            return redirect('dashboard');
+            return redirect()->route('student.index');
         }
 
         return $next($request);

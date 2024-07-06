@@ -50,7 +50,7 @@
                     x-on:click.prevent="$dispatch('open-modal', 'create-title-lesson')"
                 > {{ __('Adicionar Aula') }} </x-primary-button>
 
-                <x-modal name="create-title-lesson" focusable>
+                <x-modal name="create-title-lesson" focusable>  
                     <form action="{{ route('lesson.store') }}" method="post" class="p-6">
                         @csrf
 
@@ -74,25 +74,66 @@
                             autofocus 
                         />
 
-                        <x-input-label for="select-topic" class="peer mt-2 flex items-center gap-1">
-                            <input type="checkbox" name="select-topic" id="select-topic" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800">
+                        <x-input-label for="hasTopic" class="peer mt-2 flex items-center gap-1">
+                            <input type="checkbox" name="hasTopic" id="hasTopic" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800">
                             {{ 'Selecionar um tópico?' }}
                         </x-input-label>
 
-                        <x-input-label for="topic_id" value="Escolha um tópico" class="hidden peer-has-[:checked]:block mt-2" />
+                        <input id="draft" class="hidden peer-has-[:checked]:inline peer/draft" type="radio" name="status" value="topic_id" checked/>
+                        <x-input-label for="draft" class="hidden peer-has-[:checked]:inline" value="Meus Tópicos" />
 
-                        <x-select-input 
-                            id="topic_id" 
-                            class="hidden mt-1 w-full peer-has-[:checked]:block" 
-                            name="topic_id"
-                            autofocus
-                        >
+                        <input id="published" class="hidden peer-has-[:checked]:inline peer/published" type="radio" name="status" value="publicTopic_id" />
+                        <x-input-label for="published" class="hidden peer-has-[:checked]:inline" value="Tópicos Públicos" />
+
+                        <div class="hidden peer-has-[:checked]:peer-checked/draft:block">
+                            
+                            @if ($topics->isNotEmpty())   
+
+                                <x-select-input 
+                                    id="topic_id" 
+                                    class="mt-1 w-full" 
+                                    name="topic_id"
+                                    autofocus
+                                >
+
+                                    @foreach ($topics as $topic)
+                                        <option value="{{ $topic->id }}">{{ $topic->title }}</option>
+                                    @endforeach
+
+                                </x-select-input>
+
+                            @else
+                                <p class="my-3.5 border">Nenhum Tópico Adicionado</p>
+                            @endif
+
+                        </div>
                         
-                            @foreach($topics as $topic)
-                                <option value="{{ $topic->id }}">{{ $topic->title }}</option>
-                            @endforeach 
+                        <div class="hidden peer-has-[:checked]:peer-checked/published:block">
 
-                        </x-select-input>
+                            @if ($publicTopics->isNotEmpty())  
+
+                                <x-select-input 
+                                    id="publicTopic_id" 
+                                    class="mt-1 w-full" 
+                                    name="publicTopic_id"
+                                    autofocus
+                                >
+                                
+                                    @foreach($publicTopics as $publicTopic)
+                                        <option value="{{ $publicTopic->topic->id }}">{{ $publicTopic->topic->title }}</option>
+                                    @endforeach
+
+                                </x-select-input>
+
+                            @else
+                                <p class="my-3.5 border">Nenhum Tópico Público Adicionado</p>
+                            @endif
+
+                        </div>
+
+                        <x-input-label for="topic_id" value="Escolha um tópico" class="hidden peer-checked/draft:block mt-2" />
+
+                        <x-input-label for="publicTopic_id" value="Escolha um tópico público" class="hidden peer-checked/published:block mt-2" />
             
                         <div class="mt-6 flex justify-end">
                             <x-secondary-button x-on:click="$dispatch('close')">
@@ -103,6 +144,7 @@
                                 {{ __('Ir para aula') }}
                             </x-primary-button>
                         </div>
+
                     </form>
                 </x-modal>
                 
@@ -127,7 +169,6 @@
                         @foreach ($lessons as $lesson)
                             <li class="flex justify-between items-center gap-x-6 py-5">
                                 <div class="flex min-w-0 gap-x-4">
-                                    <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                     <div class="min-w-0 flex-auto">
                                         <p class="text-sm font-semibold leading-6 text-gray-100">{{ $lesson->title }}</p>
                                         <p class="mt-1 truncate text-xs leading-5 text-gray-500">Realizada em: {{ date('d/m/Y', strtotime($lesson->created_at)) }}</p>

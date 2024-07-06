@@ -17,33 +17,37 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     
-                    <x-nav-link :href="route('student.index')" :active="request()->routeIs('student.index')">
+                    <x-nav-link :href="route('student.index')" :active="request()->routeIs('*student*')">
                         {{ __('Alunos') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('note.index')" :active="request()->routeIs('note.index')">
+                    <x-nav-link :href="route('note.index')" :active="request()->routeIs('*note*')">
                         {{ __('Anotações') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('topic.index')" :active="request()->routeIs('topic.index')">
+                    <x-nav-link :href="route('topic.index')" :active="request()->routeIs('*topic*')">
                         {{ __('Tópicos') }}
+                    </x-nav-link>
+                    
+                    <x-nav-link :href="route('community.index')" :active="request()->routeIs('*community*')">
+                        {{ __('Comunidade') }}
                     </x-nav-link>
 
                     @if (auth()->user()->role->description == 'Admin')
 
-                        <x-nav-link :href="route('userRole.index')" :active="request()->routeIs('userRole.index')">
+                        <x-nav-link :href="route('userRole.index')" :active="request()->routeIs('*userRole*')">
                             {{ __('Tipos de usuário') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('skill.index')" :active="request()->routeIs('skill.index')">
+                        <x-nav-link :href="route('skill.index')" :active="request()->routeIs('*skill*')">
                             {{ __('Habilidades') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('education.index')" :active="request()->routeIs('education.index')">
+                        <x-nav-link :href="route('education.index')" :active="request()->routeIs('*education*')">
                             {{ __('Escolaridades') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('teacher.index')" :active="request()->routeIs('teacher.index')">
+                        <x-nav-link :href="route('teacher.index')" :active="request()->routeIs('*teacher*')">
                             {{ __('Professores') }}
                         </x-nav-link>
 

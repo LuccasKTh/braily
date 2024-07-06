@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\LessonWordController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicTopicController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -26,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    Auth::loginUsingId(2);
+    Auth::loginUsingId(4);
 
     return to_route('dashboard');
 });
@@ -43,19 +45,35 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::resource('/student', StudentController::class);
-    Route::resource('/note', NoteController::class);
-    Route::resource('/topic', TopicController::class);
-    Route::resource('/topicCreated', TopicWordController::class);
-    Route::resource('/lesson', LessonController::class);
-    Route::resource('/lessonCreated', LessonWordController::class);
+    Route::get('othersTopics', [TopicController::class, 'othersTopics'])->name('othersTopics');
+
+    Route::prefix('community')->group(function () {
+        Route::get('teacher/{id}', [PublicTopicController::class, 'publicTopicsFromTeacher'])->name('community.teacher');
+        Route::get('publicTopic/{id}', [PublicTopicController::class, 'publicTopicFromTeacher'])->name('community.publicTopicFromTeacher');
+    });
+
+    Route::middleware('fromTeacher')->group(function () {
+
+        Route::resource('/student', StudentController::class);
+        Route::resource('/note', NoteController::class);
+        Route::resource('/topic', TopicController::class);
+        Route::resource('/publicTopic', PublicTopicController::class);
+        Route::resource('/topicCreated', TopicWordController::class);
+        Route::resource('/lesson', LessonController::class);
+        Route::resource('/lessonCreated', LessonWordController::class);
+        Route::resource('/community', CommunityController::class);
+
+    });
 
     Route::prefix('admin')->middleware(['role:Admin'])->group(function () {
+
         Route::resource('/skill', SkillController::class);
         Route::resource('/education', EducationController::class);
         Route::resource('/userRole', UserRoleController::class);
         Route::resource('/teacher', TeacherController::class);
+
     });
+    
 });
 
 require __DIR__.'/auth.php';
