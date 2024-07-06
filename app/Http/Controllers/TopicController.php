@@ -120,10 +120,9 @@ class TopicController extends Controller
             $topic->delete();
             $this->sendToast('success', "Tópico excluído com sucesso.");
         } catch (\Throwable $th) {
-            dd($th);
-            $th->getCode() == 1451
-                ? $this->sendToast('success', "Tópico possui vínculos. Não foi possível excluí-lo.")
-                : $this->sendToast('success', "Algo de inesperado aconteceu. Erro n° {$th->getCode()}");
+            $th->errorInfo[1] == 1451
+                ? $this->sendToast('warning', "Tópico possui vínculos. Não foi possível excluí-lo.")
+                : $this->sendToast('warning', "Algo de inesperado aconteceu. Erro n° {$th->getCode()}");
         }
     
         return to_route('topic.index');

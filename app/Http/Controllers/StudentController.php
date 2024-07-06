@@ -10,6 +10,8 @@ use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\isNull;
+
 class StudentController extends Controller
 {
     use ToastNotifications;
@@ -72,9 +74,18 @@ class StudentController extends Controller
 
             $topics = Auth::user()->teacher->topics;
 
+            $publicTopics = Auth::user()->teacher->publicTopics;
+
         }
 
-        return view('student.show', ['student' => $student, 'lessons' => $student->lessons, 'topics' => $topics]);
+        $data = [
+            'student' => $student, 
+            'lessons' => $student->lessons, 
+            'topics' => $topics,
+            'publicTopics' => $publicTopics
+        ];
+
+        return view('student.show', $data);
     }
 
     /**
