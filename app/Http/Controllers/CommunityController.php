@@ -53,7 +53,7 @@ class CommunityController extends Controller
 
         $community->save();
 
-        return to_route('publicTopic.show', $input['publicTopic_id']);
+        return to_route('community.publicTopicFromTeacher', $input['publicTopic_id']);
     }
 
     /**
@@ -85,6 +85,8 @@ class CommunityController extends Controller
      */
     public function destroy(Community $community)
     {
-        //
+        $community->delete();
+
+        return to_route('community.publicTopicFromTeacher', $community->public_topic_id);
     }
 }

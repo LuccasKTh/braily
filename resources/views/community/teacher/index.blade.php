@@ -23,7 +23,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="{{ route('community.teacher.publicTopic', $publicTopicFromTeacher->id) }}">
+                                    <a href="{{ route('community.publicTopicFromTeacher', $publicTopicFromTeacher->id) }}">
                                         <x-secondary-button>
                                             {{ __('Ver Tópico Público') }}
                                         </x-secondary-button>

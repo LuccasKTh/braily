@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="{{ route('publicTopic.show', $teacher->id) }}">
+                                    <a href="{{ route('community.teacher', $teacher->id) }}">
                                         <x-secondary-button>
                                             {{ __('Ver Tópicos Públicos') }}
                                         </x-secondary-button>

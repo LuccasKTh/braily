@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Community;
 use App\Models\PublicTopic;
 use App\Models\Teacher;
 use App\Traits\ToastNotifications;
+use Auth;
 use Illuminate\Http\Request;
 
 class PublicTopicController extends Controller
@@ -109,6 +111,11 @@ class PublicTopicController extends Controller
     {
         $publicTopic = PublicTopic::find($publicTopic_id);
 
-        return view('community.teacher.show', ['topic' => $publicTopic->topic]);
+        $community = Community::where('public_topic_id', $publicTopic->id)
+                        ->where('teacher_id', Auth::user()->teacher->id)
+                        ->get()
+                        ->first();
+
+        return view('community.teacher.show', ['publicTopic' => $publicTopic, 'community' => $community]);
     }
 }
