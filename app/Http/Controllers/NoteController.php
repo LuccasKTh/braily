@@ -45,7 +45,7 @@ class NoteController extends Controller
         $note = new Note();
 
         $note->fill($request->all());
-        $note->user_id = Auth::user()->id;
+        $note->teacher_id = Auth::user()->teacher->id;
 
         try {
             $note->save();
@@ -70,7 +70,7 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        $students = Auth()->user()->students;
+        $students = Auth()->user()->teacher->students;
 
         return view('note.edit', ['note' => $note, 'students' => $students]);
     }
@@ -89,7 +89,7 @@ class NoteController extends Controller
             $this->sendToast('warning', "Não foi possível atualizar a anotação. Erro n° {$th->getCode()}");
         }
 
-        return to_route('note.index');
+        return to_route('note.show', $note->id);
     }
 
     /**

@@ -24,7 +24,7 @@ class StudentController extends Controller
             ? $students = Auth::user()->teacher->students()->orderByDesc('id')->paginate()
             : $students = Student::orderBy('id')->paginate();
 
-        return view('student.index', ['students' => $students])->with(session('toast'));
+        return view('student.index', ['students' => $students]);
     }
 
     /**
@@ -46,7 +46,7 @@ class StudentController extends Controller
         $student = new Student();
 
         $student->fill($request->all());
-        $student->user_id = Auth::user()->id;
+        $student->teacher_id = Auth::user()->teacher->id;
 
         try {
             $student->save();
@@ -80,7 +80,7 @@ class StudentController extends Controller
 
         $data = [
             'student' => $student, 
-            'lessons' => $student->lessons, 
+            'lessons' => $student->lessons->reverse(),
             'topics' => $topics,
             'publicTopics' => $publicTopics
         ];
