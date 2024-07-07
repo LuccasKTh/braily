@@ -58,4 +58,9 @@ class Teacher extends Model
 
         return $topics;
     }
+
+    public function likes(): HasMany 
+    {
+        return $this->hasMany(Like::class);
+    }
 }
