@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Community;
+use App\Models\Like;
 use App\Models\PublicTopic;
 use App\Models\Teacher;
 use App\Traits\ToastNotifications;
@@ -121,5 +122,42 @@ class PublicTopicController extends Controller
                         ->first();
 
         return view('community.teacher.show', ['publicTopic' => $publicTopic, 'community' => $community]);
+    }
+
+    public function like(PublicTopic $publicTopic): RedirectResponse
+    {
+        $teacher = Auth::user()->teacher;
+
+        if ($publicTopic->likes()->where('teacher_id', $teacher->id)->exists()) {
+            $this->sendToast('success', "Você já curtiu este tópico.");
+            return to_route('community.publicTopicFromTeacher', $publicTopic->id);
+        }
+
+        $like = new Like();
+
+        $like->teacher_id = $teacher->id;
+        $like->public_topic_id = $publicTopic->id;
+
+        $like->save();
+
+        $this->sendToast('success', "Tópico curtido com sucesso.");
+        return to_route('community.publicTopicFromTeacher', $publicTopic->id);
+    }
+
+    public function unlike(PublicTopic $publicTopic): RedirectResponse 
+    {
+        $teacher = Auth::user()->teacher;
+
+        $like = $publicTopic->likes()->where('teacher_id', $teacher->id)->first();
+
+        if (!$like) {
+            $this->sendToast('success', "Você ainda não curtiu este tópico.");
+            return to_route('community.publicTopicFromTeacher', $publicTopic->id);
+        }
+
+        $like->delete();
+
+        $this->sendToast('success', "Tópico descurtido com sucesso.");
+        return to_route('community.publicTopicFromTeacher', $publicTopic->id);    
     }
 }

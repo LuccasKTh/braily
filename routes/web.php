@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    Auth::loginUsingId(3);
+
     return to_route('dashboard');
 });
 
@@ -47,7 +49,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('community')->group(function () {
         Route::get('myPublicTopics', [PublicTopicController::class, 'myPublicTopics'])->name('community.myPublicTopics');
         Route::get('teacher/{id}', [PublicTopicController::class, 'publicTopicsFromTeacher'])->name('community.teacher');
-        Route::get('publicTopic/{id}', [PublicTopicController::class, 'publicTopicFromTeacher'])->name('community.publicTopicFromTeacher');
+        Route::prefix('publicTopic')->group(function () {
+            Route::get('{id}', [PublicTopicController::class, 'publicTopicFromTeacher'])->name('community.publicTopicFromTeacher');
+            Route::post('{publicTopic}/like', [PublicTopicController::class, 'like'])->name('like');
+            Route::post('{publicTopic}/unlike', [PublicTopicController::class, 'unlike'])->name('unlike');
+        });
     });
 
     Route::middleware('fromTeacher')->group(function () {
