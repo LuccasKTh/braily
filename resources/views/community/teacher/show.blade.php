@@ -7,16 +7,18 @@
                     {{ $publicTopic->topic->title }}
                 </h2>
             </div>
-            <div class="flex flex-row gap-x-6">
-                <form action="{{ $publicTopic->teachers->contains(auth()->user()->teacher) ? route('community.destroy', $community->id) : route('community.store') }}" method="post">
-                    @csrf
-                    @if ($publicTopic->teachers->contains(auth()->user()->teacher))
-                        @method('DELETE')
-                    @endif
-                    <input type="hidden" name="publicTopic_id" id="publicTopic_id" value="{{ $publicTopic->id }}">
-                    <x-secondary-button type="submit">{{ $publicTopic->teachers->contains(auth()->user()->teacher) ? 'Remover' : 'Adicionar' }} </x-secondary-button>
-                </form>
-            </div>
+            @if (auth()->user()->teacher->isNot($publicTopic->topic->teacher))     
+                <div class="flex flex-row gap-x-6">
+                    <form action="{{ $publicTopic->teachers->contains(auth()->user()->teacher) ? route('community.destroy', $community->id) : route('community.store') }}" method="post">
+                        @csrf
+                        @if ($publicTopic->teachers->contains(auth()->user()->teacher))
+                            @method('DELETE')
+                        @endif
+                        <input type="hidden" name="publicTopic_id" id="publicTopic_id" value="{{ $publicTopic->id }}">
+                        <x-secondary-button type="submit">{{ $publicTopic->teachers->contains(auth()->user()->teacher) ? 'Remover' : 'Adicionar' }} </x-secondary-button>
+                    </form>
+                </div>
+            @endif
         </div>
         <div class="">
             <div class="grid grid-cols-2 gap-x-4 text-gray-400">

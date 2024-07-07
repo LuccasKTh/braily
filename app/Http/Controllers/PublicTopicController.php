@@ -7,6 +7,8 @@ use App\Models\PublicTopic;
 use App\Models\Teacher;
 use App\Traits\ToastNotifications;
 use Auth;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class PublicTopicController extends Controller
@@ -32,7 +34,7 @@ class PublicTopicController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $topic_id = $request->input('topic_id');
 
@@ -77,7 +79,7 @@ class PublicTopicController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PublicTopic $publicTopic)
+    public function destroy(PublicTopic $publicTopic): RedirectResponse
     {
         try {
             $publicTopic->delete();
@@ -89,14 +91,16 @@ class PublicTopicController extends Controller
         return to_route('topic.show', $publicTopic->topic->id);
     }
 
-    public function publicTopicsFromTeacher(String $teacher_id)
+    public function publicTopicsFromTeacher(String $teacher_id): View
     {
         $teacher = Teacher::find($teacher_id);
 
         $publicTopicsFromTeacher = [];
 
         foreach ($teacher->topics as $topic) {
-            $publicTopicsFromTeacher[] = $topic->publicTopic;
+            if ($topic->publicTopic) {
+                $publicTopicsFromTeacher[] = $topic->publicTopic;
+            }
         }
 
         $data = [
@@ -107,7 +111,7 @@ class PublicTopicController extends Controller
         return view('community.teacher.index', $data);
     }
 
-    public function publicTopicFromTeacher(String $publicTopic_id)
+    public function publicTopicFromTeacher(String $publicTopic_id): View
     {
         $publicTopic = PublicTopic::find($publicTopic_id);
 
