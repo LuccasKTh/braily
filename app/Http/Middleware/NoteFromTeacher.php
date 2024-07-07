@@ -23,7 +23,7 @@ class NoteFromTeacher
 
         if ($note && Auth::user()->role->description == 'Professor' && !Auth::user()->teacher->is($note->teacher)) {
             $this->sendToast('success', "Você não pode acessar essa página");
-            return redirect()->route('student.index');
+            return to_route('dashboard');
         }
         
         return $next($request);

@@ -46,7 +46,7 @@
         </div>
         <div class="">
             <div class="grid grid-cols-2 gap-x-4 text-gray-400">
-                <h4>Aluno: {{ __($note->student_id) }}</h4>
+                <h4>Aluno: {{ __($note->student->name) }}</h4>
             </div>
         </div>
     </x-slot>
