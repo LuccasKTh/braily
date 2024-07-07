@@ -25,7 +25,7 @@
                         {{ __('Anotações') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('topic.index')" :active="request()->routeIs('*topic*')">
+                    <x-nav-link :href="route('topic.index')" :active="request()->routeIs('*topic*') || request()->routeIs('*othersTopics*')">
                         {{ __('Tópicos') }}
                     </x-nav-link>
                     
