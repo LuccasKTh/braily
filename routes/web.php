@@ -13,7 +13,6 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\TopicWordController;
 use App\Http\Controllers\UserRoleController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,8 +27,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    Auth::loginUsingId(4);
-
     return to_route('dashboard');
 });
 

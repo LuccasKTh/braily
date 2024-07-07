@@ -22,7 +22,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <ul role="list" class="divide-y divide-gray-100">
-                        @foreach ($notes as $note)
+                        @forelse ($notes as $note)
                             <li class="flex justify-between items-center gap-x-6 py-5">
                                 <div class="flex min-w-0 gap-x-4">
                                     <div class="min-w-0 flex-auto">
@@ -38,7 +38,11 @@
                                     </a>
                                 </div>
                             </li>
-                        @endforeach
+                        @empty
+                            <h2 class="text-center text-lg">
+                                Nenhuma anotação adicionada
+                            </h2>
+                        @endforelse
                     </ul>
                 </div>
             </div>

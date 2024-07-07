@@ -54,7 +54,7 @@
                 @foreach($skills as $skill)
                     <option 
                         value="{{ $skill->id }}"
-                        @if($user->skill_id == $skill->id)
+                        @if($user->teacher->skill_id == $skill->id)
                             {{ "selected" }}
                         @endif
                     >{{ $skill->description }}</option>
