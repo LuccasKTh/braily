@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('othersTopics', [TopicController::class, 'othersTopics'])->name('othersTopics');
+    Route::delete('othersTopics/{community}', [CommunityController::class, 'otherTopicDelete'])->name('othersTopics.destroy');
 
     Route::prefix('community')->group(function () {
 

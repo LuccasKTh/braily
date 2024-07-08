@@ -7,7 +7,8 @@
                     {{ $publicTopic->topic->title }}
                 </h2>
             </div>
-            @if (auth()->user()->teacher->isNot($publicTopic->topic->teacher))     
+
+            @if (auth()->user()->teacher && auth()->user()->teacher->isNot($publicTopic->topic->teacher))     
                 <div class="flex flex-row gap-x-6">
                     <form class="flex" action="{{ $publicTopic->likes()->where('teacher_id', auth()->user()->teacher->id)->exists() ? route('unlike', $publicTopic->id) : route('like', $publicTopic->id) }}" method="POST">
                         @csrf

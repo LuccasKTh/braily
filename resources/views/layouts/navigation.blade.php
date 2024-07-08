@@ -18,10 +18,6 @@
                     </x-nav-link>
                     
                     @if (auth()->user()->role->description == 'Admin')
-                        
-                        <x-nav-link :href="route('admin.teacher.students', auth()->user()->admin->id)" :active="request()->routeIs('*student*')">
-                            {{ __('Alunos') }}
-                        </x-nav-link>
 
                         <x-nav-link :href="route('note.index')" :active="request()->routeIs('*note*')">
                             {{ __('Anotações') }}

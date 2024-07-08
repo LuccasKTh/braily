@@ -20,7 +20,7 @@ class Community extends Model
         return $this->hasMany(Teacher::class);
     }
 
-    public function publicTopics(): HasMany 
+    public function publicTopics(): HasMany
     {
         return $this->hasMany(PublicTopic::class);
     }
