@@ -14,9 +14,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <a href="{{ route('community.teacher', auth()->user()->teacher->id) }}">
-                        <x-primary-button>Meus Tópicos Públicos</x-primary-button>
-                    </a>
+                    @if (auth()->user()->role_user_id == 2)
+                        <a href="{{ route('community.teacher', auth()->user()->teacher->id) }}">
+                            <x-primary-button>Meus Tópicos Públicos</x-primary-button>
+                        </a>
+                    @endif
                     <ul role="list" class="divide-y divide-gray-100">
                         @forelse ($teachers as $teacher)
                             <li class="flex justify-between items-center gap-x-6 py-5">

@@ -9,13 +9,13 @@
             </div>
             <div class="flex flex-row gap-x-6">
 
-                <a href="{{ route('teacher.edit', $teacher->id) }}">
+                {{-- <a href="{{ route('teacher.edit', $teacher->id) }}">
                     <x-secondary-button>
                         {{ __('Editar') }}
                     </x-secondary-button>
-                </a>
+                </a> --}}
 
-                <x-danger-button
+                {{-- <x-danger-button
                     x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'confirm-teacher-deletion')"
                 > {{ __('Excluir') }} </x-danger-button>
@@ -43,7 +43,7 @@
                             </x-danger-button>
                         </div>
                     </form>
-                </x-modal>
+                </x-modal> --}}
                 
             </div>
         </div>
@@ -59,7 +59,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <ul role="list" class="divide-y divide-gray-100">
-                        @foreach ($students as $student)
+                        @foreach ($teacher->students as $student)
                             <li class="flex justify-between items-center gap-x-6 py-5">
                                 <div class="flex min-w-0 gap-x-4">
                                     <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="{{ route('student.show', $student->id) }}">
+                                    <a href="{{ route('admin.teacher.student', [$teacher->id, $student->id]) }}">
                                         <x-secondary-button>
                                             {{ __('Ver Aluno') }}
                                         </x-secondary-button>

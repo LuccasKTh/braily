@@ -17,23 +17,23 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     
-                    <x-nav-link :href="route('student.index')" :active="request()->routeIs('*student*')">
-                        {{ __('Alunos') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('note.index')" :active="request()->routeIs('*note*')">
-                        {{ __('Anotações') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('topic.index')" :active="request()->routeIs('*topic*') || request()->routeIs('*othersTopics*')">
-                        {{ __('Tópicos') }}
-                    </x-nav-link>
-                    
-                    <x-nav-link :href="route('community.index')" :active="request()->routeIs('*community*')">
-                        {{ __('Comunidade') }}
-                    </x-nav-link>
-
                     @if (auth()->user()->role->description == 'Admin')
+                        
+                        <x-nav-link :href="route('admin.teacher.students', auth()->user()->admin->id)" :active="request()->routeIs('*student*')">
+                            {{ __('Alunos') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('note.index')" :active="request()->routeIs('*note*')">
+                            {{ __('Anotações') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('topic.index')" :active="request()->routeIs('*topic*') || request()->routeIs('*othersTopics*')">
+                            {{ __('Tópicos') }}
+                        </x-nav-link>
+                        
+                        <x-nav-link :href="route('community.index')" :active="request()->routeIs('*community*')">
+                            {{ __('Comunidade') }}
+                        </x-nav-link>
 
                         <x-nav-link :href="route('userRole.index')" :active="request()->routeIs('*userRole*')">
                             {{ __('Tipos de usuário') }}
@@ -47,8 +47,26 @@
                             {{ __('Escolaridades') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('teacher.index')" :active="request()->routeIs('*teacher*')">
+                        <x-nav-link :href="route('admin.teachers')" :active="request()->routeIs('*teacher*')">
                             {{ __('Professores') }}
+                        </x-nav-link>
+
+                    @else
+                        
+                        <x-nav-link :href="route('student.index')" :active="request()->routeIs('*student*')">
+                            {{ __('Alunos') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('note.index')" :active="request()->routeIs('*note*')">
+                            {{ __('Anotações') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('topic.index')" :active="request()->routeIs('*topic*') || request()->routeIs('*othersTopics*')">
+                            {{ __('Tópicos') }}
+                        </x-nav-link>
+                        
+                        <x-nav-link :href="route('community.index')" :active="request()->routeIs('*community*')">
+                            {{ __('Comunidade') }}
                         </x-nav-link>
 
                     @endif

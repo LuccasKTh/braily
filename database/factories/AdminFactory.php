@@ -18,7 +18,7 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => fake()->unique()->randomElement(User::where('user_role_id', 1)->pluck('id'))
         ];
     }
 }

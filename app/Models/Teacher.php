@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\ToastNotifications;
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Teacher extends Model
 {
-    use HasFactory;
+    use HasFactory, ToastNotifications;
 
     protected $fillable = [
         'skill_id',
@@ -62,5 +64,25 @@ class Teacher extends Model
     public function likes(): HasMany 
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function hasAccess($model): bool
+    {
+        $teacher = Auth::user()->teacher;
+    
+        if ($model->getTable() == 'topics') {
+            return $this->hasAccessToTopic($model, $teacher);
+        }
+    
+        if ($teacher->user->role->description == 'Professor' && !$teacher->is($model->teacher)) {
+            return false;
+        }
+    
+        return true;
+    }
+
+    private function hasAccessToTopic($topic, $teacher): bool
+    {
+        return $teacher->is($topic->teacher) || $topic->isPublicTopic();
     }
 }

@@ -45,8 +45,7 @@ class Kernel extends HttpKernel
         ],
 
         'fromTeacher' => [
-            \App\Http\Middleware\StudentFromTeacher::class,
-            \App\Http\Middleware\NoteFromTeacher::class,
+            \App\Http\Middleware\FromTeacher::class,
         ]
     ];
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,8 +14,6 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::factory()->create([
-            'user_id' => 1
-        ]);
+        Admin::factory(User::where('user_role_id', 1)->count())->create();
     }
 }

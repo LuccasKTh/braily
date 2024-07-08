@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AdminController extends Controller
 {
@@ -61,5 +64,35 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         //
+    }
+
+    public function teachers(): View 
+    {
+        $teachers = Teacher::all();
+
+        return view('teacher.index', ['teachers' => $teachers]);
+    }
+
+    public function teacher(Teacher $teacher): View 
+    {
+        return view('teacher.show', ['teacher' => $teacher]);
+    }
+
+    public function students(): View 
+    {
+        $students = Student::orderBy('id')->paginate();
+
+        return view('student.index', ['students' => $students]);
+    }
+
+    public function student(Teacher $teacher, Student $student): View 
+    {
+        $topics = $teacher->topics;
+
+        $pubicTopics = $teacher->publicTopics;
+
+        $lessons = $student->lessons;
+
+        return view('student.show', ['student' => $student, 'topics' => $topics, 'publicTopics' => $pubicTopics, 'lessons' => $lessons]);
     }
 }

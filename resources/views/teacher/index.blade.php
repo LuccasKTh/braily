@@ -7,13 +7,13 @@
                     {{ __('Lista de Professores') }}
                 </h2>
             </div>
-            <div>
+            {{-- <div>
                 <a href="{{ route('teacher.create') }}">
                     <x-primary-button>
                         {{ __('Adicionar Professor') }}
                     </x-primary-button>
                 </a>
-            </div>
+            </div> --}}
         </div>
     </x-slot>
 
@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="{{ route('teacher.show', $teacher->user->id) }}">
+                                    <a href="{{ route('admin.teacher', $teacher->id) }}">
                                         <x-secondary-button>
                                             {{ __('Ver Professor') }}
                                         </x-secondary-button>
