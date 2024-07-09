@@ -90,6 +90,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     Route::get('/', [AdminController::class, 'students'])->name('admin.teacher.students');
                     Route::get('{student}', [AdminController::class, 'student'])->name('admin.teacher.student');
                 });
+                Route::prefix('topic')->group(function () {
+                    Route::get('/', [AdminController::class, 'topics'])->name('admin.teacher.topics');
+                });
+                Route::prefix('note')->group(function () {
+                    Route::get('/', [AdminController::class, 'notes'])->name('admin.teacher.notes');
+                });
             });
         });
 

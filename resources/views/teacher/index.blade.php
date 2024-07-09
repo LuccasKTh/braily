@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="{{ route('admin.teacher', $teacher->id) }}">
+                                    <a href="{{ route('admin.teacher.students', $teacher->id) }}">
                                         <x-secondary-button>
                                             {{ __('Ver Professor') }}
                                         </x-secondary-button>

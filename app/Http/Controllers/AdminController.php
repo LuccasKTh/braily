@@ -78,11 +78,19 @@ class AdminController extends Controller
         return view('teacher.show', ['teacher' => $teacher]);
     }
 
-    public function students(): View 
+    public function students(Teacher $teacher): View 
     {
-        $students = Student::orderBy('id')->paginate();
+        return view('teacher.show', ['teacher' => $teacher]);
+    }
 
-        return view('student.index', ['students' => $students]);
+    public function topics(Teacher $teacher): View 
+    {
+        return view('teacher.show', ['teacher' => $teacher]);
+    }
+
+    public function notes(Teacher $teacher): View 
+    {
+        return view('teacher.show', ['teacher' => $teacher]);
     }
 
     public function student(Teacher $teacher, Student $student): View 
