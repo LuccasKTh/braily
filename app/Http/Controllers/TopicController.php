@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Community;
 use App\Models\PublicTopic;
 use App\Models\Topic;
 use App\Traits\ToastNotifications;
@@ -78,9 +79,18 @@ class TopicController extends Controller
     {
         $topicWords = $topic->words;
 
+        $community = [];
+        if ($topic->publicTopic) {
+            $community = Community::where('public_topic_id', $topic->publicTopic->id)
+                            ->where('teacher_id', Auth::user()->teacher->id)
+                            ->get()
+                            ->first();
+        }
+
         $data = [
             'topic' => $topic,
-            'topicWords' => $topicWords
+            'topicWords' => $topicWords,
+            'community' => $community
         ];
 
         return view('topic.show', $data);

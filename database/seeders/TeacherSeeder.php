@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +14,6 @@ class TeacherSeeder extends Seeder
      */
     public function run(): void
     {
-        Teacher::factory(10)->create();
+        Teacher::factory(User::where('user_role_id', 2)->count())->create();
     }
 }

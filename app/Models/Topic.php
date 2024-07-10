@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -42,5 +43,12 @@ class Topic extends Model
         $words = $this->words()->orderBy('id')->paginate(1);
 
         return $words;
+    }
+
+    public function isPublicTopic(): bool
+    {
+        $teacher = Auth::user()->teacher;
+
+        return $this->publicTopic && $this->publicTopic->teachers->contains($teacher);
     }
 }

@@ -89,4 +89,11 @@ class CommunityController extends Controller
 
         return to_route('community.publicTopicFromTeacher', $community->public_topic_id);
     }
+
+    public function otherTopicDelete(Community $community) 
+    {
+        $community->delete();
+
+        return to_route('othersTopics');
+    }
 }

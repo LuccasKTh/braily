@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Note;
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AdminController extends Controller
 {
@@ -61,5 +66,53 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         //
+    }
+
+    public function teachers(): View 
+    {
+        $teachers = Teacher::all();
+
+        return view('teacher.index', ['teachers' => $teachers]);
+    }
+
+    public function teacher(Teacher $teacher): View 
+    {
+        return view('teacher.show', ['teacher' => $teacher]);
+    }
+
+    public function students(Teacher $teacher): View 
+    {
+        return view('teacher.show', ['teacher' => $teacher]);
+    }
+
+    public function topics(Teacher $teacher): View 
+    {
+        return view('teacher.show', ['teacher' => $teacher]);
+    }
+
+    public function notes(Teacher $teacher): View 
+    {
+        return view('teacher.show', ['teacher' => $teacher]);
+    }
+
+    public function student(Teacher $teacher, Student $student): View 
+    {
+        $topics = $teacher->topics;
+
+        $pubicTopics = $teacher->publicTopics;
+
+        $lessons = $student->lessons;
+
+        return view('student.show', ['student' => $student, 'topics' => $topics, 'publicTopics' => $pubicTopics, 'lessons' => $lessons]);
+    }
+
+    public function topic(Teacher $teacher, Topic $topic): View 
+    {
+        return view('topic.show', ['topic' => $topic]);
+    }
+
+    public function note(Teacher $teacher, Note $note): View 
+    {
+        return view('note.show', ['note' => $note]);
     }
 }

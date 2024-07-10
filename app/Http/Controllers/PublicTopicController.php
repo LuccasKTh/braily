@@ -92,10 +92,8 @@ class PublicTopicController extends Controller
         return to_route('topic.show', $publicTopic->topic->id);
     }
 
-    public function publicTopicsFromTeacher(String $teacher_id): View
+    public function publicTopicsFromTeacher(Teacher $teacher): View
     {
-        $teacher = Teacher::find($teacher_id);
-
         $publicTopicsFromTeacher = [];
 
         foreach ($teacher->topics as $topic) {
@@ -112,9 +110,11 @@ class PublicTopicController extends Controller
         return view('community.teacher.index', $data);
     }
 
-    public function publicTopicFromTeacher(String $publicTopic_id): View
+    public function publicTopicFromTeacher(Teacher $teacher, PublicTopic $publicTopic): View
     {
-        $publicTopic = PublicTopic::find($publicTopic_id);
+        if (!Auth::user()->teacher) {
+            return view('community.teacher.show', ['publicTopic' => $publicTopic]);
+        }
 
         $community = Community::where('public_topic_id', $publicTopic->id)
                         ->where('teacher_id', Auth::user()->teacher->id)

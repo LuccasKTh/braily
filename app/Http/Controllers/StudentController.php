@@ -63,20 +63,9 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $topics = Topic::all();
+        $topics = Auth::user()->teacher->topics;
 
-        if (Auth::user()->role->description == 'Professor') {
-
-            if (!Auth::user()->teacher->is($student->teacher)) {
-                $this->sendToast('success', "Você não pode acessar essa página");
-                return to_route('student.index');
-            }
-
-            $topics = Auth::user()->teacher->topics;
-
-            $publicTopics = Auth::user()->teacher->publicTopics;
-
-        }
+        $publicTopics = Auth::user()->teacher->publicTopics;
 
         $data = [
             'student' => $student, 
