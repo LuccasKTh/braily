@@ -79,10 +79,13 @@ class TopicController extends Controller
     {
         $topicWords = $topic->words;
 
-        $community = Community::where('public_topic_id', $topic->publicTopic->id)
-                        ->where('teacher_id', Auth::user()->teacher->id)
-                        ->get()
-                        ->first();
+        $community = [];
+        if ($topic->publicTopic) {
+            $community = Community::where('public_topic_id', $topic->publicTopic->id)
+                            ->where('teacher_id', Auth::user()->teacher->id)
+                            ->get()
+                            ->first();
+        }
 
         $data = [
             'topic' => $topic,

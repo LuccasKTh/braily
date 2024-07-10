@@ -19,15 +19,11 @@
                     
                     @if (auth()->user()->role->description == 'Admin')
 
-                        <x-nav-link :href="route('note.index')" :active="request()->routeIs('*note*')">
-                            {{ __('Anotações') }}
+                        <x-nav-link :href="route('admin.teachers')" :active="request()->routeIs('*teacher*')">
+                            {{ __('Professores') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('topic.index')" :active="request()->routeIs('*topic*') || request()->routeIs('*othersTopics*')">
-                            {{ __('Tópicos') }}
-                        </x-nav-link>
-                        
-                        <x-nav-link :href="route('community.index')" :active="request()->routeIs('*community*')">
+                        <x-nav-link :href="route('admin.community')" :active="request()->routeIs('*community*')">
                             {{ __('Comunidade') }}
                         </x-nav-link>
 
@@ -41,10 +37,6 @@
 
                         <x-nav-link :href="route('education.index')" :active="request()->routeIs('*education*')">
                             {{ __('Escolaridades') }}
-                        </x-nav-link>
-
-                        <x-nav-link :href="route('admin.teachers')" :active="request()->routeIs('*teacher*')">
-                            {{ __('Professores') }}
                         </x-nav-link>
 
                     @else

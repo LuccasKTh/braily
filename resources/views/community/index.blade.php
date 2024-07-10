@@ -29,7 +29,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="{{ route('community.teacher', $teacher->id) }}">
+                                    <a href="{{ request()->routeIs('*admin*') ? route('admin.community.teacher', $teacher->id) : route('community.teacher', $teacher->id) }}">
                                         <x-secondary-button>
                                             {{ __('Ver Tópicos Públicos') }}
                                         </x-secondary-button>

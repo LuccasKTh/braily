@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Note;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -102,5 +104,15 @@ class AdminController extends Controller
         $lessons = $student->lessons;
 
         return view('student.show', ['student' => $student, 'topics' => $topics, 'publicTopics' => $pubicTopics, 'lessons' => $lessons]);
+    }
+
+    public function topic(Teacher $teacher, Topic $topic): View 
+    {
+        return view('topic.show', ['topic' => $topic]);
+    }
+
+    public function note(Teacher $teacher, Note $note): View 
+    {
+        return view('note.show', ['note' => $note]);
     }
 }

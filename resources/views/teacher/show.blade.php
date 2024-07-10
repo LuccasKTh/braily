@@ -87,10 +87,9 @@
                     @endif
                     <ul role="list" class="divide-y divide-gray-100">
                         @if (request()->routeIs('*student*'))
-                            @foreach ($teacher->students as $student)
+                            @forelse ($teacher->students as $student)
                                 <li class="flex justify-between items-center gap-x-6 py-5">
                                     <div class="flex min-w-0 gap-x-4">
-                                        <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                         <div class="min-w-0 flex-auto">
                                             <p class="text-sm font-semibold leading-6 text-gray-100">{{ $student->name }}</p>
                                             <p class="mt-1 truncate text-xs leading-5 text-gray-500">Habilidade: {{ $student->skill->description }}</p>
@@ -104,45 +103,55 @@
                                         </a>
                                     </div>
                                 </li>
-                            @endforeach
+                            @empty
+                                <h2 class="text-center text-lg">
+                                    Nenhuma aula adicionada
+                                </h2>
+                            @endforelse
                         @endif
                         @if (request()->routeIs('*topic*'))
-                            @foreach ($teacher->topics as $topic)
+                            @forelse ($teacher->topics as $topic)
                                 <li class="flex justify-between items-center gap-x-6 py-5">
                                     <div class="flex min-w-0 gap-x-4">
-                                        <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                         <div class="min-w-0 flex-auto">
                                             <p class="text-sm font-semibold leading-6 text-gray-100">{{ $topic->title }}</p>
                                         </div>
                                     </div>
                                     <div>
-                                        {{-- <a href="{{ route('admin.teacher.topic', [$teacher->id, $topic->id]) }}"> --}}
+                                        <a href="{{ route('admin.teacher.topic', [$teacher->id, $topic->id]) }}">
                                             <x-secondary-button>
-                                                {{ __('Ver Aluno') }}
+                                                {{ __('Ver Tópico') }}
                                             </x-secondary-button>
-                                        {{-- </a> --}}
+                                        </a>
                                     </div>
                                 </li>
-                            @endforeach
+                            @empty
+                                <h2 class="text-center text-lg">
+                                    Nenhum tópico adicionado
+                                </h2>
+                            @endforelse
                         @endif
                         @if (request()->routeIs('*note*'))
-                            @foreach ($teacher->notes as $note)
+                            @forelse ($teacher->notes as $note)
                                 <li class="flex justify-between items-center gap-x-6 py-5">
                                     <div class="flex min-w-0 gap-x-4">
-                                        <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                         <div class="min-w-0 flex-auto">
                                             <p class="text-sm font-semibold leading-6 text-gray-100">{{ $note->title }}</p>
                                         </div>
                                     </div>
                                     <div>
-                                        {{-- <a href="{{ route('admin.teacher.note', [$teacher->id, $note->id]) }}"> --}}
+                                        <a href="{{ route('admin.teacher.note', [$teacher->id, $note->id]) }}">
                                             <x-secondary-button>
-                                                {{ __('Ver Aluno') }}
+                                                {{ __('Ver Anotação') }}
                                             </x-secondary-button>
-                                        {{-- </a> --}}
+                                        </a>
                                     </div>
                                 </li>
-                            @endforeach
+                            @empty
+                                <h2 class="text-center text-lg">
+                                    Nenhuma anotação adicionada
+                                </h2>
+                            @endforelse
                         @endif
                     </ul>
                     {{-- <div>

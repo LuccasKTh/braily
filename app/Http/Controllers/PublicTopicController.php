@@ -110,7 +110,7 @@ class PublicTopicController extends Controller
         return view('community.teacher.index', $data);
     }
 
-    public function publicTopicFromTeacher(PublicTopic $publicTopic): View
+    public function publicTopicFromTeacher(Teacher $teacher, PublicTopic $publicTopic): View
     {
         if (!Auth::user()->teacher) {
             return view('community.teacher.show', ['publicTopic' => $publicTopic]);

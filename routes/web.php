@@ -81,26 +81,49 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('/skill', SkillController::class);
         Route::resource('/education', EducationController::class);
         Route::resource('/userRole', UserRoleController::class);
-        // Route::resource('/teacher', TeacherController::class);
+        
         Route::prefix('teacher')->group(function () {
             Route::get('/', [AdminController::class, 'teachers'])->name('admin.teachers');
+
             Route::prefix('{teacher}')->group(function () {
                 Route::get('/', [AdminController::class, 'teacher'])->name('admin.teacher');
+
                 Route::prefix('student')->group(function () {
                     Route::get('/', [AdminController::class, 'students'])->name('admin.teacher.students');
+
                     Route::get('{student}', [AdminController::class, 'student'])->name('admin.teacher.student');
                 });
+
                 Route::prefix('topic')->group(function () {
                     Route::get('/', [AdminController::class, 'topics'])->name('admin.teacher.topics');
+                    
+                    Route::get('{topic}', [AdminController::class, 'topic'])->name('admin.teacher.topic');
                 });
+
                 Route::prefix('note')->group(function () {
                     Route::get('/', [AdminController::class, 'notes'])->name('admin.teacher.notes');
+
+                    Route::get('{note}', [AdminController::class, 'note'])->name('admin.teacher.note');
+                });
+            });
+
+        });
+
+        Route::prefix('community')->group(function () {
+            Route::get('/', [CommunityController::class, 'index'])->name('admin.community');
+
+            Route::prefix('teacher')->group(function () {
+
+                Route::prefix('{teacher}')->group(function () {
+                    Route::get('/', [PublicTopicController::class, 'publicTopicsFromTeacher'])->name('admin.community.teacher');
+
+                    Route::prefix('publicTopic')->group(function () {
+                        Route::get('{publicTopic}', [PublicTopicController::class, 'publicTopicFromTeacher'])->name('admin.community.teacher.publicTopic');
+                    });
                 });
             });
         });
-
     });
-    
 });
 
 require __DIR__.'/auth.php';
