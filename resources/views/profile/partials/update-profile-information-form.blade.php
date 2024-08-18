@@ -64,6 +64,36 @@
             <x-input-error class="mt-2" :messages="$errors->get('skill_id')" />
         </div>
 
+        <header>
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                {{ __('Informações Adicionais') }}
+            </h2>
+        </header>
+
+        <div>
+            <x-input-label for="city" :value="__('Cidade')" />
+            <x-text-input id="city" name="city" type="text" class="mt-1 block w-full" :value="old('city', $user->teacher->city)" autofocus autocomplete="city" />
+            <x-input-error class="mt-2" :messages="$errors->get('city')" />
+        </div>
+
+        <div>
+            <x-input-label for="state" :value="__('Estado')" />
+            <x-text-input id="state" name="state" type="text" class="mt-1 block w-full" :value="old('state', $user->teacher->state)" autofocus autocomplete="state" />
+            <x-input-error class="mt-2" :messages="$errors->get('state')" />
+        </div>
+
+        <div>
+            <x-input-label for="institution" :value="__('Instituição')" />
+            <x-text-input id="institution" name="institution" type="text" class="mt-1 block w-full" :value="old('institution', $user->teacher->institution)" autofocus autocomplete="institution" />
+            <x-input-error class="mt-2" :messages="$errors->get('institution')" />
+        </div>
+
+        <div>
+            <x-input-label for="profession_time" :value="__('Tempo de Profissão')" />
+            <x-text-input id="profession_time" name="profession_time" type="text" class="mt-1 block w-full" :value="old('profession_time', $user->teacher->profession_time)" autofocus autocomplete="profession_time" />
+            <x-input-error class="mt-2" :messages="$errors->get('profession_time')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Salvar') }}</x-primary-button>
 

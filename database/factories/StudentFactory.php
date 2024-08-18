@@ -22,7 +22,7 @@ class StudentFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'age' => fake()->dayOfMonth(),
+            'birth' => fake()->date(),
             'enroll' => fake()->unique()->numberBetween(2022000000, 2024000000),
             'about' => fake()->text(),
             'teacher_id' => fake()->randomElement(Teacher::pluck('id')),

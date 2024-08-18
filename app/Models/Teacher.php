@@ -15,6 +15,10 @@ class Teacher extends Model
     use HasFactory, ToastNotifications;
 
     protected $fillable = [
+        'city',
+        'state',
+        'institution',
+        'profession_time',
         'skill_id',
         'user_id'
     ];

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->id();
             
             $table->string('name');
-            $table->integer('age');
+            $table->date('birth');
             $table->integer('enroll')->unique();
             $table->text('about')->nullable();
 
