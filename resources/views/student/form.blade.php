@@ -1,6 +1,6 @@
 <fieldset>
-    <div class="grid gap-x-5 gap-y-3 sm:grid-cols-3">
-        <div class="col-span-2">
+    <div class="grid gap-x-5 gap-y-3 sm:grid-cols-12">
+        <div class="col-span-8">
             <x-input-label for="name" :value="__('Nome do Aluno')" />
             <x-text-input 
                 id="name" 
@@ -14,7 +14,19 @@
             />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
-        <div class="col-span-1">
+        <div class="col-span-2">
+            <x-input-label for="from_ifc" :value="__('Matriculado no IFC')" />
+            <x-text-input 
+                id="from_ifc" 
+                class="block mt-1" 
+                type="checkbox" 
+                name="from_ifc"
+                :value="@isset($student->id) ? $student->from_ifc : old('from_ifc')"
+                autofocus
+            />
+            <x-input-error :messages="$errors->get('from_ifc')" class="mt-2" />
+        </div>
+        <div class="col-span-2">
             <x-input-label for="enroll" :value="__('Matrícula do Aluno')" />
             <x-text-input 
                 id="enroll" 
@@ -27,7 +39,7 @@
             />
             <x-input-error :messages="$errors->get('enroll')" class="mt-2" />
         </div>
-        <div class="col-span-1">
+        <div class="col-span-3">
             <x-input-label for="birth" :value="__('Nascimento do Aluno')" />
             <x-text-input 
                 id="birth" 
@@ -40,7 +52,7 @@
             />
             <x-input-error :messages="$errors->get('birth')" class="mt-2" />
         </div>
-        <div class="col-span-1">
+        <div class="col-span-5">
             <x-input-label for="education_id" :value="__('Escolaridade do Aluno')" />
             <x-select-input 
                 id="education_id" 
@@ -64,7 +76,7 @@
             </x-select-input>
             <x-input-error :messages="$errors->get('education')" class="mt-2" />
         </div>
-        <div class="col-span-1">
+        <div class="col-span-4">
             <x-input-label for="skill_id" :value="__('Habilidade do Aluno')" />
             <x-select-input id="skill_id" class="block mt-1 w-full" name="skill_id" required autofocu>
             
@@ -82,7 +94,7 @@
             </x-select-input>
             <x-input-error :messages="$errors->get('skill_id')" class="mt-2" />
         </div>
-        <div class="col-span-3">
+        <div class="col-span-12">
             <x-input-label for="about" value="Observações do Aluno" />
             <x-textarea-input id="about" name="about" class="mt-1">
                 {{ isset($student->about) ? $student->about : old('about') }}
@@ -96,3 +108,7 @@
         </x-primary-button>
     </div>
 </fieldset>
+
+@push('script')
+    @vite('resources/js/student/toggleFrom.js')
+@endpush

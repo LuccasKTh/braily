@@ -20,7 +20,8 @@ return new class extends Migration
             
             $table->string('name');
             $table->date('birth');
-            $table->integer('enroll')->unique();
+            $table->boolean('from_ifc');
+            $table->integer('enroll')->unique()->nullable();
             $table->text('about')->nullable();
 
             $table->foreignId('teacher_id')->constrained('teachers');

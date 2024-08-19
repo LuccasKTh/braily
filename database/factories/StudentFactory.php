@@ -23,6 +23,7 @@ class StudentFactory extends Factory
         return [
             'name' => fake()->name(),
             'birth' => fake()->date(),
+            'from_ifc' => fake()->randomElement([false, true]),
             'enroll' => fake()->unique()->numberBetween(2022000000, 2024000000),
             'about' => fake()->text(),
             'teacher_id' => fake()->randomElement(Teacher::pluck('id')),

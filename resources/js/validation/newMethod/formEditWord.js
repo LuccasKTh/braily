@@ -1,4 +1,4 @@
-window.FormEditWord = function(botao, id) {
+window.formEditWord = function(botao, id) {
     var form = $(`#${id}`);
     if (id == form.attr('id')) {
 

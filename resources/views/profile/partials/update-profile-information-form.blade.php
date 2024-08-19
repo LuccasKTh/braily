@@ -90,7 +90,7 @@
 
         <div>
             <x-input-label for="profession_time" :value="__('Tempo de Profissão')" />
-            <x-text-input id="profession_time" name="profession_time" type="text" class="mt-1 block w-full" :value="old('profession_time', $user->teacher->profession_time)" autofocus autocomplete="profession_time" />
+            <x-text-input id="profession_time" name="profession_time" type="number" class="mt-1 block w-full" :value="old('profession_time', $user->teacher->profession_time)" autofocus autocomplete="profession_time" />
             <x-input-error class="mt-2" :messages="$errors->get('profession_time')" />
         </div>
 

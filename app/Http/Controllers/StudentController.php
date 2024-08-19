@@ -45,8 +45,17 @@ class StudentController extends Controller
     {
         $student = new Student();
 
-        $student->fill($request->all());
+        $input = $request->all();
+
+        $student->fill($input);
         $student->teacher_id = Auth::user()->teacher->id;
+
+        if (isset($input['from_ifc'])) {
+            $student->from_ifc = true;
+        } else {
+            $student->from_ifc = false;
+            $student->enroll = null;
+        }
 
         try {
             $student->save();

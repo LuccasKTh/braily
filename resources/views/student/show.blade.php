@@ -158,7 +158,7 @@
         <div class="">
             <div class="grid grid-cols-2 gap-x-4 text-gray-400">
                 <h4>Idade: {{ __($student->age()) }}</h4>
-                <h4>Matrícula: {{ __($student->enroll) }}</h4>
+                <h4>Matrícula: {{ $student->from_ifc ? $student->enroll : "Sem matrícula" }}</h4>
                 <h4>Escolaridade: {{ __($student->education->description) }}</h4>
                 <h4>Habilidade: {{ __($student->skill->description) }}</h4>
                 <h4>Observações: {{ __($student->about) }}</h4>

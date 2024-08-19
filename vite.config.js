@@ -9,7 +9,8 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/validation/lesson.js',
                 'resources/js/validation/topic.js',
-                'resources/js/playVoice.js'
+                'resources/js/playVoice.js',
+                'resources/js/student/toggleFrom.js'
             ],
             refresh: true,
         }),
