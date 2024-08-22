@@ -129,4 +129,23 @@ class StudentController extends Controller
         return to_route('student.index');
     }
 
+    public function studentNotes(Student $student) 
+    {
+        $notes = $student->notes;
+
+        $topics = Auth::user()->teacher->topics; 
+
+        $publicTopics = Auth::user()->teacher->publicTopics;
+
+        $data = [
+            'notes' => $notes,
+            'student' => $student, 
+            'lessons' => $student->lessons->reverse(),
+            'topics' => $topics,
+            'publicTopics' => $publicTopics
+        ];
+
+        return view('student.show', $data);
+    }
+
 }

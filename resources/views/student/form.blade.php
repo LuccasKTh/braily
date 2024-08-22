@@ -1,6 +1,6 @@
 <fieldset>
     <div class="grid gap-x-5 gap-y-3 sm:grid-cols-12">
-        <div class="col-span-8">
+        <div class="col-span-10">
             <x-input-label for="name" :value="__('Nome do Aluno')" />
             <x-text-input 
                 id="name" 
@@ -15,13 +15,26 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
         <div class="col-span-2">
+            <x-input-label for="birth" :value="__('Nascimento do Aluno')" />
+            <x-text-input 
+                id="birth" 
+                class="block mt-1 w-full" 
+                type="date" 
+                name="birth"
+                :value="@isset($student->id) ? $student->birth : old('birth')"
+                required 
+                autofocus 
+            />
+            <x-input-error :messages="$errors->get('birth')" class="mt-2" />
+        </div>
+        <div class="col-span-2">
             <x-input-label for="from_ifc" :value="__('Matriculado no IFC')" />
             <x-text-input 
                 id="from_ifc" 
                 class="block mt-1" 
                 type="checkbox" 
                 name="from_ifc"
-                :value="@isset($student->id) ? $student->from_ifc : old('from_ifc')"
+                :checked="@isset($student->id) && $student->from_ifc ? True : old('from_ifc')"
                 autofocus
             />
             <x-input-error :messages="$errors->get('from_ifc')" class="mt-2" />
@@ -39,20 +52,7 @@
             />
             <x-input-error :messages="$errors->get('enroll')" class="mt-2" />
         </div>
-        <div class="col-span-3">
-            <x-input-label for="birth" :value="__('Nascimento do Aluno')" />
-            <x-text-input 
-                id="birth" 
-                class="block mt-1 w-full" 
-                type="date" 
-                name="birth"
-                :value="@isset($student->id) ? $student->birth : old('birth')"
-                required 
-                autofocus 
-            />
-            <x-input-error :messages="$errors->get('birth')" class="mt-2" />
-        </div>
-        <div class="col-span-5">
+        <div class="col-span-4">
             <x-input-label for="education_id" :value="__('Escolaridade do Aluno')" />
             <x-select-input 
                 id="education_id" 

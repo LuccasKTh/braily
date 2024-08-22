@@ -45,7 +45,7 @@
                             {{ __('Alunos') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('note.index')" :active="request()->routeIs('*note*')">
+                        <x-nav-link :href="route('note.index')" :active="request()->routeIs('*note*') && !request()->routeIs('*student.notes*')">
                             {{ __('Anotações') }}
                         </x-nav-link>
 

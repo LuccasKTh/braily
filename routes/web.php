@@ -63,6 +63,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('fromTeacher')->group(function () {
 
         Route::resource('/student', StudentController::class);
+
+        Route::get('/student/{student}/note', [StudentController::class, 'studentNotes'])->name('student.notes');
+
         Route::resource('/note', NoteController::class);
         Route::resource('/topic', TopicController::class);
         Route::resource('/publicTopic', PublicTopicController::class);

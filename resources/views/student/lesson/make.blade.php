@@ -17,6 +17,13 @@
                             @csrf
                             @include('student.lesson.formWord')
                         </form>
+                        <div class="flex justify-center gap-1">
+                            @foreach (str_split($word->word) as $item)
+                            <div>
+                                <img src="{{ asset("img/abc/".strtoupper($item).".png") }}" width="100">
+                            </div>
+                            @endforeach
+                        </div>
                         <div class="mt-2 mx-20">
                             @isset($words)
                                 @empty($words->items())

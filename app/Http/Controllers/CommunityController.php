@@ -25,10 +25,10 @@ class CommunityController extends Controller
             }
         }
 
-        $uniqueTeachers = $teachers->unique('id');
-        $uniqueTeachers = $uniqueTeachers->values();
+        $teachers = $teachers->unique('id');
+        $teachers = $teachers->values();
 
-        return view('community.index', ['teachers' => $uniqueTeachers]);
+        return view('community.index', ['teachers' => $teachers]);
     }
 
     /**
