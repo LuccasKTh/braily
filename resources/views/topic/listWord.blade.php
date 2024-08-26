@@ -13,7 +13,7 @@
                     {{ $word->reverseKey }}
                 </th>
                 <th>
-                    <form id="{{ $word->id }}" action="{{ route('topicCreated.update', $word->id) }}" method="post" class="formEditWord">
+                    <form id="{{ $word->id }}" action="{{ route('topicCreated.update', $word->id) }}" method="post" class="FormEditWord">
                         @method('PUT')
                         @csrf
                         <input type="hidden" id="topic_id" name="topic_id" value="{{ $topic->id }}">
@@ -31,7 +31,7 @@
                     </form>
                 </th>
                 <th>
-                    <button id="{{ $word->id }}" class="btnFormEditWord" onclick="FormEditWord(this, {{ $word->id }})">Editar</button>
+                    <button id="{{ $word->id }}" class="btnFormEditWord" onclick="formEditWord(this, {{ $word->id }})">Editar</button>
                 </th>
                 <th>
                     <form action="{{ route('topicCreated.destroy', $word->id) }}" method="post">

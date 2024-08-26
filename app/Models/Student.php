@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ class Student extends Model
 
     protected $fillable = [
         'name', 
-        'age',
+        'birth',
         'enroll',
         'about',
         'education_id',
@@ -51,5 +52,10 @@ class Student extends Model
         if ($this->lessons->isNotEmpty()) {
             return $this->lessons->last()->created_at;
         }
+    }
+
+    public function age()
+    {
+        return Carbon::parse($this->birth)->age;
     }
 }

@@ -33,12 +33,14 @@ class FromTeacher
     
     private function getModelFromRequest(Request $request)
     {
-        return $request->route('student') ??
+        $model = $request->route('student') ??
                $request->route('note') ??
                $request->route('topic') ??
                $request->route('lesson')->student ??
                optional(Topic::find($request->route('topicCreated')))->student ??
                optional(Lesson::find($request->route('lessonCreated')))->student;
+
+        return $model;
     }
     
 }

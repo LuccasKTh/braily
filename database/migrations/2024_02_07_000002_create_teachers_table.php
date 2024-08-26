@@ -16,6 +16,11 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
 
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('institution')->nullable();
+            $table->integer('profession_time')->nullable();
+
             $table->foreignId('skill_id')->constrained('skills');
             $table->foreignId('user_id')->unique()->constrained('users')->onDelete('cascade');
 

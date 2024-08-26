@@ -10,7 +10,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicTopicController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\TopicWordController;
 use App\Http\Controllers\UserRoleController;
@@ -28,8 +27,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    Auth::loginUsingId(1);
-
     return to_route('dashboard');
 });
 
@@ -66,6 +63,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('fromTeacher')->group(function () {
 
         Route::resource('/student', StudentController::class);
+
+        Route::get('/student/{student}/note', [StudentController::class, 'studentNotes'])->name('student.notes');
+
         Route::resource('/note', NoteController::class);
         Route::resource('/topic', TopicController::class);
         Route::resource('/publicTopic', PublicTopicController::class);

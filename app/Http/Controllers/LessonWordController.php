@@ -7,6 +7,7 @@ use App\Models\LessonWord;
 use App\Models\TopicWord;
 use App\Traits\ToastNotifications;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LessonWordController extends Controller
 {
@@ -32,7 +33,7 @@ class LessonWordController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
         $word = new LessonWord();
 
         $input = $request->all();
@@ -52,12 +53,15 @@ class LessonWordController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(String $id)
     {
         $lesson = Lesson::find($id);
+
+        $word = $lesson->words->last();
     
         $data = [
-            'lesson' => $lesson
+            'lesson' => $lesson,
+            'word' => $word
         ];
 
         if ($lesson->topic_id) {

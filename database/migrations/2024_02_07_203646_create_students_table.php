@@ -19,8 +19,9 @@ return new class extends Migration
             $table->id();
             
             $table->string('name');
-            $table->integer('age');
-            $table->integer('enroll')->unique();
+            $table->date('birth');
+            $table->boolean('from_ifc');
+            $table->integer('enroll')->unique()->nullable();
             $table->text('about')->nullable();
 
             $table->foreignId('teacher_id')->constrained('teachers');

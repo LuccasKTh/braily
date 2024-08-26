@@ -37,20 +37,20 @@ class PublicTopicController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $topic_id = $request->input('topic_id');
+        $input = $request->all();
 
         $publicTopic = new PublicTopic();
 
-        $publicTopic->topic_id = $topic_id;
+        $publicTopic->topic_id = $input['topic_id'];
 
         try {
             $publicTopic->save();
             $this->sendToast('success', "Tópico publicado com sucesso");
         } catch (\Throwable $th) {
-            $this->sendToast('warning', "Não foi possível public este tópico. Erro n° {$th->getCode()}");
+            $this->sendToast('warning', "Não foi possível publicar este tópico. Erro n° {$th->getCode()}");
         }
 
-        return to_route('topic.show', $topic_id);
+        return to_route('topic.show', $input['topic_id']);
     }
 
     /**
@@ -80,11 +80,18 @@ class PublicTopicController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PublicTopic $publicTopic): RedirectResponse
+    public function destroy(String $id): RedirectResponse
     {
+        $publicTopic = PublicTopic::find($id);
+        
+        if (!$publicTopic) {
+            $this->sendToast('success', 'Você já despublicou');
+            return redirect()->back();
+        }
+
         try {
             $publicTopic->delete();
-            $this->sendToast('success', "Tópic despublicado com sucesso");
+            $this->sendToast('success', "Tópico despublicado com sucesso");
         } catch (\Throwable $th) {
             $this->sendToast('warning', "Não foi possível despublicar o tópico. Erro n° {$th->getCode()}.");
         }

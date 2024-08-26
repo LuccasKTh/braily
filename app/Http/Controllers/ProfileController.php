@@ -37,11 +37,13 @@ class ProfileController extends Controller
 
         $user->save();
 
+        $teacher = $user->teacher;
+
+        $teacher->fill($request->validated());
         if ($user->teacher->skill_id != $request->input('skill_id')) {
-            $teacher = $user->teacher;
             $teacher->skill_id = $request->input('skill_id');
-            $teacher->save();
         }
+        $teacher->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

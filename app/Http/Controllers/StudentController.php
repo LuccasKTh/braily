@@ -45,8 +45,17 @@ class StudentController extends Controller
     {
         $student = new Student();
 
-        $student->fill($request->all());
+        $input = $request->all();
+
+        $student->fill($input);
         $student->teacher_id = Auth::user()->teacher->id;
+
+        if (isset($input['from_ifc'])) {
+            $student->from_ifc = true;
+        } else {
+            $student->from_ifc = false;
+            $student->enroll = null;
+        }
 
         try {
             $student->save();
@@ -118,6 +127,25 @@ class StudentController extends Controller
         }
 
         return to_route('student.index');
+    }
+
+    public function studentNotes(Student $student) 
+    {
+        $notes = $student->notes;
+
+        $topics = Auth::user()->teacher->topics; 
+
+        $publicTopics = Auth::user()->teacher->publicTopics;
+
+        $data = [
+            'notes' => $notes,
+            'student' => $student, 
+            'lessons' => $student->lessons->reverse(),
+            'topics' => $topics,
+            'publicTopics' => $publicTopics
+        ];
+
+        return view('student.show', $data);
     }
 
 }
