@@ -9,7 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("Você realizou o login!") }}
+                    <form action="{{ route('send.word') }}" method="POST">
+                        @csrf
+                        <input type="text" name="word" placeholder="Digite uma palavra">
+                        <button type="submit">Enviar para Arduino</button>
+                    </form>
                 </div>
             </div>
         </div>
