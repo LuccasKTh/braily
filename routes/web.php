@@ -126,8 +126,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-use App\Http\Controllers\ArduinoController;
-
-Route::post('/send-word', [ArduinoController::class, 'sendWord'])->name('send.word');
-
 require __DIR__.'/auth.php';
