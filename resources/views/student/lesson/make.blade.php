@@ -50,7 +50,7 @@
     </div>
 
     @push('script')
-        @vite(['resources/js/validation/lesson.js', 'resources/js/playVoice.js'])
+        @vite(['resources/js/validation/lesson.js', 'resources/js/playVoice.js', 'resources/js/sendWord.js'])
     @endpush
 
 </x-app-layout>

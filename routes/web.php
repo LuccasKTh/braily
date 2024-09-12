@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ArduinoController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\LessonController;
@@ -125,5 +126,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 });
+
+Route::get('send-word', [ArduinoController::class, 'sendWord'])->name('send.word');
 
 require __DIR__.'/auth.php';
